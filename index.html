@@ -15,17 +15,14 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
         
-    body {
-    font-family: 'Montserrat', sans-serif;
-    background-image: url('tp.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
-    color: #f8fafc;
-    margin: 0;
-    overflow-x: hidden;
-}
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
         /* ---------------- CSS GAME SÚT PHẠT ---------------- */
         .stadium-container { perspective: 1000px; overflow: hidden; position: relative; }
         .pitch {
@@ -50,13 +47,37 @@
         .target-grid-item:hover { background-color: rgba(234, 179, 8, 0.4); border-color: #eab308; transform: scale(1.05); z-index: 20; }
         .target-selected { animation: pulseTarget 0.5s infinite alternate; background-color: rgba(34, 197, 94, 0.8) !important; border-color: #22c55e !important; box-shadow: 0 0 25px #22c55e; z-index: 30; }
         @keyframes pulseTarget { 0% { transform: scale(1); } 100% { transform: scale(1.06); } }
-        .soccer-ball { will-change: transform; }
-        .ball-shadow { will-change: transform, opacity; }
-        .goalkeeper { transition: left 0.8s ease-out, transform 0.8s ease-out; will-change: transform, left; }
-        .ronaldo-container { position: absolute; bottom: 2.2rem; left: calc(50% - 65px); z-index: 25; transition: transform 0.3s ease, left 0.3s ease; transform-origin: bottom center; }
+
+        /* --- SỬA CÁC THUỘC TÍNH CỦA BÓNG VÀ CẦU THỦ --- */
+        .soccer-ball { 
+            will-change: transform; 
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+        }
+        .ball-shadow { 
+            will-change: transform, opacity; 
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease; 
+        }
+        .goalkeeper { 
+            transition: left 0.8s ease-out, transform 0.8s ease-out; 
+            will-change: transform, left; 
+        }
+        .ronaldo-container { 
+            position: absolute; 
+            bottom: 2.2rem; 
+            left: calc(50% - 65px); 
+            z-index: 25; 
+            transition: transform 0.3s ease, left 0.3s ease; 
+            transform-origin: bottom center; 
+        }
         @media (min-width: 640px) { .ronaldo-container { bottom: 2.8rem; left: calc(50% - 75px); } }
         .ronaldo-run { animation: ronaldoRunUp 0.4s forwards ease-in-out; }
-        @keyframes ronaldoRunUp { 0% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(35px, -8px) rotate(8deg); } 80% { transform: translate(50px, -2px) rotate(-12deg) scale(1.05); } 100% { transform: translate(52px, 0px) rotate(5deg); } }
+        @keyframes ronaldoRunUp { 
+            0% { transform: translate(0, 0) rotate(0deg); } 
+            50% { transform: translate(35px, -8px) rotate(8deg); } 
+            80% { transform: translate(50px, -2px) rotate(-12deg) scale(1.05); } 
+            100% { transform: translate(52px, 0px) rotate(5deg); } 
+        }
+
         .custom-scroll::-webkit-scrollbar { width: 5px; }
         .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
         .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
@@ -73,7 +94,7 @@
         .runner-body::after { content: ''; position: absolute; width: 14px; height: 14px; background-color: #f5cda5; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .runner-name { position: absolute; top: 28px; font-size: 13px; font-weight: bold; color: white; text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000; white-space: nowrap; }
         .g2-input-box { position: absolute; left: 50%; top: 155px; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 20px; }
-        .g2-input-box input { width: 350px; sm:width: 450px; padding: 6px 15px; border-radius: 15px; border: none; font-size: 14px; outline: none; color: #000; }
+        .g2-input-box input { width: 350px; padding: 6px 15px; border-radius: 15px; border: none; font-size: 14px; outline: none; color: #000; }
         .g2-input-box button { padding: 6px 15px; font-size: 14px; border-radius: 15px; background-color: #2196F3; color: white; cursor: pointer; border: none; font-weight: bold; }
         .g2-controls { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: flex; gap: 20px; z-index: 110; }
         .g2-btn-main { padding: 12px 28px; font-size: 18px; font-weight: bold; border: none; border-radius: 25px; cursor: pointer; background-color: #ffd700; color: #111; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.2s; }
@@ -107,13 +128,6 @@
 
     <!-- ==================== 1. TRANG CHỦ (HOME PAGE) ==================== -->
     <main id="homePage" class="flex-1 relative flex items-center justify-center p-4 min-h-[calc(100vh-70px)]">
-        <!-- ĐÃ ĐỔI THÀNH ẢNH CỦA BẠN LÀM HÌNH NỀN -->
-        <div class="absolute inset-0 z-0">
-            <img src="image_446398.jpg" alt="Trường học" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px]"></div>
-        </div>
-
-        <!-- Nội dung chọn game -->
         <div class="relative z-10 max-w-4xl w-full text-center py-8">
             <h2 class="text-3xl sm:text-5xl font-black text-white mb-2 drop-shadow-lg tracking-wide uppercase">
                 HỆ THỐNG TRÒ CHƠI NGẪU NHIÊN
@@ -123,7 +137,6 @@
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
-                <!-- Card Game 1 -->
                 <div onclick="showPage('game1Page')" class="group bg-slate-900/85 hover:bg-slate-900 border-2 border-emerald-500/40 hover:border-emerald-400 rounded-3xl p-6 shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center">
                     <div class="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-futbol"></i>
@@ -133,7 +146,6 @@
                     <button class="w-full py-3 bg-emerald-600 group-hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition">VÀO CHƠI NGAY</button>
                 </div>
 
-                <!-- Card Game 2 -->
                 <div onclick="showPage('game2Page')" class="group bg-slate-900/85 hover:bg-slate-900 border-2 border-amber-500/40 hover:border-amber-400 rounded-3xl p-6 shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center">
                     <div class="w-20 h-20 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center text-4xl mb-4 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-person-running"></i>
@@ -148,14 +160,7 @@
 
     <!-- ==================== 2. GAME 1: SÚT PHẠT RANDOM ==================== -->
     <main id="game1Page" class="max-w-7xl w-full mx-auto p-2 sm:p-4 lg:p-6 flex-1 grid-cols-1 lg:grid-cols-12 gap-6 items-start hidden">
-        <!-- SÂN BÓNG -->
         <section class="lg:col-span-8 flex flex-col items-center justify-center bg-slate-900 border border-slate-800 rounded-2xl p-3 sm:p-6 shadow-2xl overflow-hidden relative min-h-[550px] sm:min-h-[650px]">
-            <div class="absolute top-0 left-0 right-0 flex justify-between px-8 pt-2 pointer-events-none opacity-40">
-                <div class="w-24 h-6 bg-cyan-400 blur-xl rounded-full"></div>
-                <div class="w-32 h-6 bg-white blur-xl rounded-full"></div>
-                <div class="w-24 h-6 bg-cyan-400 blur-xl rounded-full"></div>
-            </div>
-
             <div class="z-10 mb-3 bg-slate-950/80 border border-slate-700/60 px-5 py-1.5 rounded-full flex items-center gap-4 text-xs sm:text-sm shadow-xl">
                 <div class="flex items-center gap-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
@@ -189,26 +194,18 @@
                                 <path d="M 74 42 L 90 32 L 94 38 L 78 52 Z" fill="#10b981"/>
                                 <path d="M 90 32 L 98 28 L 100 35 L 92 42 Z" fill="#f97316"/>
                                 <path d="M 26 42 L 74 42 L 72 73 L 28 73 Z" fill="#10b981"/>
-                                <path d="M 35 42 L 50 73 L 42 73 Z" fill="#059669" opacity="0.6"/>
-                                <path d="M 65 42 L 50 73 L 58 73 Z" fill="#059669" opacity="0.6"/>
                                 <text x="50" y="63" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="900">10</text>
                                 <rect x="44" y="34" width="12" height="10" fill="#fca5a5"/>
                                 <path d="M 40 22 C 40 12 60 12 60 22 L 58 35 L 42 35 Z" fill="#fca5a5"/>
-                                <path d="M 41 27 C 41 37 59 37 59 27 L 57 34 C 52 38 48 38 43 34 Z" fill="#b45309"/>
-                                <path d="M 39 20 C 42 8 58 8 61 20 C 58 13 42 13 39 20 Z" fill="#451a03"/>
-                                <path d="M 41 14 C 47 7 57 9 60 15 C 54 10 46 10 41 14 Z" fill="#78350f"/>
-                                <circle cx="39" cy="25" r="2.5" fill="#fca5a5"/>
-                                <circle cx="61" cy="25" r="2.5" fill="#fca5a5"/>
                                 <circle cx="46" cy="24" r="1" fill="#1e1b4b"/>
                                 <circle cx="54" cy="24" r="1" fill="#1e1b4b"/>
                             </svg>
-                            <div class="bg-amber-400 text-slate-950 text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 rounded uppercase tracking-tighter -mt-1 shadow border border-amber-300">LEO MESSI (GK #10)</div>
+                            <div class="bg-amber-400 text-slate-950 text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 rounded uppercase tracking-tighter -mt-1 shadow border border-amber-300">LEO MESSI</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="pitch w-full h-40 sm:h-52 rounded-b-2xl relative flex flex-col items-center justify-end border-t-2 border-white/40 overflow-hidden shadow-inner">
-                    <div class="absolute top-0 w-48 sm:w-64 h-20 sm:h-28 border-2 border-white/40 border-t-0 rounded-b-full"></div>
                     <div class="w-3 h-3 bg-white rounded-full mb-8 sm:mb-10 shadow-md relative">
                         <div class="absolute -inset-1 border border-white/50 rounded-full animate-pulse"></div>
                     </div>
@@ -230,21 +227,12 @@
                                 <rect x="58" y="95" width="8" height="18" rx="2" fill="#38bdf8"/>
                                 <path d="M 30 72 L 48 72 L 46 96 L 28 94 Z" fill="#0f172a"/>
                                 <path d="M 52 72 L 70 72 L 72 94 L 54 96 Z" fill="#0f172a"/>
-                                <text x="35" y="88" fill="#ffffff" font-size="8" font-weight="900">7</text>
                                 <path d="M 28 42 L 72 42 L 70 73 L 30 73 Z" fill="url(#argStripes)"/>
-                                <path d="M 28 42 L 18 52 L 24 58 L 30 48 Z" fill="#7dd3fc"/>
-                                <path d="M 72 42 L 82 52 L 76 58 L 70 48 Z" fill="#ffffff"/>
-                                <path d="M 18 52 L 12 70 L 17 72 L 24 58 Z" fill="#fca5a5"/>
-                                <path d="M 82 52 L 88 70 L 83 72 L 76 58 Z" fill="#fca5a5"/>
                                 <text x="50" y="65" text-anchor="middle" fill="#0f172a" font-size="20" font-weight="900">7</text>
                                 <rect x="44" y="34" width="12" height="10" fill="#fca5a5"/>
                                 <path d="M 40 22 C 40 12 60 12 60 22 L 58 35 L 42 35 Z" fill="#fca5a5"/>
-                                <path d="M 39 20 C 42 10 58 10 61 20 C 58 14 42 14 39 20 Z" fill="#1e1b4b"/>
-                                <path d="M 41 15 C 48 8 55 10 59 16 C 53 11 45 11 41 15 Z" fill="#312e81"/>
-                                <circle cx="39" cy="26" r="2.5" fill="#fca5a5"/>
-                                <circle cx="61" cy="26" r="2.5" fill="#fca5a5"/>
                             </svg>
-                            <div class="bg-sky-500 text-slate-950 text-[8px] font-black px-1 rounded uppercase tracking-tighter -mt-1 shadow">CR7 (ARG #7)</div>
+                            <div class="bg-sky-500 text-slate-950 text-[8px] font-black px-1 rounded uppercase tracking-tighter -mt-1 shadow">CR7</div>
                         </div>
                     </div>
 
@@ -264,7 +252,6 @@
             </div>
         </section>
 
-        <!-- SIDEBAR DANH SÁCH -->
         <aside id="sidebar" class="lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-2xl flex flex-col gap-4">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                 <h2 class="font-bold text-lg text-slate-100 flex items-center gap-2">
@@ -275,7 +262,7 @@
 
             <div class="flex flex-col gap-2">
                 <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Thêm danh sách</label>
-                <textarea id="nameInput" rows="3" placeholder="Dán danh sách tên tại đây..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition resize-none custom-scroll"></textarea>
+                <textarea id="nameInput" rows="3" placeholder="Dán danh sách tên tại đây (mỗi tên 1 dòng)..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition resize-none custom-scroll"></textarea>
                 <div class="flex gap-2">
                     <button onclick="addNamesFromInput()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-3 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20">
                         <i class="fa-solid fa-plus"></i> Thêm Về Danh Sách
@@ -352,7 +339,6 @@
 
     <!-- SCRIPT ĐIỀU KHIỂN GAME 1 & GAME 2 -->
     <script>
-        // Chuyển đổi giữa các trang
         function showPage(pageId) {
             document.getElementById('homePage').classList.add('hidden');
             document.getElementById('game1Page').classList.add('hidden');
@@ -371,11 +357,10 @@
             }
         }
 
-        /* ================= GAME 1 SÚT PHẠT LOGIC ================= */
+        /* ================= GAME 1 LOGIC SÚT PHẠT ================= */
         let players = Array.from({ length: 16 }, (_, i) => ({ id: i + 1, name: `Học sinh ${i + 1}`, excluded: false }));
         let winnersHistory = [];
         let isShooting = false;
-        let goalkeeperInterval = null;
         let audioCtx = null;
 
         function getAudioContext() {
@@ -432,43 +417,43 @@
                 return;
             }
 
-            grid.style.display = 'grid';
             const count = activePlayers.length;
-            let cols = count <= 4 ? count : count <= 9 ? 3 : count <= 16 ? 4 : 5;
+            let cols = Math.ceil(Math.sqrt(count));
+            grid.style.display = 'grid';
             grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-            
-            grid.innerHTML = activePlayers.map((player) => `
-                <div id="target-${player.id}" class="target-grid-item bg-slate-900/80 border border-slate-700/80 rounded-lg p-1 text-center cursor-pointer select-none">
-                    <span class="text-[10px] sm:text-xs font-bold text-slate-100 truncate w-full px-1">${player.name}</span>
+
+            grid.innerHTML = activePlayers.map(p => `
+                <div id="target-${p.id}" class="target-grid-item bg-slate-900/80 border border-slate-700/80 rounded-lg p-1 text-center select-none shadow">
+                    <span class="text-[10px] sm:text-xs font-bold text-amber-300 truncate w-full px-1">${p.name}</span>
                 </div>
             `).join('');
         }
 
         function renderPlayerList() {
             const container = document.getElementById('playerListContainer');
-            const badge = document.getElementById('playerCountBadge');
-            badge.innerText = `${players.filter(p => !p.excluded).length} / ${players.length} người`;
+            const countBadge = document.getElementById('playerCountBadge');
+            countBadge.innerText = `${players.length} người`;
 
-            container.innerHTML = players.map(player => `
-                <div class="flex items-center justify-between p-2 rounded-lg ${player.excluded ? 'bg-slate-950/40 text-slate-600 line-through' : 'bg-slate-950/80 text-slate-200 border border-slate-800'} text-xs">
-                    <span class="truncate max-w-[180px]">${player.name}</span>
-                    <button onclick="toggleExclude(${player.id})" class="text-slate-500 hover:text-amber-400">
-                        <i class="fa-solid ${player.excluded ? 'fa-eye-slash' : 'fa-eye'}"></i>
+            container.innerHTML = players.map(p => `
+                <div class="flex items-center justify-between bg-slate-950/60 border border-slate-800 p-2 rounded-xl text-xs ${p.excluded ? 'opacity-40' : ''}">
+                    <span class="font-medium text-slate-200 truncate max-w-[150px]">${p.name}</span>
+                    <button onclick="toggleExclude(${p.id})" class="text-slate-400 hover:text-amber-400 transition px-2 py-1">
+                        <i class="fa-solid ${p.excluded ? 'fa-eye-slash text-rose-400' : 'fa-eye text-emerald-400'}"></i>
                     </button>
                 </div>
             `).join('');
         }
 
         function renderHistory() {
-            const historyList = document.getElementById('historyList');
+            const list = document.getElementById('historyList');
             if (winnersHistory.length === 0) {
-                historyList.innerHTML = `<div class="text-slate-600 italic">Chưa có lượt chọn nào.</div>`;
+                list.innerHTML = `<span class="text-slate-600 italic">Chưa có kết quả</span>`;
                 return;
             }
-            historyList.innerHTML = winnersHistory.map((item, idx) => `
-                <div class="flex justify-between items-center bg-slate-950/60 px-2 py-1 rounded">
-                    <span class="text-emerald-400 font-semibold">#${winnersHistory.length - idx}: ${item.name}</span>
-                    <span class="text-[10px] text-slate-500">${item.time}</span>
+            list.innerHTML = winnersHistory.map((w, idx) => `
+                <div class="flex justify-between items-center py-0.5 border-b border-slate-800/50">
+                    <span class="text-amber-400 font-bold">#${idx + 1}</span>
+                    <span class="font-semibold text-slate-200">${w}</span>
                 </div>
             `).join('');
         }
@@ -477,209 +462,236 @@
             const input = document.getElementById('nameInput');
             const text = input.value.trim();
             if (!text) return;
-
-            const newNames = text.split(/[\n,]+/).map(n => n.trim()).filter(n => n.length > 0);
-            if (newNames.length === 0) return;
-
-            let maxId = players.reduce((max, p) => p.id > max ? p.id : max, 0);
-            const newPlayers = newNames.map((name, i) => ({ id: maxId + i + 1, name, excluded: false }));
-
-            players = [...players, ...newPlayers];
+            const names = text.split('\n').map(n => n.trim()).filter(n => n.length > 0);
+            let nextId = players.length > 0 ? Math.max(...players.map(p => p.id)) + 1 : 1;
+            names.forEach(name => {
+                players.push({ id: nextId++, name: name, excluded: false });
+            });
             input.value = '';
             renderAll();
         }
 
         function clearAllNames() { players = []; renderAll(); }
-        function toggleExclude(id) { players = players.map(p => p.id === id ? { ...p, excluded: !p.excluded } : p); renderAll(); }
-        function resetExcluded() { players = players.map(p => ({ ...p, excluded: false })); renderAll(); }
+        function resetExcluded() { players.forEach(p => p.excluded = false); renderAll(); }
+        function toggleExclude(id) {
+            const p = players.find(x => x.id === id);
+            if (p) { p.excluded = !p.excluded; renderAll(); }
+        }
         function clearHistory() { winnersHistory = []; renderHistory(); }
 
+        /* XỬ LÝ SÚT BÓNG */
         function shootBall() {
             if (isShooting) return;
             const activePlayers = players.filter(p => !p.excluded);
-            if (activePlayers.length === 0) return alert('Danh sách đã hết! Hãy khôi phục danh sách.');
+            if (activePlayers.length === 0) {
+                alert('Vui lòng thêm hoặc khôi phục danh sách học sinh!');
+                return;
+            }
 
             isShooting = true;
             document.getElementById('shootBtn').disabled = true;
 
-            const winner = activePlayers[Math.floor(Math.random() * activePlayers.length)];
-            const ronaldo = document.getElementById('ronaldo');
+            const selectedPlayer = activePlayers[Math.floor(Math.random() * activePlayers.length)];
             const ball = document.getElementById('ball');
             const ballShadow = document.getElementById('ballShadow');
+            const ronaldo = document.getElementById('ronaldo');
             const goalkeeper = document.getElementById('goalkeeper');
 
-            // Hiệu ứng chạy của Ronaldo
+            // 1. Ronaldo chạy lấy đà
             ronaldo.classList.add('ronaldo-run');
 
             setTimeout(() => {
                 playKickSound();
-                ronaldo.classList.remove('ronaldo-run');
 
-                // Di chuyển bóng đến ô chiến thắng
-                const targetEl = document.getElementById(`target-${winner.id}`);
+                // 2. Tọa độ bóng bay đến mục tiêu
+                const targetEl = document.getElementById(`target-${selectedPlayer.id}`);
                 const goalRect = document.getElementById('goalElement').getBoundingClientRect();
-                const targetRect = targetEl ? targetEl.getBoundingClientRect() : goalRect;
+                const ballRect = ball.getBoundingClientRect();
 
-                const targetX = targetRect.left + targetRect.width / 2 - goalRect.left - goalRect.width / 2;
-                const targetY = targetRect.top + targetRect.height / 2 - goalRect.top - goalRect.height;
+                let targetX = 0, targetY = -250;
+                if (targetEl) {
+                    const tRect = targetEl.getBoundingClientRect();
+                    targetX = tRect.left + tRect.width / 2 - (ballRect.left + ballRect.width / 2);
+                    targetY = tRect.top + tRect.height / 2 - (ballRect.top + ballRect.height / 2);
+                }
 
-                ball.style.transition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
-                ball.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.6)`;
-                ballShadow.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-                ballShadow.style.transform = `translate(${targetX}px, 0px) scale(0.3)`;
+                // Di chuyển bóng và bóng đổ
+                ball.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.4) rotate(720deg)`;
+                ballShadow.style.transform = `translate(${targetX}px, 0px) scale(0.2)`;
                 ballShadow.style.opacity = '0.2';
 
-                // Thủ môn di chuyển né ô
-                const gkX = targetX > 0 ? targetX - 80 : targetX + 80;
-                goalkeeper.style.left = `calc(50% + ${gkX}px)`;
+                // Thủ môn di chuyển hướng ngược lại ngẫu nhiên để lỡ nhịp
+                const gkMove = (Math.random() - 0.5) * 200;
+                goalkeeper.style.left = `calc(50% + ${gkMove}px)`;
 
                 setTimeout(() => {
                     playGoalCheer();
                     if (targetEl) targetEl.classList.add('target-selected');
 
-                    // Bắn pháo hoa
+                    // Confetti pháo hoa
                     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 
+                    // Lưu lịch sử & cập nhật
+                    winnersHistory.unshift(selectedPlayer.name);
+                    if (document.getElementById('autoExcludeCheck').checked) {
+                        selectedPlayer.excluded = true;
+                    }
+
+                    showWinnerModal(selectedPlayer.name);
+
+                    // Khôi phục trạng thái ban đầu
                     setTimeout(() => {
-                        showWinnerModal(winner.name);
-
-                        // Lịch sử & tự động ẩn
-                        const now = new Date();
-                        const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
-                        winnersHistory.unshift({ name: winner.name, time: timeStr });
-
-                        if (document.getElementById('autoExcludeCheck').checked) {
-                            players = players.map(p => p.id === winner.id ? { ...p, excluded: true } : p);
-                        }
-
-                        // Reset vị trí bóng
-                        ball.style.transition = 'none'; ball.style.transform = 'none';
-                        ballShadow.style.transition = 'none'; ballShadow.style.transform = 'none'; ballShadow.style.opacity = '1';
+                        ball.style.transform = 'none';
+                        ballShadow.style.transform = 'none';
+                        ballShadow.style.opacity = '1';
+                        ronaldo.classList.remove('ronaldo-run');
                         goalkeeper.style.left = '50%';
-                        if (targetEl) targetEl.classList.remove('target-selected');
-
                         isShooting = false;
                         document.getElementById('shootBtn').disabled = false;
                         renderAll();
-                    }, 800);
-                }, 500);
-            }, 300);
+                    }, 1200);
+
+                }, 800); // Khớp với 0.8s transition của quả bóng
+
+            }, 400); // Khớp thời gian chạy của CR7
         }
 
         function showWinnerModal(name) {
-            const modal = document.getElementById('winnerModal');
             document.getElementById('winnerName').innerText = name;
+            const modal = document.getElementById('winnerModal');
             modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modal.children[0].classList.remove('scale-90'); }, 10);
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
         }
 
         function closeWinnerModal() {
             const modal = document.getElementById('winnerModal');
             modal.classList.add('opacity-0');
-            modal.children[0].classList.add('scale-90');
             setTimeout(() => { modal.classList.add('hidden'); }, 300);
         }
 
-        /* ================= GAME 2 THI CHẠY LOGIC ================= */
+        /* ================= GAME 2 LOGIC THI CHẠY ================= */
         let g2Runners = [];
         let g2AnimId = null;
         let g2IsRunning = false;
 
         function g2InitTrack() {
-            const khanDai = document.getElementById('g2KhanDai');
-            khanDai.innerHTML = Array.from({ length: 68 }).map(() => `<div class="ghe"></div>`).join('');
+            const kd = document.getElementById('g2KhanDai');
+            kd.innerHTML = Array.from({ length: 68 }, () => `<div class="ghe"></div>`).join('');
+            const lines = document.getElementById('g2LaneLines');
+            lines.innerHTML = '';
+            for (let i = 1; i <= 6; i++) {
+                const w = 52 + i * 5;
+                const h = 240 + i * 40;
+                lines.innerHTML += `<div class="lane-line" style="width:${w}%; height:${h}px;"></div>`;
+            }
         }
 
         function g2UpdateRunnerNames() {
             const input = document.getElementById('g2NameInput');
-            const names = input.value.split(',').map(n => n.trim()).filter(n => n.length > 0);
+            const names = input.value.split(',').map(s => s.trim()).filter(s => s.length > 0);
             if (names.length === 0) return;
 
-            g2Runners = names.map((name, index) => ({
+            g2Runners = names.map((name, i) => ({
                 name,
-                color: `hsl(${(index * 360 / names.length)}, 80%, 50%)`,
                 progress: 0,
-                speed: 0
+                speed: 0.003 + Math.random() * 0.004,
+                lane: i,
+                finished: false
             }));
+
             g2RenderRunners();
         }
 
         function g2RenderRunners() {
             const layer = document.getElementById('g2RunnersLayer');
-            layer.innerHTML = g2Runners.map((runner, i) => `
-                <div id="runner-${i}" class="runner" style="left: 50%; top: 670px;">
-                    <div class="runner-body" style="background-color: ${runner.color}"></div>
-                    <div class="runner-name">${runner.name}</div>
-                </div>
-            `).join('');
-            g2UpdateRunnerPositions();
-        }
+            layer.innerHTML = '';
 
-        function g2UpdateRunnerPositions() {
-            const outerWidth = 400; const outerHeight = 245;
-            const innerWidth = 260; const innerHeight = 120;
-            const count = g2Runners.length || 1;
+            const colors = ['#e11d48', '#2563eb', '#059669', '#d97706', '#7c3aed', '#db2777', '#0284c7', '#ea580c'];
 
-            g2Runners.forEach((runner, i) => {
-                const el = document.getElementById(`runner-${i}`);
-                if (!el) return;
-
-                const rx = innerWidth + (outerWidth - innerWidth) * (i + 0.5) / count;
-                const ry = innerHeight + (outerHeight - innerHeight) * (i + 0.5) / count;
-
-                const angle = runner.progress * Math.PI * 2;
-                const x = Math.cos(angle) * rx;
-                const y = Math.sin(angle) * ry;
-
-                el.style.left = `calc(50% + ${x}px)`;
-                el.style.top = `calc(430px + ${y}px)`;
+            g2Runners.forEach((r, idx) => {
+                const el = document.createElement('div');
+                el.className = 'runner';
+                el.id = `runner-${idx}`;
+                const color = colors[idx % colors.length];
+                el.innerHTML = `
+                    <div class="runner-body" style="background-color: ${color}"></div>
+                    <div class="runner-name">${r.name}</div>
+                `;
+                layer.appendChild(el);
+                g2UpdateRunnerPos(r, idx);
             });
         }
 
+        function g2UpdateRunnerPos(r, idx) {
+            const el = document.getElementById(`runner-${idx}`);
+            if (!el) return;
+
+            const rx = 260 + (r.lane % 6) * 18;
+            const ry = 120 + (r.lane % 6) * 18;
+            const angle = r.progress * Math.PI * 2 - Math.PI / 2;
+
+            const cx = 500;
+            const cy = 245;
+
+            const x = cx + rx * Math.cos(angle);
+            const y = cy + ry * Math.sin(angle);
+
+            el.style.left = `${x}px`;
+            el.style.top = `${y}px`;
+        }
+
         function g2StartGame() {
-            if (g2IsRunning || g2Runners.length === 0) return;
+            if (g2IsRunning) return;
             g2IsRunning = true;
             document.getElementById('g2BtnStart').disabled = true;
             document.getElementById('g2ResultBox').style.display = 'none';
 
-            // Khởi tạo tốc độ ngẫu nhiên
-            g2Runners.forEach(r => { r.progress = 0; r.speed = 0.002 + Math.random() * 0.003; });
+            g2Runners.forEach(r => {
+                r.progress = 0;
+                r.speed = 0.003 + Math.random() * 0.004;
+                r.finished = false;
+            });
 
-            let winner = null;
-            function animate() {
-                g2Runners.forEach(r => {
-                    r.speed += (Math.random() - 0.48) * 0.0005;
-                    r.speed = Math.max(0.001, Math.min(0.008, r.speed));
-                    r.progress += r.speed;
-
-                    if (r.progress >= 1 && !winner) winner = r;
+            function loop() {
+                let winner = null;
+                g2Runners.forEach((r, idx) => {
+                    if (!r.finished) {
+                        r.progress += r.speed + (Math.random() - 0.48) * 0.001;
+                        if (r.progress >= 1) {
+                            r.progress = 1;
+                            r.finished = true;
+                            if (!winner) winner = r;
+                        }
+                    }
+                    g2UpdateRunnerPos(r, idx);
                 });
-
-                g2UpdateRunnerPositions();
 
                 if (winner) {
                     g2IsRunning = false;
-                    document.getElementById('g2ResultText').innerText = `🏆 CHÚC MỪNG: ${winner.name} THẮNG CUỘC!`;
+                    document.getElementById('g2ResultText').innerText = `🏆 NGƯỜI CHIẾN THẮNG: ${winner.name}`;
                     document.getElementById('g2ResultBox').style.display = 'block';
-                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-                } else {
-                    g2AnimId = requestAnimationFrame(animate);
+                    confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
+                    document.getElementById('g2BtnStart').disabled = false;
+                    return;
                 }
+
+                if (g2IsRunning) g2AnimId = requestAnimationFrame(loop);
             }
-            animate();
+
+            g2AnimId = requestAnimationFrame(loop);
         }
 
         function g2ResetGame() {
-            if (g2AnimId) cancelAnimationFrame(g2AnimId);
             g2IsRunning = false;
+            if (g2AnimId) cancelAnimationFrame(g2AnimId);
             document.getElementById('g2BtnStart').disabled = false;
             document.getElementById('g2ResultBox').style.display = 'none';
             g2InitTrack();
             g2UpdateRunnerNames();
         }
 
-        // Tải trang lần đầu
-        g2InitTrack();
+        // Khởi tạo giao diện trang đầu tiên
+        window.onload = () => { showPage('homePage'); };
     </script>
 </body>
 </html>
