@@ -17,7 +17,8 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.88)), url('tp.jpg') center/cover no-repeat fixed;
+            background: linear-gradient(rgba(15, 23, 42, 0.80), rgba(15, 23, 42, 0.85)), url('tp.jpg') center/cover no-repeat fixed;
+            background-color: #0f172a;
             color: #f8fafc;
             margin: 0;
             overflow-x: hidden;
@@ -43,7 +44,7 @@
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
             background-size: 14px 14px;
         }
-        #targetGrid { display: grid; gap: 6px; width: 100%; height: 100%; align-content: center; justify-content: center; }
+        #targetGrid { display: grid; gap: 6px; width: 100%; height: 100%; align-content: start; justify-content: center; }
         .target-grid-item { transition: all 0.25s ease; backdrop-filter: blur(4px); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; word-break: break-word; }
         .target-grid-item:hover { background-color: rgba(234, 179, 8, 0.4); border-color: #eab308; transform: scale(1.05); z-index: 20; }
         .target-selected { animation: pulseTarget 0.5s infinite alternate; background-color: rgba(34, 197, 94, 0.9) !important; border-color: #22c55e !important; box-shadow: 0 0 25px #22c55e; z-index: 30; }
@@ -52,9 +53,7 @@
         .ball-shadow { transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease; }
         .goalkeeper { transition: left 0.8s ease-out, transform 0.8s ease-out; will-change: transform, left; }
         
-        /* Ronaldo Jersey Argentina #7 */
-        .ronaldo-container { position: absolute; bottom: 2.2rem; left: calc(50% - 65px); z-index: 25; transition: transform 0.3s ease, left 0.3s ease; transform-origin: bottom center; }
-        @media (min-width: 640px) { .ronaldo-container { bottom: 2.8rem; left: calc(50% - 75px); } }
+        .ronaldo-container { position: absolute; bottom: 2rem; left: calc(50% - 75px); z-index: 25; transition: transform 0.3s ease, left 0.3s ease; transform-origin: bottom center; }
         .ronaldo-run { animation: ronaldoRunUp 0.4s forwards ease-in-out; }
         @keyframes ronaldoRunUp { 0% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(35px, -8px) rotate(8deg); } 80% { transform: translate(50px, -2px) rotate(-12deg) scale(1.05); } 100% { transform: translate(52px, 0px) rotate(5deg); } }
         
@@ -62,21 +61,15 @@
         .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
         .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
 
-        /* Argentina Shirt Gradient (Stripes) */
-        .argentina-shirt {
-            background: repeating-linear-gradient(90deg, #7dd3fc, #7dd3fc 8px, #ffffff 8px, #ffffff 16px);
-            border: 2px solid #ffffff;
-        }
-
         /* ---------------- CSS GAME 2: THI CHẠY ---------------- */
-        #game2-container { position: relative; width: 100%; max-width: 1200px; height: 720px; background-color: #1e3a1e; border-radius: 20px; overflow: hidden; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 2px solid #334155; }
-        .track-outer { position: absolute; left: 50%; top: 440px; width: 85%; max-width: 1000px; height: 460px; transform: translate(-50%, -50%); background-color: #b91c1c; border-radius: 230px; border: 5px solid white; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); }
-        .track-inner { position: absolute; left: 50%; top: 50%; width: 55%; height: 230px; transform: translate(-50%, -50%); background-color: #15803d; border-radius: 115px; border: 4px solid white; box-shadow: 0 0 20px rgba(0,0,0,0.4); }
+        #game2-container { position: relative; width: 100%; max-width: 1200px; height: 680px; background-color: rgba(30, 58, 30, 0.9); border-radius: 20px; overflow: hidden; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 2px solid #334155; }
+        .track-outer { position: absolute; left: 50%; top: 400px; width: 85%; max-width: 1000px; height: 420px; transform: translate(-50%, -50%); background-color: #b91c1c; border-radius: 210px; border: 5px solid white; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); }
+        .track-inner { position: absolute; left: 50%; top: 50%; width: 55%; height: 210px; transform: translate(-50%, -50%); background-color: #15803d; border-radius: 105px; border: 4px solid white; box-shadow: 0 0 20px rgba(0,0,0,0.4); }
         .runner { position: absolute; width: 32px; height: 32px; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; transition: all 0.05s linear; }
         .runner-body { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ffffff; position: relative; box-shadow: 0 4px 8px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: white; }
         .runner-name { position: absolute; top: 30px; font-size: 11px; font-weight: 800; color: #ffffff; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; white-space: nowrap; }
 
-        /* ---------------- CSS GAME 3: ĐẬP CẦU LÔNG REALISTIC ---------------- */
+        /* ---------------- CSS GAME 3: ĐẬP CẦU LÔNG ---------------- */
         .badminton-mat {
             background-color: #0f766e;
             background-image: radial-gradient(#14b8a6 1px, transparent 0);
@@ -91,43 +84,29 @@
         .floating { animation: floatShuttle 2s ease-in-out infinite; }
 
         /* ---------------- CSS GAME 4: ĐUA 12 CON GIÁP ---------------- */
-        .zodiac-track {
-            background: linear-gradient(135deg, #1e1b4b, #312e81);
-            border: 2px solid #6366f1;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
-        }
-        .zodiac-lane {
-            border-bottom: 1px dashed rgba(255,255,255,0.2);
-            position: relative;
-        }
+        .zodiac-track { background: linear-gradient(135deg, rgba(30, 27, 75, 0.95), rgba(49, 46, 129, 0.95)); border: 2px solid #6366f1; box-shadow: inset 0 0 30px rgba(0,0,0,0.6); }
+        .zodiac-lane { border-bottom: 1px dashed rgba(255,255,255,0.2); position: relative; }
 
         /* ---------------- CSS GAME 5: ĐUA VỊT TRÊN SÔNG ---------------- */
         .river-container {
             background: linear-gradient(180deg, #0284c7 0%, #0369a1 50%, #075985 100%);
-            position: relative;
-            overflow: hidden;
-            border: 3px solid #38bdf8;
+            position: relative; overflow: hidden; border: 3px solid #38bdf8;
             box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
         }
         .water-wave {
-            position: absolute;
-            width: 200%;
-            height: 100%;
+            position: absolute; width: 200%; height: 100%;
             background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 40px);
             animation: moveWaves 8s linear infinite;
         }
         @keyframes moveWaves { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .duck-swimmer {
-            transition: left 0.1s linear, top 0.3s ease;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
-        }
+        .duck-swimmer { transition: left 0.1s linear, top 0.3s ease; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
         @keyframes duckBob { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-4px) rotate(3deg); } 100% { transform: translateY(0px) rotate(0deg); } }
         .duck-anim { animation: duckBob 0.6s infinite ease-in-out; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-    <!-- OVERLAY ĐẾM NGƯỢC 3.. 2.. 1.. GO! -->
+    <!-- OVERLAY ĐẾM NGƯỢC -->
     <div id="countdownOverlay" class="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center hidden select-none">
         <div id="countdownNumber" class="text-8xl sm:text-9xl font-black text-amber-400 drop-shadow-[0_0_35px_rgba(251,191,36,0.8)]">3</div>
         <div id="countdownText" class="text-xl sm:text-3xl font-extrabold text-white mt-4 uppercase tracking-widest text-center">CHUẨN BỊ...</div>
@@ -162,166 +141,329 @@
                     <i class="fa-solid fa-dragon"></i> 12 Con Giáp
                 </button>
                 <button onclick="showPage('game5Page')" class="px-3 py-1.5 bg-slate-800 hover:bg-cyan-900/50 text-cyan-400 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5 whitespace-nowrap">
-                    <i class="fa-solid fa-duck text-yellow-400"></i> Đua Vịt
+                    <i class="fa-solid fa-feather text-yellow-400"></i> Đua Vịt
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- ==================== 1. TRANG CHỦ (HOME PAGE) ==================== -->
-    <main id="homePage" class="flex-1 flex items-center justify-center p-4 min-h-[calc(100vh-70px)]">
-        <div class="max-w-6xl w-full text-center py-6">
-            <div class="inline-block bg-slate-900/90 border border-amber-500/40 px-6 py-2 rounded-full mb-4 backdrop-blur shadow-xl">
-                <span class="text-amber-400 font-extrabold text-sm sm:text-base tracking-widest uppercase">Trường THPT / Lớp Học Thông Minh</span>
-            </div>
-            <h2 class="text-3xl sm:text-5xl font-black text-white mb-3 drop-shadow-lg tracking-wide uppercase">
-                HỆ THỐNG TRÒ CHƠI CHỌN NGƯỜI NGẪU NHIÊN
-            </h2>
-            <p class="text-slate-300 font-semibold text-sm sm:text-lg mb-10 max-w-2xl mx-auto drop-shadow">
-                Chọn mini-game thể thao hoặc đua linh vật để quay số chọn học sinh may mắn nhận quà hoặc lên bảng!
-            </p>
+    <!-- CONTENT WRAPPER -->
+    <div class="max-w-7xl w-full mx-auto p-2 sm:p-4 lg:p-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- VÙNG HIỂN THỊ CÁC GAME (COL-SPAN-8) -->
+        <div class="lg:col-span-8 w-full">
+            
+            <!-- ==================== 1. TRANG CHỦ ==================== -->
+            <main id="homePage" class="w-full text-center py-6 bg-slate-900/80 p-6 rounded-3xl border border-slate-800 backdrop-blur">
+                <div class="inline-block bg-slate-950/90 border border-amber-500/40 px-6 py-2 rounded-full mb-4 shadow-xl">
+                    <span class="text-amber-400 font-extrabold text-sm sm:text-base tracking-widest uppercase">Lớp Học Thông Minh - Chọn Ngẫu Nhiên</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white mb-3 drop-shadow-lg tracking-wide uppercase">
+                    HỆ THỐNG TRÒ CHƠI CHỌN NGƯỜI NGẪU NHIÊN
+                </h2>
+                <p class="text-slate-300 font-semibold text-xs sm:text-sm mb-8 max-w-2xl mx-auto drop-shadow">
+                    Nhập danh sách học sinh bên tay phải, sau đó chọn mini-game để thực hiện quay số chọn ngẫu nhiên!
+                </p>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
-                <!-- Card Game 1 -->
-                <div onclick="showPage('game1Page')" class="group bg-slate-900/95 hover:bg-slate-900 border-2 border-emerald-500/40 hover:border-emerald-400 rounded-3xl p-6 shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center">
-                    <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-futbol"></i>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                    <div onclick="showPage('game1Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-emerald-500/40 hover:border-emerald-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4">
+                        <div class="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-futbol"></i></div>
+                        <div>
+                            <h3 class="text-lg font-black text-emerald-400">SÚT PHẠT RANDOM</h3>
+                            <p class="text-slate-400 text-xs">CR7 áo Argentina #7 sút phạt qua Messi GK #10 cùng tiếng hô SIUUU!</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-black text-emerald-400 mb-2">SÚT PHẠT RANDOM</h3>
-                    <p class="text-slate-300 text-xs mb-6 leading-relaxed">Ronaldo mặc áo Argentina #7 sút phạt hiểm hóc vượt qua thủ môn Messi để chọn ngẫu nhiên ô học sinh.</p>
-                    <button class="w-full mt-auto py-2.5 bg-emerald-600 group-hover:bg-emerald-500 text-white font-extrabold rounded-xl shadow-lg transition text-sm">VÀO CHƠI NGAY</button>
-                </div>
 
-                <!-- Card Game 2 -->
-                <div onclick="showPage('game2Page')" class="group bg-slate-900/95 hover:bg-slate-900 border-2 border-amber-500/40 hover:border-amber-400 rounded-3xl p-6 shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center">
-                    <div class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-stopwatch"></i>
+                    <div onclick="showPage('game2Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-amber-500/40 hover:border-amber-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4">
+                        <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-stopwatch"></i></div>
+                        <div>
+                            <h3 class="text-lg font-black text-amber-400">THI CHẠY ĐIỀN KINH</h3>
+                            <p class="text-slate-400 text-xs">Đua oval đếm ngược thời gian chính xác millisecond.</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-black text-amber-400 mb-2">THI CHẠY ĐIỀN KINH</h3>
-                    <p class="text-slate-300 text-xs mb-6 leading-relaxed">Cuộc đua oval kịch tính có đồng hồ bấm giờ tính từng millisecond chính xác để tìm ra học sinh chiến thắng!</p>
-                    <button class="w-full mt-auto py-2.5 bg-amber-500 group-hover:bg-amber-400 text-slate-950 font-extrabold rounded-xl shadow-lg transition text-sm">VÀO CHƠI NGAY</button>
-                </div>
 
-                <!-- Card Game 3 -->
-                <div onclick="showPage('game3Page')" class="group bg-slate-900/95 hover:bg-slate-900 border-2 border-sky-500/40 hover:border-sky-400 rounded-3xl p-6 shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center">
-                    <div class="w-16 h-16 bg-sky-500/20 text-sky-400 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                    <div onclick="showPage('game3Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-sky-500/40 hover:border-sky-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4">
+                        <div class="w-14 h-14 bg-sky-500/20 text-sky-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-table-tennis-paddle-ball"></i></div>
+                        <div>
+                            <h3 class="text-lg font-black text-sky-400">ĐẬP CẦU LÔNG</h3>
+                            <p class="text-slate-400 text-xs">Smash xoáy cầu lông qua lưới trong thời gian căn chuẩn.</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-black text-sky-400 mb-2">ĐẬP CẦU LÔNG</h3>
-                    <p class="text-slate-300 text-xs mb-6 leading-relaxed">Sân cầu lông tiêu chuẩn với quả cầu lông lông vũ thực tế. Cú smash xoáy tốc độ cao trúng vị trí tên học sinh.</p>
-                    <button class="w-full mt-auto py-2.5 bg-sky-600 group-hover:bg-sky-500 text-white font-extrabold rounded-xl shadow-lg transition text-sm">VÀO CHƠI NGAY</button>
-                </div>
 
-                <!-- Card Game 4 -->
-                <div onclick="showPage('game4Page')" class="group bg-slate-900/95 hover:bg-slate-900 border-2 border-indigo-500/40 hover:border-indigo-400 rounded-3xl p-6 shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center">
-                    <div class="w-16 h-16 bg-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-dragon"></i>
+                    <div onclick="showPage('game4Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-indigo-500/40 hover:border-indigo-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4">
+                        <div class="w-14 h-14 bg-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-dragon"></i></div>
+                        <div>
+                            <h3 class="text-lg font-black text-indigo-400">ĐUA 12 CON GIÁP</h3>
+                            <p class="text-slate-400 text-xs">Thi chạy 12 linh vật dân gian có phát tiếng kêu khi thắng.</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-black text-indigo-400 mb-2">ĐUA 12 CON GIÁP</h3>
-                    <p class="text-slate-300 text-xs mb-6 leading-relaxed">12 linh vật dân gian (Tý, Sửu, Dần, Mão, Thìn, Tỵ, Ngọ, Mùi, Thân, Dậu, Tuất, Hợi) thi tài tốc độ nảy lửa.</p>
-                    <button class="w-full mt-auto py-2.5 bg-indigo-600 group-hover:bg-indigo-500 text-white font-extrabold rounded-xl shadow-lg transition text-sm">VÀO CHƠI NGAY</button>
-                </div>
 
-                <!-- Card Game 5 -->
-                <div onclick="showPage('game5Page')" class="group bg-slate-900/95 hover:bg-slate-900 border-2 border-cyan-500/40 hover:border-cyan-400 rounded-3xl p-6 shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col items-center sm:col-span-2 lg:col-span-1">
-                    <div class="w-16 h-16 bg-cyan-500/20 text-yellow-400 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-duck"></i>
+                    <div onclick="showPage('game5Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-cyan-500/40 hover:border-cyan-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4 sm:col-span-2">
+                        <div class="w-14 h-14 bg-cyan-500/20 text-yellow-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-feather"></i></div>
+                        <div>
+                            <h3 class="text-lg font-black text-cyan-400">ĐUA VỊT TRÊN SÔNG</h3>
+                            <p class="text-slate-400 text-xs">Bầy vịt vàng bơi lội đua tốc độ có tiếng vịt kêu quack quack!</p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-black text-cyan-400 mb-2">ĐUA VỊT TRÊN SÔNG</h3>
-                    <p class="text-slate-300 text-xs mb-6 leading-relaxed">Bầy vịt vàng siêu dễ thương bơi lội đua tốc độ trên dòng nước xanh ngắt, xem chú vịt mang tên ai cập bến đầu tiên!</p>
-                    <button class="w-full mt-auto py-2.5 bg-cyan-600 group-hover:bg-cyan-500 text-white font-extrabold rounded-xl shadow-lg transition text-sm">VÀO CHƠI NGAY</button>
                 </div>
-            </div>
-        </div>
-    </main>
+            </main>
 
-    <!-- ==================== 2. GAME 1: SÚT PHẠT RANDOM ==================== -->
-    <main id="game1Page" class="max-w-7xl w-full mx-auto p-2 sm:p-4 lg:p-6 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start hidden">
-        <section class="lg:col-span-8 flex flex-col items-center justify-center bg-slate-900/90 border border-slate-800 rounded-3xl p-3 sm:p-6 shadow-2xl relative min-h-[550px] sm:min-h-[650px]">
-            <div class="z-10 mb-3 bg-slate-950/80 border border-slate-700/60 px-5 py-1.5 rounded-full flex items-center gap-4 text-xs sm:text-sm shadow-xl">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-                    <span class="text-slate-300 font-medium">Sút phạt trực tiếp</span>
+            <!-- ==================== 2. GAME 1: SÚT PHẠT RANDOM ==================== -->
+            <main id="game1Page" class="flex flex-col items-center justify-center bg-slate-900/90 border border-slate-800 rounded-3xl p-3 sm:p-5 shadow-2xl relative min-h-[550px] hidden">
+                <div class="z-10 mb-3 bg-slate-950/80 border border-slate-700/60 px-5 py-1.5 rounded-full flex items-center gap-4 text-xs sm:text-sm shadow-xl">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span class="text-slate-300 font-medium">Sút phạt chọn học sinh</span>
+                    </div>
+                    <div class="h-4 w-px bg-slate-700"></div>
+                    <div class="text-amber-400 font-bold">
+                        Số ô khả dụng: <span id="totalTargetsText" class="text-white text-base font-extrabold">0</span>
+                    </div>
                 </div>
-                <div class="h-4 w-px bg-slate-700"></div>
-                <div class="text-amber-400 font-bold">
-                    Số ô còn lại: <span id="totalTargetsText" class="text-white text-base font-extrabold">0</span>
-                </div>
-            </div>
 
-            <div class="stadium-container w-full max-w-3xl flex flex-col items-center justify-end relative my-auto">
-                <div id="goalElement" class="goal-post w-full h-64 sm:h-80 rounded-t-xl relative flex flex-col justify-between overflow-hidden shadow-2xl border-4 border-white border-b-0">
-                    <div class="goal-net absolute inset-0 z-0"></div>
-                    <div id="targetGrid" class="absolute inset-0 z-10 p-2 overflow-y-auto custom-scroll"></div>
+                <div class="stadium-container w-full max-w-2xl flex flex-col items-center justify-end relative my-auto">
+                    <div id="goalElement" class="goal-post w-full h-60 sm:h-72 rounded-t-xl relative flex flex-col justify-between overflow-hidden shadow-2xl border-4 border-white border-b-0">
+                        <div class="goal-net absolute inset-0 z-0"></div>
+                        <div id="targetGrid" class="absolute inset-0 z-10 p-2 overflow-y-auto custom-scroll"></div>
 
-                    <!-- THỦ MÔN LEO MESSI (#10 GK) -->
-                    <div id="goalkeeper" class="goalkeeper absolute bottom-0 left-1/2 -translate-x-1/2 w-16 h-20 sm:w-20 sm:h-24 z-20 flex flex-col items-center justify-end pointer-events-none">
-                        <div class="relative w-full h-full flex flex-col items-center justify-end drop-shadow-lg">
-                            <div class="w-9 h-9 sm:w-11 sm:h-11 bg-pink-500 rounded-full border-2 border-white flex items-center justify-center font-black text-white text-xs sm:text-sm mb-1 shadow-md">10</div>
-                            <div class="bg-pink-600 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider shadow border border-pink-400">GK MESSI</div>
+                        <!-- THỦ MÔN MESSI HÌNH NGƯỜI THẬT ÁO BỒ ĐÀO NHA SỐ 10 -->
+                        <div id="goalkeeper" class="goalkeeper absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-28 sm:w-24 sm:h-32 z-20 flex flex-col items-center justify-end pointer-events-none">
+                            <div class="relative w-full h-full flex flex-col items-center justify-end drop-shadow-xl">
+                                <!-- SVG HÌNH CẦU THỦ MESSI -->
+                                <svg viewBox="0 0 100 130" class="w-full h-full">
+                                    <!-- Head & Beard -->
+                                    <circle cx="50" cy="22" r="14" fill="#fbcfe8"/>
+                                    <path d="M 38 18 Q 50 8 62 18 C 62 8 38 8 38 18 Z" fill="#78350f"/>
+                                    <path d="M 40 26 Q 50 35 60 26 Q 50 38 40 26 Z" fill="#9a3412"/> <!-- Beard -->
+                                    <!-- Portugal Red Shirt -->
+                                    <path d="M 25 40 L 75 40 L 82 75 L 18 75 Z" fill="#dc2626"/>
+                                    <!-- Green Details -->
+                                    <path d="M 45 40 L 55 40 L 55 75 L 45 75 Z" fill="#16a34a"/>
+                                    <!-- Number 10 -->
+                                    <text x="50" y="62" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle">10</text>
+                                    <!-- GK Gloves -->
+                                    <circle cx="14" cy="50" r="7" fill="#facc15"/>
+                                    <circle cx="86" cy="50" r="7" fill="#facc15"/>
+                                    <!-- Shorts & Legs -->
+                                    <rect x="28" y="75" width="44" height="20" fill="#111827"/>
+                                    <rect x="33" y="95" width="12" height="25" fill="#fbcfe8"/>
+                                    <rect x="55" y="95" width="12" height="25" fill="#fbcfe8"/>
+                                    <rect x="30" y="115" width="15" height="10" fill="#dc2626"/>
+                                    <rect x="55" y="115" width="15" height="10" fill="#dc2626"/>
+                                </svg>
+                                <div class="bg-red-700 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider shadow border border-red-400 mt-[-6px]">MESSI #10</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pitch w-full h-36 sm:h-48 rounded-b-2xl relative flex flex-col items-center justify-end border-t-2 border-white/40 overflow-hidden shadow-inner">
+                        <div class="absolute top-0 w-48 sm:w-64 h-20 sm:h-28 border-2 border-white/40 border-t-0 rounded-b-full"></div>
+                        <div class="w-3 h-3 bg-white rounded-full mb-8 sm:mb-10 shadow-md relative">
+                            <div class="absolute -inset-1 border border-white/50 rounded-full animate-pulse"></div>
+                        </div>
+
+                        <!-- RONALDO HÌNH NGƯỜI THẬT MẶC ÁO ARGENTINA SỐ 7 -->
+                        <div id="ronaldo" class="ronaldo-container w-20 h-28 sm:w-24 sm:h-32 flex flex-col items-center justify-end">
+                            <div class="relative w-full h-full flex flex-col items-center justify-end drop-shadow-xl">
+                                <!-- SVG HÌNH CẦU THỦ RONALDO -->
+                                <svg viewBox="0 0 100 130" class="w-full h-full">
+                                    <!-- Head & Haircut -->
+                                    <circle cx="50" cy="20" r="13" fill="#fed7aa"/>
+                                    <path d="M 37 16 Q 50 5 63 16 C 63 8 37 8 37 16 Z" fill="#1e1b4b"/>
+                                    <!-- Argentina Stripe Shirt -->
+                                    <path d="M 22 38 L 78 38 L 84 75 L 16 75 Z" fill="#38bdf8"/>
+                                    <path d="M 35 38 L 47 38 L 47 75 L 35 75 Z" fill="#ffffff"/>
+                                    <path d="M 53 38 L 65 38 L 65 75 L 53 75 Z" fill="#ffffff"/>
+                                    <!-- Number 7 -->
+                                    <text x="50" y="60" font-size="20" font-weight="900" fill="#0284c7" text-anchor="middle">7</text>
+                                    <!-- Black Shorts & Legs -->
+                                    <rect x="26" y="75" width="48" height="22" fill="#0f172a"/>
+                                    <rect x="31" y="97" width="13" height="23" fill="#fed7aa"/>
+                                    <rect x="56" y="97" width="13" height="23" fill="#fed7aa"/>
+                                    <!-- Black Socks & Cleats -->
+                                    <rect x="30" y="115" width="15" height="12" fill="#38bdf8"/>
+                                    <rect x="55" y="115" width="15" height="12" fill="#38bdf8"/>
+                                </svg>
+                                <div class="bg-sky-500 text-slate-950 text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest shadow border border-sky-200 mt-[-6px]">RONALDO #7</div>
+                            </div>
+                        </div>
+
+                        <div id="ballShadow" class="ball-shadow absolute bottom-6 sm:bottom-8 w-10 h-3 bg-black/50 rounded-full blur-xs z-20"></div>
+                        <div id="ball" class="soccer-ball absolute bottom-6 sm:bottom-8 w-10 h-10 sm:w-12 sm:h-12 z-30 cursor-pointer hover:scale-110 active:scale-95 flex items-center justify-center text-white text-3xl sm:text-4xl drop-shadow-2xl" onclick="shootBall()">
+                            <i class="fa-solid fa-circle-futbol text-white bg-slate-900 rounded-full"></i>
                         </div>
                     </div>
                 </div>
 
-                <div class="pitch w-full h-40 sm:h-52 rounded-b-2xl relative flex flex-col items-center justify-end border-t-2 border-white/40 overflow-hidden shadow-inner">
-                    <div class="absolute top-0 w-48 sm:w-64 h-20 sm:h-28 border-2 border-white/40 border-t-0 rounded-b-full"></div>
-                    <div class="w-3 h-3 bg-white rounded-full mb-8 sm:mb-10 shadow-md relative">
-                        <div class="absolute -inset-1 border border-white/50 rounded-full animate-pulse"></div>
+                <div class="mt-5 w-full max-w-xs z-10">
+                    <button id="shootBtn" onclick="shootBall()" class="w-full group relative inline-flex items-center justify-center p-0.5 overflow-hidden text-base font-bold text-slate-900 rounded-2xl bg-gradient-to-br from-yellow-400 via-amber-500 to-emerald-500 shadow-xl active:scale-95 transition-all">
+                        <span class="w-full relative px-6 py-3 transition-all bg-amber-400 group-hover:bg-opacity-0 rounded-2xl flex items-center justify-center gap-3 text-slate-950 font-extrabold uppercase tracking-wider text-base">
+                            <i class="fa-solid fa-shoe-prints text-slate-900 text-xl"></i> SÚT BÓNG NGAY!
+                        </span>
+                    </button>
+                </div>
+            </main>
+
+            <!-- ==================== 3. GAME 2: THI CHẠY ==================== -->
+            <main id="game2Page" class="w-full hidden">
+                <div id="game2-container">
+                    <div class="flex items-center justify-between px-6 pt-4">
+                        <div class="font-black text-lg sm:text-xl tracking-wider text-amber-300 uppercase">THI CHẠY ĐIỀN KINH</div>
+                        <div class="bg-slate-950 border border-amber-500/50 px-4 py-1.5 rounded-2xl flex items-center gap-2 shadow-lg">
+                            <i class="fa-solid fa-clock text-amber-400 animate-spin text-base"></i>
+                            <span class="text-xs text-slate-400 font-bold uppercase">Thời gian:</span>
+                            <span id="g2TimerText" class="font-mono text-lg text-emerald-400 font-extrabold tracking-wider">00:00.00</span>
+                        </div>
                     </div>
 
-                    <!-- RONALDO MẶC ÁO ARGENTINA SỐ 7 -->
-                    <div id="ronaldo" class="ronaldo-container w-16 h-24 sm:w-20 sm:h-28 flex flex-col items-center justify-end">
-                        <div class="w-9 h-9 sm:w-11 sm:h-11 argentina-shirt rounded-full flex items-center justify-center font-black text-slate-950 text-xs sm:text-sm mb-1 shadow-xl">7</div>
-                        <div class="bg-sky-600 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest shadow border border-sky-300">CR7 #7</div>
+                    <div class="track-outer">
+                        <div class="track-inner"></div>
                     </div>
+                    
+                    <div id="g2RunnersLayer"></div>
 
-                    <div id="ballShadow" class="ball-shadow absolute bottom-6 sm:bottom-8 w-10 h-3 bg-black/50 rounded-full blur-xs z-20"></div>
-                    <div id="ball" class="soccer-ball absolute bottom-6 sm:bottom-8 w-10 h-10 sm:w-12 sm:h-12 z-30 cursor-pointer hover:scale-110 active:scale-95 flex items-center justify-center text-white text-3xl sm:text-4xl drop-shadow-2xl" onclick="shootBall()">
-                        <i class="fa-solid fa-circle-futbol text-white bg-slate-900 rounded-full"></i>
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-wrap items-center justify-center gap-3 z-50 bg-slate-950/85 p-2 rounded-2xl border border-slate-700 shadow-2xl backdrop-blur">
+                        <div class="flex items-center gap-2 px-2 text-xs text-amber-400 font-bold uppercase">
+                            <i class="fa-solid fa-hourglass-start"></i> Giới hạn thời gian:
+                            <select id="g2TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded-lg px-2 py-1 text-xs focus:outline-none focus:border-amber-400">
+                                <option value="10">10 giây</option>
+                                <option value="15" selected>15 giây</option>
+                                <option value="20">20 giây</option>
+                                <option value="30">30 giây</option>
+                            </select>
+                        </div>
+                        <button class="px-5 py-2 bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black rounded-xl shadow-xl transition active:scale-95 text-xs uppercase" onclick="g2StartGame()">BẮT ĐẦU ĐUA</button>
+                        <button class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold rounded-xl border border-slate-600 shadow-xl transition text-xs" onclick="g2ResetGame()">CHƠI LẠI</button>
                     </div>
                 </div>
-            </div>
+            </main>
 
-            <div class="mt-6 w-full max-w-xs z-10">
-                <button id="shootBtn" onclick="shootBall()" class="w-full group relative inline-flex items-center justify-center p-0.5 overflow-hidden text-base font-bold text-slate-900 rounded-2xl bg-gradient-to-br from-yellow-400 via-amber-500 to-emerald-500 hover:text-white shadow-xl shadow-amber-500/20 active:scale-95 transition-all duration-200">
-                    <span class="w-full relative px-6 py-3.5 transition-all ease-in duration-75 bg-amber-400 group-hover:bg-opacity-0 rounded-2xl flex items-center justify-center gap-3 text-slate-950 font-extrabold uppercase tracking-wider text-base sm:text-lg">
-                        <i class="fa-solid fa-shoe-prints text-slate-900 text-xl group-hover:rotate-12 transition-transform"></i> SÚT BÓNG NGAY!
-                    </span>
-                </button>
-            </div>
-        </section>
+            <!-- ==================== 4. GAME 3: ĐẬP CẦU ==================== -->
+            <main id="game3Page" class="w-full hidden">
+                <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col items-center relative">
+                    <div class="flex items-center justify-between w-full mb-3">
+                        <h2 class="text-xl font-extrabold text-sky-400 uppercase">ĐẬP CẦU LÔNG SMASH</h2>
+                        <div class="bg-slate-950 border border-sky-500/50 px-3 py-1 rounded-xl flex items-center gap-2">
+                            <span class="text-xs text-slate-400 font-bold">Thời gian smash:</span>
+                            <select id="g3TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 text-xs">
+                                <option value="3">3 giây</option>
+                                <option value="5" selected>5 giây</option>
+                                <option value="8">8 giây</option>
+                            </select>
+                        </div>
+                    </div>
 
-        <!-- SIDEBAR DANH SÁCH CHUNG (DÙNG CHO CÁC GAME) -->
-        <aside class="lg:col-span-4 bg-slate-900/95 border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-2xl flex flex-col gap-4">
+                    <div class="badminton-mat w-full h-[380px] rounded-2xl relative flex flex-col justify-between p-3 overflow-hidden shadow-2xl">
+                        <div class="w-full flex-1 flex flex-col justify-center relative">
+                            <div id="badmintonTargetGrid" class="grid gap-2 w-full h-full max-h-[160px] items-center justify-center p-2 z-10 overflow-y-auto custom-scroll"></div>
+                        </div>
+
+                        <div class="w-full h-5 bg-white/95 border-y-2 border-dashed border-teal-900 my-1 relative shadow-md flex items-center justify-center z-10">
+                            <div class="w-6 h-6 bg-rose-500 rounded-full border-2 border-white animate-pulse flex items-center justify-center text-[10px] font-black text-white">NET</div>
+                        </div>
+
+                        <div class="w-full h-24 relative flex items-center justify-center">
+                            <div id="shuttlecock" class="shuttlecock absolute bottom-4 w-12 h-12 flex items-center justify-center floating drop-shadow-2xl cursor-pointer" onclick="g3Smash()">
+                                <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-45">
+                                    <path d="M 50 20 L 35 70 L 65 70 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                                    <path d="M 40 70 L 30 90 A 20 20 0 0 0 70 90 L 60 70 Z" fill="#ef4444"/>
+                                    <line x1="38" y1="40" x2="62" y2="40" stroke="#94a3b8" stroke-width="2"/>
+                                    <line x1="36" y1="55" x2="64" y2="55" stroke="#94a3b8" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="g3Smash()" class="mt-4 px-8 py-2.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-black text-base rounded-2xl shadow-xl transition active:scale-95 uppercase tracking-wider">
+                        <i class="fa-solid fa-bolt mr-2"></i> SMASH CẦU NGAY
+                    </button>
+                </div>
+            </main>
+
+            <!-- ==================== 5. GAME 4: ĐUA 12 CON GIÁP ==================== -->
+            <main id="game4Page" class="w-full hidden">
+                <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col items-center">
+                    <div class="flex items-center justify-between w-full mb-3">
+                        <h2 class="text-xl font-extrabold text-indigo-400 uppercase">ĐUA 12 CON GIÁP</h2>
+                        <div class="bg-slate-950 border border-indigo-500/50 px-3 py-1 rounded-xl flex items-center gap-2">
+                            <span class="text-xs text-slate-400 font-bold">Thời gian đua:</span>
+                            <select id="g4TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 text-xs">
+                                <option value="5">5 giây</option>
+                                <option value="10" selected>10 giây</option>
+                                <option value="15">15 giây</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="zodiacContainer" class="zodiac-track w-full rounded-2xl p-3 flex flex-col gap-1 max-h-[420px] overflow-y-auto custom-scroll"></div>
+
+                    <button onclick="g4StartRace()" class="mt-4 px-8 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-black text-base rounded-2xl shadow-xl transition active:scale-95 uppercase tracking-wider">
+                        <i class="fa-solid fa-flag-checkered mr-2"></i> BẮT ĐẦU ĐUA LINH VẬT
+                    </button>
+                </div>
+            </main>
+
+            <!-- ==================== 6. GAME 5: ĐUA VỊT ==================== -->
+            <main id="game5Page" class="w-full hidden">
+                <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col items-center">
+                    <div class="flex items-center justify-between w-full mb-3">
+                        <h2 class="text-xl font-extrabold text-cyan-400 uppercase">ĐUA VỊT TRÊN SÔNG</h2>
+                        <div class="bg-slate-950 border border-cyan-500/50 px-3 py-1 rounded-xl flex items-center gap-2">
+                            <span class="text-xs text-slate-400 font-bold">Thời gian đua:</span>
+                            <select id="g5TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 text-xs">
+                                <option value="8">8 giây</option>
+                                <option value="12" selected>12 giây</option>
+                                <option value="20">20 giây</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="river-container w-full h-[380px] rounded-2xl p-4 flex flex-col justify-around relative">
+                        <div class="water-wave"></div>
+                        <div id="duckLanesContainer" class="w-full h-full flex flex-col justify-around relative z-10"></div>
+                    </div>
+
+                    <button onclick="g5StartDuckRace()" class="mt-4 px-8 py-2.5 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-base rounded-2xl shadow-xl transition active:scale-95 uppercase tracking-wider">
+                        <i class="fa-solid fa-water mr-2"></i> THẢ VỊT ĐUA NGAY
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <!-- ==================== SIDEBAR NHẬP DANH SÁCH HỌC SINH (COL-SPAN-4) ==================== -->
+        <aside class="lg:col-span-4 bg-slate-900/95 border border-slate-800 rounded-3xl p-4 shadow-2xl flex flex-col gap-4 w-full backdrop-blur">
             <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h2 class="font-bold text-lg text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-list-ol text-emerald-400"></i> Danh Sách Tham Gia
+                <h2 class="font-bold text-base text-slate-100 flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-emerald-400"></i> Quản Lý Học Sinh
                 </h2>
                 <span id="playerCountBadge" class="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">0 người</span>
             </div>
 
+            <!-- Khung Nhập Học Sinh -->
             <div class="flex flex-col gap-2">
-                <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Thêm / Nhập tên (mỗi dòng 1 tên)</label>
-                <textarea id="nameInput" rows="3" placeholder="Dán danh sách tên học sinh..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition resize-none custom-scroll"></textarea>
+                <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Nhập danh sách (Mỗi dòng 1 tên)</label>
+                <textarea id="nameInput" rows="4" placeholder="Ví dụ:&#10;Nguyễn Văn A&#10;Trần Thị B&#10;Lê Văn C..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition resize-none custom-scroll"></textarea>
                 <div class="flex gap-2">
-                    <button onclick="addNamesFromInput()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-3 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-plus"></i> Cập Nhật
+                    <button onclick="addNamesFromInput()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5 shadow-lg">
+                        <i class="fa-solid fa-check"></i> Cập Nhật Danh Sách
                     </button>
-                    <button onclick="clearAllNames()" class="bg-slate-800 hover:bg-rose-900/40 hover:text-rose-400 text-slate-400 border border-slate-700 px-3 py-2 rounded-xl text-sm transition" title="Xóa tất cả"><i class="fa-solid fa-trash-can"></i></button>
+                    <button onclick="clearAllNames()" class="bg-slate-800 hover:bg-rose-900/40 hover:text-rose-400 text-slate-400 border border-slate-700 px-3 py-2 rounded-xl text-xs transition" title="Xóa tất cả"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             </div>
 
-            <div class="flex-1 flex flex-col min-h-[160px] max-h-[220px]">
+            <!-- Danh Sách Học Sinh Trong Lớp -->
+            <div class="flex-1 flex flex-col min-h-[160px] max-h-[200px]">
                 <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
-                    <span>Học sinh tham gia</span>
-                    <button onclick="resetExcluded()" class="text-emerald-400 hover:underline flex items-center gap-1"><i class="fa-solid fa-rotate-left"></i> Khôi phục ẩn</button>
+                    <span>Học sinh trong lớp</span>
+                    <button onclick="resetExcluded()" class="text-emerald-400 hover:underline flex items-center gap-1"><i class="fa-solid fa-rotate-left"></i> Hiện tất cả</button>
                 </div>
-                <div id="playerListContainer" class="flex-1 overflow-y-auto space-y-2 pr-1 custom-scroll"></div>
+                <div id="playerListContainer" class="flex-1 overflow-y-auto space-y-1.5 pr-1 custom-scroll"></div>
             </div>
 
+            <!-- Lịch Sử Trúng Thưởng -->
             <div class="border-t border-slate-800 pt-3">
                 <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
-                    <span class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-trophy"></i> Lịch sử trúng thưởng</span>
+                    <span class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-trophy"></i> Lịch sử gọi tên</span>
                     <button onclick="clearHistory()" class="hover:text-rose-400 underline">Xóa lịch sử</button>
                 </div>
                 <div id="historyList" class="max-h-24 overflow-y-auto text-xs space-y-1 text-slate-300 custom-scroll"></div>
@@ -334,1040 +476,674 @@
                 </label>
             </div>
         </aside>
-    </main>
 
-    <!-- ==================== 3. GAME 2: THI CHẠY CHỌN NGƯỜI (CÓ ĐỒNG HỒ TÍNH THỜI GIAN) ==================== -->
-    <main id="game2Page" class="max-w-7xl w-full mx-auto p-2 sm:p-4 flex-1 hidden">
-        <div id="game2-container">
-            <div class="flex items-center justify-between px-6 pt-4">
-                <div class="font-black text-xl sm:text-2xl tracking-wider text-amber-300 drop-shadow uppercase">CUỘC ĐƯA ĐIỀN KINH NGẪU NHIÊN</div>
-                <!-- ĐỒNG HỒ BẤM GIỜ TÍNH THỜI GIAN -->
-                <div class="bg-slate-950 border border-amber-500/50 px-4 py-2 rounded-2xl flex items-center gap-2 shadow-lg">
-                    <i class="fa-solid fa-clock text-amber-400 animate-spin text-lg"></i>
-                    <span class="text-xs text-slate-400 font-bold uppercase">Thời gian:</span>
-                    <span id="g2TimerText" class="font-mono text-xl text-emerald-400 font-extrabold tracking-wider">00:00.00</span>
-                </div>
-            </div>
-
-            <div class="track-outer">
-                <div class="track-inner"></div>
-                <div id="g2LaneLines"></div>
-            </div>
-            
-            <div id="g2RunnersLayer"></div>
-
-            <div class="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-wrap items-center justify-center gap-3 z-50 bg-slate-950/80 p-2.5 rounded-2xl border border-slate-700 shadow-2xl backdrop-blur">
-                <div class="flex items-center gap-2 px-2 text-xs text-amber-400 font-bold uppercase">
-                    <i class="fa-solid fa-hourglass-start"></i> Đếm ngược:
-                    <select id="g2TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded-lg px-2 py-1 text-xs focus:outline-none focus:border-amber-400">
-                        <option value="10">10 giây</option>
-                        <option value="15" selected>15 giây</option>
-                        <option value="20">20 giây</option>
-                        <option value="30">30 giây</option>
-                    </select>
-                </div>
-                <button class="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black rounded-xl shadow-xl transition active:scale-95 text-sm uppercase tracking-wider" id="g2BtnStart" onclick="g2StartGame()">BẮT ĐẦU ĐUA</button>
-                <button class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold rounded-xl border border-slate-600 shadow-xl transition active:scale-95 text-sm" id="g2BtnReset" onclick="g2ResetGame()">CHƠI LẠI</button>
-            </div>
-        </div>
-    </main>
-
-    <!-- ==================== 4. GAME 3: ĐẬP CẦU CHỌN NGƯỜI ==================== -->
-    <main id="game3Page" class="max-w-7xl w-full mx-auto p-4 flex-1 flex flex-col items-center justify-center hidden">
-        <div class="w-full max-w-4xl bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col items-center relative overflow-hidden">
-            <div class="text-center mb-4">
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-sky-400 mb-1">ĐẬP CẦU SMASH - CHỌN HỌC SINH</h2>
-                <p class="text-xs sm:text-sm text-slate-400">Cú smash bộc phát vượt qua lưới sang phần sân mục tiêu đối phương!</p>
-            </div>
-
-            <!-- Sân Cầu Lông Tiêu Chuẩn Thật -->
-            <div class="badminton-mat w-full h-[430px] rounded-2xl relative flex flex-col justify-between p-4 overflow-hidden shadow-2xl">
-                <!-- Sân đối phương -->
-                <div class="w-full flex-1 flex flex-col justify-center relative">
-                    <div class="absolute -top-1 left-1/2 -translate-x-1/2 bg-sky-600 text-white text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-widest shadow z-20">Sân Đối Phương (Mục Tiêu)</div>
-                    <div id="badmintonTargetGrid" class="grid gap-2 w-full h-full max-h-[180px] items-center justify-center p-2 z-10"></div>
-                </div>
-
-                <!-- Lưới Cầu Lông -->
-                <div class="w-full h-5 bg-white/95 border-y-2 border-dashed border-teal-900 my-1 relative shadow-md flex items-center justify-center z-10">
-                    <div class="w-6 h-6 bg-rose-500 rounded-full border-2 border-white animate-pulse flex items-center justify-center text-[10px] font-black text-white">NET</div>
-                </div>
-
-                <!-- Sân bên này & Quả Cầu Lông Lông Vũ -->
-                <div class="w-full h-28 relative flex items-center justify-center">
-                    <div class="absolute bottom-1 bg-emerald-700/90 text-white text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-widest z-20">Vị Trí Smash Cầu</div>
-                    
-                    <!-- Quả Cầu Lông SVG Lông Vũ -->
-                    <div id="shuttlecock" class="shuttlecock absolute bottom-6 w-12 h-12 flex items-center justify-center floating drop-shadow-2xl">
-                        <svg viewBox="0 0 100 100" class="w-full h-full">
-                            <!-- Feathers -->
-                            <path d="M30,20 L50,70 L40,20 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                            <path d="M50,15 L50,70 L50,15 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
-                            <path d="M70,20 L50,70 L60,20 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                            <!-- Cork Head -->
-                            <circle cx="50" cy="76" r="12" fill="#eab308" stroke="#ca8a04" stroke-width="2"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-6 w-full max-w-sm">
-                <button id="smashBtn" onclick="smashShuttlecock()" class="w-full py-4 bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-black text-lg rounded-2xl shadow-xl shadow-sky-500/30 flex items-center justify-center gap-3 active:scale-95 transition-all">
-                    <i class="fa-solid fa-bolt text-amber-300 text-xl"></i> THỰC HIỆN CÚ SMASH!
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <!-- ==================== 5. GAME 4: ĐUA 12 CON GIÁP ==================== -->
-    <main id="game4Page" class="max-w-7xl w-full mx-auto p-2 sm:p-4 flex-1 hidden">
-        <div class="bg-slate-900/90 border border-indigo-500/40 rounded-3xl p-4 sm:p-6 shadow-2xl flex flex-col gap-4">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
-                <div>
-                    <h2 class="text-2xl font-black text-indigo-400 uppercase">ĐUA 12 CON GIÁP TRUYỀN THỐNG</h2>
-                    <p class="text-xs text-slate-400">Các linh vật dân gian đua tài để chọn ra vị trí học sinh chiến thắng</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-slate-950 border border-indigo-500/50 px-3 py-1.5 rounded-2xl flex items-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-hourglass-half text-indigo-400 animate-pulse text-lg"></i>
-                        <span class="text-xs text-slate-400 font-bold uppercase">Đếm ngược:</span>
-                        <span id="g4TimerText" class="font-mono text-xl text-emerald-400 font-extrabold tracking-wider">00:15.00</span>
-                    </div>
-                    <select id="g4TimeSelect" class="bg-slate-950 text-indigo-300 border border-indigo-500/50 rounded-xl px-2 py-2 text-xs font-bold focus:outline-none">
-                        <option value="10">10s</option>
-                        <option value="15" selected>15s</option>
-                        <option value="20">20s</option>
-                    </select>
-                </div>
-                <button id="zodiacStartBtn" onclick="startZodiacRace()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-xl shadow-lg transition active:scale-95 text-sm uppercase">
-                    BẮT ĐẦU ĐUA CON GIÁP
-                </button>
-            </div>
-
-            <!-- Đường Đua 12 Con Giáp -->
-            <div class="zodiac-track rounded-2xl p-3 flex flex-col gap-1.5 overflow-x-auto custom-scroll">
-                <div id="zodiacLanesContainer" class="flex flex-col gap-1.5 min-w-[700px]"></div>
-            </div>
-        </div>
-    </main>
-
-    <!-- ==================== 6. GAME 5: ĐUA VỊT TRÊN SÔNG ==================== -->
-    <main id="game5Page" class="max-w-7xl w-full mx-auto p-2 sm:p-4 flex-1 hidden">
-        <div class="bg-slate-900/90 border border-cyan-500/40 rounded-3xl p-4 sm:p-6 shadow-2xl flex flex-col gap-4">
-            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
-                <div>
-                    <h2 class="text-2xl font-black text-cyan-400 uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-duck text-yellow-400"></i> ĐUA VỊT VÀNG TRÊN SÔNG
-                    </h2>
-                    <p class="text-xs text-slate-400">Bầy vịt mang tên các học sinh thi nhau bơi về đích!</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="bg-slate-950 border border-cyan-500/50 px-3 py-1.5 rounded-2xl flex items-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-hourglass-half text-cyan-400 animate-pulse text-lg"></i>
-                        <span class="text-xs text-slate-400 font-bold uppercase">Đếm ngược:</span>
-                        <span id="g5TimerText" class="font-mono text-xl text-emerald-400 font-extrabold tracking-wider">00:15.00</span>
-                    </div>
-                    <select id="g5TimeSelect" class="bg-slate-950 text-cyan-300 border border-cyan-500/50 rounded-xl px-2 py-2 text-xs font-bold focus:outline-none">
-                        <option value="10">10s</option>
-                        <option value="15" selected>15s</option>
-                        <option value="20">20s</option>
-                    </select>
-                </div>
-                <button id="duckStartBtn" onclick="startDuckRace()" class="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black rounded-xl shadow-lg transition active:scale-95 text-sm uppercase">
-                    CHO VỊT BƠI ĐUA
-                </button>
-            </div>
-
-            <div class="river-container rounded-2xl h-[520px] relative overflow-hidden">
-                <div class="water-wave"></div>
-                <!-- Vạch đích Sông -->
-                <div class="absolute right-12 top-0 bottom-0 w-8 border-r-4 border-dashed border-yellow-300 z-20 flex flex-col justify-around text-center">
-                    <span class="text-[10px] font-black bg-yellow-400 text-slate-950 px-1 py-0.5 rounded transform rotate-90">ĐÍCH</span>
-                </div>
-                
-                <div id="ducksLayer" class="absolute inset-0 z-30 p-2 overflow-y-auto custom-scroll"></div>
-            </div>
-        </div>
-    </main>
-
-    <!-- MODAL HIỂN THỊ NGƯỜI THẮNG GAME -->
-    <div id="winnerModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-amber-500/60 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center shadow-2xl shadow-amber-500/20 transform scale-90 transition-transform duration-300 relative overflow-hidden">
-            <div class="w-20 h-20 bg-gradient-to-tr from-amber-400 to-yellow-300 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-950 text-4xl shadow-xl shadow-amber-500/30 animate-bounce">
-                <i class="fa-solid fa-trophy"></i>
-            </div>
-            <h3 class="text-sm font-bold text-amber-400 uppercase tracking-widest mb-1">XIN CHÚC MỪNG!</h3>
-            <h4 class="text-xs text-slate-400 mb-4">HỌC SINH MAY MẮN LÀ</h4>
-            <div id="winnerName" class="text-2xl sm:text-3xl font-black text-white bg-slate-800/80 border border-slate-700 py-4 px-6 rounded-2xl mb-6 shadow-inner text-emerald-400 break-words"></div>
-            <button onclick="closeWinnerModal()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold py-3.5 px-4 rounded-xl shadow-lg transition active:scale-95 text-base">Tiếp Tục Trò Chơi</button>
-        </div>
     </div>
 
+    <!-- FOOTER -->
+    <footer class="bg-slate-950/90 border-t border-slate-800 py-3 text-center text-xs text-slate-400 backdrop-blur">
+        Hệ thống Game Chọn Học Sinh Ngẫu Nhiên © 2026 - Lớp Học Thông Minh
+    </footer>
+
+    <!-- ==================== JAVASCRIPT XỬ LÝ HỆ THỐNG & ÂM THANH ==================== -->
     <script>
-        /* --- AUDIO SYNTHESIZER & SOUND EFFECTS SYSTEM --- */
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        let audioCtx = null;
+        // --- BỘ TẠO ÂM THANH SỐNG ĐỘNG WEB AUDIO API ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        function getAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new AudioCtx();
-            }
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-            return audioCtx;
+        function playWhistleSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(2500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(3000, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
         }
 
-        const SoundFX = {
-            // Beep đếm ngược (3.. 2.. 1..)
-            playBeep(isHigh = false) {
-                try {
-                    const ctx = getAudioContext();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(isHigh ? 880 : 440, ctx.currentTime);
-                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + (isHigh ? 0.5 : 0.25));
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start();
-                    osc.stop(ctx.currentTime + (isHigh ? 0.5 : 0.25));
-                } catch (e) {}
-            },
+        function playRonaldoSiuu() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            // Tiếng hô SIUUU trầm hùng & Tiếng reo hò khán giả
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(350, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 1.2);
+            gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.2);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.2);
 
-            // Cú sút bóng / đập cầu
-            playKick() {
-                try {
-                    const ctx = getAudioContext();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(160, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.18);
-                    gain.gain.setValueAtTime(0.9, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 0.18);
-                } catch (e) {}
-            },
+            // Noise khán giả reo mừng
+            const bufferSize = audioCtx.sampleRate * 1.5;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const output = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+            const whiteNoise = audioCtx.createBufferSource();
+            whiteNoise.buffer = buffer;
+            const noiseGain = audioCtx.createGain();
+            noiseGain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+            whiteNoise.connect(noiseGain);
+            noiseGain.connect(audioCtx.destination);
+            whiteNoise.start();
+        }
 
-            // Tiếng còi trọng tài
-            playWhistle() {
-                try {
-                    const ctx = getAudioContext();
-                    const osc1 = ctx.createOscillator();
-                    const osc2 = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc1.type = 'sine';
-                    osc2.type = 'sine';
-                    osc1.frequency.setValueAtTime(2400, ctx.currentTime);
-                    osc2.frequency.setValueAtTime(2450, ctx.currentTime);
-                    gain.gain.setValueAtTime(0.25, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-                    osc1.connect(gain);
-                    osc2.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc1.start();
-                    osc2.start();
-                    osc1.stop(ctx.currentTime + 0.5);
-                    osc2.stop(ctx.currentTime + 0.5);
-                } catch (e) {}
-            },
-
-            // Tiếng reo hò khán đài
-            playCheer() {
-                try {
-                    const ctx = getAudioContext();
-                    const bufferSize = ctx.sampleRate * 1.5;
-                    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-                    const data = buffer.getChannelData(0);
-                    for (let i = 0; i < bufferSize; i++) {
-                        data[i] = Math.random() * 2 - 1;
-                    }
-                    const noise = ctx.createBufferSource();
-                    noise.buffer = buffer;
-
-                    const filter = ctx.createBiquadFilter();
-                    filter.type = 'bandpass';
-                    filter.frequency.setValueAtTime(1000, ctx.currentTime);
-                    filter.Q.setValueAtTime(1, ctx.currentTime);
-
-                    const gain = ctx.createGain();
-                    gain.gain.setValueAtTime(0.01, ctx.currentTime);
-                    gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.2);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
-
-                    noise.connect(filter);
-                    filter.connect(gain);
-                    gain.connect(ctx.destination);
-                    noise.start();
-                } catch (e) {}
-            },
-
-            // ĐẶC BIỆT: ÂM THANH RONALDO "SIUUUUU!"
-            playSiuuu() {
-                try {
-                    this.playKick();
-                    this.playCheer();
-
-                    if ('speechSynthesis' in window) {
-                        window.speechSynthesis.cancel();
-                        const utter = new SpeechSynthesisUtterance("SIUUUUUUUUUU!");
-                        utter.rate = 0.85;
-                        utter.pitch = 0.7;
-                        utter.volume = 1.0;
-                        utter.lang = 'en-US';
-
-                        const voices = window.speechSynthesis.getVoices();
-                        const maleVoice = voices.find(v => v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('david') || v.name.toLowerCase().includes('google'));
-                        if (maleVoice) utter.voice = maleVoice;
-
-                        window.speechSynthesis.speak(utter);
-                    }
-                } catch (e) {}
-            },
-
-            // TIẾNG VỊT KÊU
-            playQuack() {
-                try {
-                    const ctx = getAudioContext();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
+        function playDuckSound() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            // Tiếng vịt kêu Cáp Cáp!
+            [0, 0.2, 0.4].forEach(delay => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(320, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(160, ctx.currentTime + 0.2);
-                    gain.gain.setValueAtTime(0.35, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+                    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(180, audioCtx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
                     osc.connect(gain);
-                    gain.connect(ctx.destination);
+                    gain.connect(audioCtx.destination);
                     osc.start();
-                    osc.stop(ctx.currentTime + 0.2);
-                } catch (e) {}
-            }
-        };
-
-        /* --- HÀM ĐẾM NGƯỢC 3.. 2.. 1.. GO TRƯỚC TRẬN ĐUA --- */
-        function run321Countdown(onComplete) {
-            const overlay = document.getElementById('countdownOverlay');
-            const numEl = document.getElementById('countdownNumber');
-            const textEl = document.getElementById('countdownText');
-
-            overlay.classList.remove('hidden');
-            let count = 3;
-
-            const tick = () => {
-                if (count > 0) {
-                    numEl.innerText = count;
-                    textEl.innerText = "CHUẨN BỊ...";
-                    SoundFX.playBeep(false);
-                    count--;
-                    setTimeout(tick, 850);
-                } else {
-                    numEl.innerText = "GO!";
-                    textEl.innerText = "XUẤT PHÁT!";
-                    SoundFX.playBeep(true);
-                    SoundFX.playWhistle();
-                    setTimeout(() => {
-                        overlay.classList.add('hidden');
-                        if (onComplete) onComplete();
-                    }, 500);
-                }
-            };
-            tick();
+                    osc.stop(audioCtx.currentTime + 0.15);
+                }, delay * 1000);
+            });
         }
 
-        /* --- NAVIGATION CONTROL --- */
+        function playZodiacSound(index) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const now = audioCtx.currentTime;
+            
+            // Âm thanh riêng biệt sinh động cho từng linh vật
+            switch(index) {
+                case 0: // Tý (Chuột kêu chít chít)
+                    [0, 0.1, 0.2].forEach(d => {
+                        const osc = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        osc.frequency.setValueAtTime(3000, now + d);
+                        osc.frequency.linearRampToValueAtTime(4500, now + d + 0.08);
+                        g.gain.setValueAtTime(0.3, now + d);
+                        g.gain.exponentialRampToValueAtTime(0.01, now + d + 0.08);
+                        osc.connect(g); g.connect(audioCtx.destination);
+                        osc.start(now + d); osc.stop(now + d + 0.08);
+                    });
+                    break;
+                case 1: // Sửu (Trâu ậm ừ trầm)
+                    const osc1 = audioCtx.createOscillator();
+                    const g1 = audioCtx.createGain();
+                    osc1.type = 'triangle';
+                    osc1.frequency.setValueAtTime(110, now);
+                    osc1.frequency.linearRampToValueAtTime(80, now + 0.8);
+                    g1.gain.setValueAtTime(0.5, now);
+                    g1.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+                    osc1.connect(g1); g1.connect(audioCtx.destination);
+                    osc1.start(now); osc1.stop(now + 0.8);
+                    break;
+                case 2: // Dần (Hổ gầm)
+                case 4: // Thìn (Rồng gầm)
+                    const osc2 = audioCtx.createOscillator();
+                    const g2 = audioCtx.createGain();
+                    osc2.type = 'sawtooth';
+                    osc2.frequency.setValueAtTime(150, now);
+                    osc2.frequency.exponentialRampToValueAtTime(50, now + 1.0);
+                    g2.gain.setValueAtTime(0.6, now);
+                    g2.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
+                    osc2.connect(g2); g2.connect(audioCtx.destination);
+                    osc2.start(now); osc2.stop(now + 1.0);
+                    break;
+                case 3: // Mão (Mèo kêu meo)
+                    const osc3 = audioCtx.createOscillator();
+                    const g3 = audioCtx.createGain();
+                    osc3.frequency.setValueAtTime(700, now);
+                    osc3.frequency.linearRampToValueAtTime(900, now + 0.2);
+                    osc3.frequency.linearRampToValueAtTime(500, now + 0.6);
+                    g3.gain.setValueAtTime(0.3, now);
+                    g3.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+                    osc3.connect(g3); g3.connect(audioCtx.destination);
+                    osc3.start(now); osc3.stop(now + 0.6);
+                    break;
+                case 5: // Tỵ (Rắn xè xè)
+                    const bufferSize = audioCtx.sampleRate * 0.8;
+                    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = buffer;
+                    const g5 = audioCtx.createGain();
+                    g5.gain.setValueAtTime(0.3, now);
+                    g5.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+                    noise.connect(g5); g5.connect(audioCtx.destination);
+                    noise.start(now);
+                    break;
+                case 6: // Ngọ (Ngựa hí)
+                    const osc6 = audioCtx.createOscillator();
+                    const g6 = audioCtx.createGain();
+                    osc6.type = 'sawtooth';
+                    osc6.frequency.setValueAtTime(800, now);
+                    osc6.frequency.linearRampToValueAtTime(1200, now + 0.3);
+                    osc6.frequency.linearRampToValueAtTime(600, now + 0.7);
+                    g6.gain.setValueAtTime(0.4, now);
+                    g6.gain.exponentialRampToValueAtTime(0.01, now + 0.7);
+                    osc6.connect(g6); g6.connect(audioCtx.destination);
+                    osc6.start(now); osc6.stop(now + 0.7);
+                    break;
+                case 9: // Dậu (Gà gáy)
+                    const osc9 = audioCtx.createOscillator();
+                    const g9 = audioCtx.createGain();
+                    osc9.frequency.setValueAtTime(600, now);
+                    osc9.frequency.linearRampToValueAtTime(1000, now + 0.3);
+                    osc9.frequency.linearRampToValueAtTime(800, now + 0.8);
+                    g9.gain.setValueAtTime(0.4, now);
+                    g9.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+                    osc9.connect(g9); g9.connect(audioCtx.destination);
+                    osc9.start(now); osc9.stop(now + 0.8);
+                    break;
+                default: // Các linh vật khác (Dê, Khỉ, Chó, Heo...)
+                    const oscD = audioCtx.createOscillator();
+                    const gD = audioCtx.createGain();
+                    oscD.type = 'square';
+                    oscD.frequency.setValueAtTime(400, now);
+                    oscD.frequency.exponentialRampToValueAtTime(200, now + 0.5);
+                    gD.gain.setValueAtTime(0.4, now);
+                    gD.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                    oscD.connect(gD); gD.connect(audioCtx.destination);
+                    oscD.start(now); oscD.stop(now + 0.5);
+                    break;
+            }
+        }
+
+        // --- DỮ LIỆU BAN ĐẦU ---
+        let players = [
+            "Nguyễn Văn A", "Trần Thị B", "Lê Văn C", "Phạm Hoàng D", 
+            "Đỗ Minh E", "Vũ Thị F", "Hoàng Văn G", "Bùi Thị H"
+        ];
+        let excludedPlayers = [];
+        let history = [];
+
+        // --- CHUYỂN TRANG ---
         function showPage(pageId) {
-            document.getElementById('homePage').classList.add('hidden');
-            document.getElementById('game1Page').classList.add('hidden');
-            document.getElementById('game1Page').classList.remove('grid');
-            document.getElementById('game2Page').classList.add('hidden');
-            document.getElementById('game3Page').classList.add('hidden');
-            document.getElementById('game4Page').classList.add('hidden');
-            document.getElementById('game5Page').classList.add('hidden');
+            const pages = ['homePage', 'game1Page', 'game2Page', 'game3Page', 'game4Page', 'game5Page'];
+            pages.forEach(p => {
+                const el = document.getElementById(p);
+                if (el) el.classList.add('hidden');
+            });
+            const activePage = document.getElementById(pageId);
+            if (activePage) activePage.classList.remove('hidden');
 
-            if (pageId === 'homePage') {
-                document.getElementById('homePage').classList.remove('hidden');
-            } else if (pageId === 'game1Page') {
-                document.getElementById('game1Page').classList.remove('hidden');
-                document.getElementById('game1Page').classList.add('grid');
-                renderAll();
-            } else if (pageId === 'game2Page') {
-                document.getElementById('game2Page').classList.remove('hidden');
-                g2ResetGame();
-            } else if (pageId === 'game3Page') {
-                document.getElementById('game3Page').classList.remove('hidden');
-                renderBadmintonTargets();
-            } else if (pageId === 'game4Page') {
-                document.getElementById('game4Page').classList.remove('hidden');
-                initZodiacRace();
-            } else if (pageId === 'game5Page') {
-                document.getElementById('game5Page').classList.remove('hidden');
-                initDuckRace();
-            }
+            if (pageId === 'game1Page') renderGame1();
+            if (pageId === 'game2Page') g2ResetGame();
+            if (pageId === 'game3Page') renderGame3();
+            if (pageId === 'game4Page') renderGame4();
+            if (pageId === 'game5Page') renderGame5();
         }
 
-        /* --- SHARED PLAYERS STATE --- */
-        let players = Array.from({ length: 16 }, (_, i) => ({ id: i + 1, name: `Học sinh ${i + 1}`, excluded: false }));
-        let winnersHistory = [];
-
-        function triggerConfetti() {
-            if (typeof confetti === 'function') {
-                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-            }
+        function getActivePlayers() {
+            return players.filter(p => !excludedPlayers.includes(p));
         }
 
-        function showWinner(name) {
-            winnersHistory.unshift(name);
-            renderHistory();
-            
-            const modal = document.getElementById('winnerModal');
-            const winnerText = document.getElementById('winnerName');
-            winnerText.innerText = name;
-            
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.firstElementChild.classList.remove('scale-90');
-                modal.firstElementChild.classList.add('scale-100');
-            }, 50);
-
-            triggerConfetti();
-        }
-
-        function closeWinnerModal() {
-            const modal = document.getElementById('winnerModal');
-            modal.classList.add('opacity-0');
-            modal.firstElementChild.classList.remove('scale-100');
-            modal.firstElementChild.classList.add('scale-90');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        /* --- STREAMING_CHUNK:Updating Ronaldo Penalty Shot Logic with SIUUUU sound... --- */
-        let isShooting = false;
-
-        function renderAll() { 
-            renderPlayerList(); 
-            renderGoalTargets(); 
-            renderHistory(); 
-        }
-
-        function renderGoalTargets() {
-            const grid = document.getElementById('targetGrid');
-            const totalText = document.getElementById('totalTargetsText');
-            const activePlayers = players.filter(p => !p.excluded);
-            totalText.innerText = activePlayers.length;
-
-            if (activePlayers.length === 0) {
-                grid.style.display = 'flex';
-                grid.className = 'absolute inset-0 z-10 flex items-center justify-center p-4';
-                grid.innerHTML = `<div class="text-center bg-slate-950/90 px-6 py-4 rounded-2xl text-amber-400 text-xs font-semibold border border-amber-500/30">Danh sách trống! Hãy thêm tên hoặc khôi phục danh sách.</div>`;
-                return;
-            }
-
-            grid.style.display = 'grid';
-            let cols = 4;
-            if (activePlayers.length <= 6) cols = 3;
-            else if (activePlayers.length > 12) cols = 5;
-            grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-
-            grid.innerHTML = activePlayers.map((p) => `
-                <div id="target-item-${p.id}" data-id="${p.id}" class="target-grid-item bg-slate-900/80 border border-white/20 rounded-xl p-2 text-center text-xs sm:text-sm font-bold text-white shadow hover:border-amber-400">
-                    <span>${p.name}</span>
-                </div>
-            `).join('');
-        }
-
-        function renderPlayerList() {
+        function updateSidebar() {
             const container = document.getElementById('playerListContainer');
-            document.getElementById('playerCountBadge').innerText = `${players.length} người`;
-            container.innerHTML = players.map(p => `
-                <div class="flex items-center justify-between bg-slate-950 border ${p.excluded ? 'border-slate-800 opacity-40' : 'border-slate-800'} px-3 py-2 rounded-xl text-sm">
-                    <span class="${p.excluded ? 'line-through text-slate-500' : 'text-slate-200'} font-medium">${p.name}</span>
-                    <button onclick="toggleExclude(${p.id})" class="text-xs px-2 py-1 ${p.excluded ? 'text-emerald-400' : 'text-slate-500 hover:text-rose-400'}">
-                        <i class="fa-solid ${p.excluded ? 'fa-rotate-left' : 'fa-xmark'}"></i>
-                    </button>
-                </div>
-            `).join('');
-        }
+            const countBadge = document.getElementById('playerCountBadge');
+            const historyContainer = document.getElementById('historyList');
 
-        function renderHistory() {
-            const container = document.getElementById('historyList');
-            if (winnersHistory.length === 0) {
-                container.innerHTML = `<div class="text-slate-600 text-center py-2">Chưa có lịch sử chọn</div>`;
-                return;
+            if (container) {
+                container.innerHTML = players.map(p => {
+                    const isEx = excludedPlayers.includes(p);
+                    return `
+                        <div class="flex items-center justify-between p-1.5 rounded-xl border ${isEx ? 'bg-slate-950/40 border-slate-800 opacity-40' : 'bg-slate-800/80 border-slate-700'} text-xs">
+                            <span class="${isEx ? 'line-through text-slate-500' : 'text-slate-200'} font-semibold truncate max-w-[180px]">${p}</span>
+                            <button onclick="toggleExclude('${p}')" class="text-slate-400 hover:text-amber-400 ml-2">
+                                <i class="fa-solid ${isEx ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
             }
-            container.innerHTML = winnersHistory.map((w, i) => `
-                <div class="flex items-center justify-between bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800/80">
-                    <span class="text-amber-400 font-bold">#${winnersHistory.length - i}</span>
-                    <span class="text-slate-200 font-semibold">${w}</span>
-                </div>
-            `).join('');
-        }
 
-        function toggleExclude(id) {
-            const p = players.find(item => item.id === id);
-            if (p) {
-                p.excluded = !p.excluded;
-                renderAll();
+            if (countBadge) countBadge.innerText = `${getActivePlayers().length} / ${players.length} người`;
+
+            if (historyContainer) {
+                historyContainer.innerHTML = history.map((item, idx) => `
+                    <div class="flex justify-between items-center bg-slate-950 p-1.5 rounded border border-slate-800">
+                        <span class="text-amber-400 font-bold truncate">#${history.length - idx} ${item.name}</span>
+                        <span class="text-[10px] text-slate-500 ml-2">${item.game}</span>
+                    </div>
+                `).join('');
             }
         }
 
         function addNamesFromInput() {
-            const val = document.getElementById('nameInput').value.trim();
-            if (!val) return;
-            const names = val.split('\n').map(n => n.trim()).filter(n => n);
-            names.forEach(name => {
-                players.push({ id: Date.now() + Math.random(), name, excluded: false });
-            });
-            document.getElementById('nameInput').value = '';
-            renderAll();
+            const input = document.getElementById('nameInput');
+            if (!input || !input.value.trim()) return;
+            const lines = input.value.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            players = Array.from(new Set([...players, ...lines]));
+            input.value = '';
+            updateSidebar();
+            renderGame1();
+            renderGame3();
+            renderGame5();
         }
 
         function clearAllNames() {
             players = [];
-            renderAll();
+            excludedPlayers = [];
+            updateSidebar();
+            renderGame1();
+            renderGame3();
+            renderGame5();
+        }
+
+        function toggleExclude(name) {
+            if (excludedPlayers.includes(name)) {
+                excludedPlayers = excludedPlayers.filter(p => p !== name);
+            } else {
+                excludedPlayers.push(name);
+            }
+            updateSidebar();
+            renderGame1();
+            renderGame3();
+            renderGame5();
         }
 
         function resetExcluded() {
-            players.forEach(p => p.excluded = false);
-            renderAll();
+            excludedPlayers = [];
+            updateSidebar();
+            renderGame1();
+            renderGame3();
+            renderGame5();
+        }
+
+        function recordWinner(name, gameName) {
+            history.unshift({ name, game: gameName });
+            const autoExclude = document.getElementById('autoExcludeCheck')?.checked;
+            if (autoExclude && !excludedPlayers.includes(name)) {
+                excludedPlayers.push(name);
+            }
+            updateSidebar();
+            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
         }
 
         function clearHistory() {
-            winnersHistory = [];
-            renderHistory();
+            history = [];
+            updateSidebar();
+        }
+
+        // --- GAME 1: SÚT PHẠT RANDOM ---
+        let g1IsShooting = false;
+        function renderGame1() {
+            const grid = document.getElementById('targetGrid');
+            const totalText = document.getElementById('totalTargetsText');
+            const active = getActivePlayers();
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            if (totalText) totalText.innerText = active.length;
+
+            if (active.length === 0) {
+                grid.innerHTML = '<div class="text-slate-400 text-xs text-center col-span-full">Vui lòng nhập danh sách học sinh bên tay phải!</div>';
+                return;
+            }
+
+            let cols = 3;
+            if (active.length > 20) cols = 5;
+            else if (active.length > 10) cols = 4;
+            grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+
+            active.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = 'target-grid-item bg-slate-900/80 border border-slate-700/80 rounded-xl p-1.5 text-center text-slate-100 font-bold text-xs select-none';
+                item.innerText = p;
+                item.dataset.index = idx;
+                grid.appendChild(item);
+            });
         }
 
         function shootBall() {
-            if (isShooting) return;
-            const activePlayers = players.filter(p => !p.excluded);
-            if (activePlayers.length === 0) return;
+            if (g1IsShooting) return;
+            const active = getActivePlayers();
+            if (active.length === 0) return alert('Chưa có học sinh khả dụng!');
 
-            isShooting = true;
-            const shootBtn = document.getElementById('shootBtn');
-            shootBtn.disabled = true;
-
-            SoundFX.playKick(); // Tiếng sút bóng
-
-            const ronaldo = document.getElementById('ronaldo');
+            g1IsShooting = true;
             const ball = document.getElementById('ball');
             const ballShadow = document.getElementById('ballShadow');
-            const keeper = document.getElementById('goalkeeper');
+            const goalkeeper = document.getElementById('goalkeeper');
+            const ronaldo = document.getElementById('ronaldo');
+            const targetItems = document.querySelectorAll('.target-grid-item');
 
-            const selectedWinner = activePlayers[Math.floor(Math.random() * activePlayers.length)];
-            const winnerElement = document.getElementById(`target-item-${selectedWinner.id}`);
+            const randomIndex = Math.floor(Math.random() * active.length);
+            const targetEl = targetItems[randomIndex];
 
-            ronaldo.classList.add('ronaldo-run');
+            if (ronaldo) ronaldo.classList.add('ronaldo-run');
 
             setTimeout(() => {
-                if (winnerElement) {
-                    const targetRect = winnerElement.getBoundingClientRect();
-                    const ballRect = ball.getBoundingClientRect();
+                if (targetEl) {
+                    const rect = targetEl.getBoundingClientRect();
+                    const pitchRect = document.querySelector('.pitch').getBoundingClientRect();
 
-                    const deltaX = targetRect.left + targetRect.width / 2 - (ballRect.left + ballRect.width / 2);
-                    const deltaY = targetRect.top + targetRect.height / 2 - (ballRect.top + ballRect.height / 2);
+                    const targetX = rect.left + rect.width / 2 - (pitchRect.left + pitchRect.width / 2);
+                    const targetY = -(pitchRect.bottom - rect.top - 20);
 
-                    ball.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.4) rotate(720deg)`;
-                    ballShadow.style.transform = `translate(${deltaX}px, 0px) scale(0.2)`;
-                    ballShadow.style.opacity = '0.2';
+                    if (ball) ball.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.6) rotate(720deg)`;
+                    if (ballShadow) ballShadow.style.transform = `translate(${targetX}px, 0px) scale(0.3)`;
 
-                    const keeperMove = Math.random() > 0.5 ? 20 : 80;
-                    keeper.style.left = `${keeperMove}%`;
+                    if (goalkeeper) {
+                        const gkX = targetX > 0 ? -70 : 70;
+                        goalkeeper.style.transform = `translate(${gkX}px, -15px) rotate(${gkX > 0 ? 25 : -25}deg)`;
+                    }
 
                     setTimeout(() => {
-                        winnerElement.classList.add('target-selected');
-                        
-                        // PHÁT TIẾNG "SIUUUUU!" KHI BÓNG VÀO LƯỚI
-                        SoundFX.playSiuuu();
+                        targetEl.classList.add('target-selected');
+                        playRonaldoSiuu(); // Phát tiếng hô SIUUU ăn mừng!
+                        const winner = active[randomIndex];
+                        recordWinner(winner, 'Sút phạt');
 
                         setTimeout(() => {
-                            showWinner(selectedWinner.name);
-
-                            if (document.getElementById('autoExcludeCheck').checked) {
-                                selectedWinner.excluded = true;
-                            }
-
-                            ronaldo.classList.remove('ronaldo-run');
-                            ball.style.transform = 'none';
-                            ballShadow.style.transform = 'none';
-                            ballShadow.style.opacity = '1';
-                            keeper.style.left = '50%';
-                            winnerElement.classList.remove('target-selected');
-
-                            renderAll();
-                            isShooting = false;
-                            shootBtn.disabled = false;
-                        }, 1200);
+                            if (ball) ball.style.transform = 'none';
+                            if (ballShadow) ballShadow.style.transform = 'none';
+                            if (goalkeeper) goalkeeper.style.transform = 'none';
+                            if (ronaldo) ronaldo.classList.remove('ronaldo-run');
+                            targetEl.classList.remove('target-selected');
+                            g1IsShooting = false;
+                            renderGame1();
+                        }, 2500);
                     }, 800);
                 }
             }, 300);
         }
 
-        /* --- STREAMING_CHUNK:Updating Game 2 Running Race with Countdown Logic... --- */
-        let g2Runners = [];
-        let g2RaceInterval = null;
-        let g2TimerInterval = null;
-        let g2IsRacing = false;
+        // --- GAME 2: THI CHẠY ĐIỀN KINH ---
+        let g2Timer = null;
         let g2StartTime = 0;
-        let g2DurationMs = 15000;
-        const G2_COLORS = ['#ef4444', '#f97316', '#f59e0b', '#10b981', '#06b6d4', '#3b82f6', '#8b5cf6', '#ec4899'];
+        let g2IsRacing = false;
 
-        function g2UpdateRunnerNames() {
-            const activePlayers = players.filter(p => !p.excluded);
-            if (activePlayers.length === 0) return;
-
-            g2Runners = activePlayers.map((p, index) => ({
-                id: p.id,
-                name: p.name,
-                angle: 0,
-                speed: 0.015 + Math.random() * 0.01,
-                color: G2_COLORS[index % G2_COLORS.length],
-                finished: false
-            }));
-
-            g2RenderRunners();
-        }
-
-        function g2RenderRunners() {
+        function g2ResetGame() {
+            g2IsRacing = false;
+            clearInterval(g2Timer);
+            document.getElementById('g2TimerText').innerText = "00:00.00";
             const layer = document.getElementById('g2RunnersLayer');
-            const laneContainer = document.getElementById('g2LaneLines');
-            layer.innerHTML = '';
-            laneContainer.innerHTML = '';
-
-            const outerR_X = 410;
-            const outerR_Y = 210;
-            const laneSpacing = 12;
-
-            g2Runners.forEach((runner, idx) => {
-                const rx = outerR_X - idx * laneSpacing;
-                const ry = outerR_Y - idx * laneSpacing;
-
-                if (idx > 0) {
-                    const line = document.createElement('div');
-                    line.className = 'lane-line';
-                    line.style.width = `${rx * 2}px`;
-                    line.style.height = `${ry * 2}px`;
-                    laneContainer.appendChild(line);
-                }
-
-                const rEl = document.createElement('div');
-                rEl.className = 'runner';
-                rEl.id = `runner-${runner.id}`;
-                
-                rEl.innerHTML = `
-                    <div class="runner-body" style="background-color: ${runner.color}; border-color: #fff;">
-                        ${idx + 1}
-                    </div>
-                    <div class="runner-name">${runner.name}</div>
-                `;
-                layer.appendChild(rEl);
-
-                g2PositionRunner(runner, rx, ry);
-            });
-        }
-
-        function g2PositionRunner(runner, rx, ry) {
-            const el = document.getElementById(`runner-${runner.id}`);
-            if (!el) return;
-
-            const centerX = document.getElementById('game2-container').clientWidth / 2;
-            const centerY = 440;
-
-            const x = centerX + rx * Math.cos(runner.angle);
-            const y = centerY + ry * Math.sin(runner.angle);
-
-            el.style.left = `${x}px`;
-            el.style.top = `${y}px`;
+            if (layer) layer.innerHTML = '';
         }
 
         function g2StartGame() {
+            const active = getActivePlayers();
+            if (active.length === 0) return alert('Chưa có học sinh tham gia!');
             if (g2IsRacing) return;
-            const activePlayers = players.filter(p => !p.excluded);
-            if (activePlayers.length === 0) return;
 
-            // Chạy hiệu ứng đếm ngược 3.. 2.. 1..
-            run321Countdown(() => {
-                g2UpdateRunnerNames();
-                g2IsRacing = true;
-                document.getElementById('g2BtnStart').disabled = true;
+            g2ResetGame();
+            g2IsRacing = true;
 
-                const secondsSelect = parseInt(document.getElementById('g2TimeSelect').value) || 15;
-                g2DurationMs = secondsSelect * 1000;
-                g2StartTime = Date.now();
+            const durationSec = parseInt(document.getElementById('g2TimeSelect').value) || 15;
+            const layer = document.getElementById('g2RunnersLayer');
 
-                // Bắt đầu Đồng Hồ Đếm Ngược
-                g2TimerInterval = setInterval(() => {
-                    const elapsed = Date.now() - g2StartTime;
-                    const remaining = Math.max(0, g2DurationMs - elapsed);
+            const runners = active.map((p, idx) => {
+                const el = document.createElement('div');
+                el.className = 'runner';
+                el.innerHTML = `
+                    <div class="runner-body" style="background-color: hsl(${(idx * 137) % 360}, 70%, 50%)">${idx + 1}</div>
+                    <div class="runner-name">${p}</div>
+                `;
+                layer.appendChild(el);
+                return {
+                    name: p,
+                    element: el,
+                    progress: 0,
+                    speed: 0.8 + Math.random() * 0.4
+                };
+            });
 
-                    const mins = Math.floor(remaining / 60000).toString().padStart(2, '0');
-                    const secs = Math.floor((remaining % 60000) / 1000).toString().padStart(2, '0');
-                    const ms = Math.floor((remaining % 1000) / 10).toString().padStart(2, '0');
-                    document.getElementById('g2TimerText').innerText = `${mins}:${secs}.${ms}`;
+            let cd = 3;
+            const overlay = document.getElementById('countdownOverlay');
+            const num = document.getElementById('countdownNumber');
+            overlay.classList.remove('hidden');
+            num.innerText = cd;
 
-                    if (remaining <= 0) {
-                        clearInterval(g2TimerInterval);
-                    }
-                }, 30);
+            const cdInterval = setInterval(() => {
+                cd--;
+                if (cd > 0) {
+                    num.innerText = cd;
+                } else {
+                    clearInterval(cdInterval);
+                    overlay.classList.add('hidden');
 
-                const outerR_X = 410;
-                const outerR_Y = 210;
-                const laneSpacing = 12;
-
-                g2RaceInterval = setInterval(() => {
-                    let winner = null;
-
-                    g2Runners.forEach((runner, idx) => {
-                        if (runner.finished) return;
-
-                        runner.speed += (Math.random() - 0.49) * 0.003;
-                        runner.speed = Math.max(0.012, Math.min(0.032, runner.speed));
-
-                        runner.angle += runner.speed;
-
-                        if (runner.angle >= Math.PI * 2 * 2) {
-                            runner.finished = true;
-                            if (!winner) winner = runner;
-                        }
-
-                        const rx = outerR_X - idx * laneSpacing;
-                        const ry = outerR_Y - idx * laneSpacing;
-                        g2PositionRunner(runner, rx, ry);
-                    });
-
-                    if (winner) {
-                        clearInterval(g2RaceInterval);
-                        clearInterval(g2TimerInterval);
-                        g2IsRacing = false;
+                    g2StartTime = Date.now();
+                    g2Timer = setInterval(() => {
+                        const elapsed = (Date.now() - g2StartTime) / 1000;
+                        const remaining = Math.max(0, durationSec - elapsed);
                         
-                        SoundFX.playWhistle();
-                        SoundFX.playCheer();
-                        showWinner(winner.name);
-                        if (document.getElementById('autoExcludeCheck').checked) {
-                            const targetPlayer = players.find(p => p.id === winner.id);
-                            if (targetPlayer) targetPlayer.excluded = true;
+                        const mins = Math.floor(remaining / 60).toString().padStart(2, '0');
+                        const secs = Math.floor(remaining % 60).toString().padStart(2, '0');
+                        const ms = Math.floor((remaining % 1) * 100).toString().padStart(2, '0');
+                        document.getElementById('g2TimerText').innerText = `${mins}:${secs}.${ms}`;
+
+                        runners.forEach(r => {
+                            r.progress += (r.speed * 0.005);
+                            const angle = r.progress * Math.PI * 2;
+                            const rx = 320;
+                            const ry = 130;
+                            const x = Math.cos(angle) * rx;
+                            const y = Math.sin(angle) * ry;
+
+                            r.element.style.left = `calc(50% + ${x}px)`;
+                            r.element.style.top = `calc(400px + ${y}px)`;
+                        });
+
+                        if (remaining <= 0) {
+                            clearInterval(g2Timer);
+                            g2IsRacing = false;
+                            playWhistleSound();
+                            runners.sort((a, b) => b.progress - a.progress);
+                            recordWinner(runners[0].name, 'Thi chạy');
                         }
-                        document.getElementById('g2BtnStart').disabled = false;
-                    }
-                }, 30);
+                    }, 30);
+                }
+            }, 800);
+        }
+
+        // --- GAME 3: ĐẬP CẦU LÔNG ---
+        let g3IsSmashing = false;
+        function renderGame3() {
+            const grid = document.getElementById('badmintonTargetGrid');
+            const active = getActivePlayers();
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            let cols = 3;
+            if (active.length > 20) cols = 5;
+            else if (active.length > 10) cols = 4;
+            grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+
+            active.forEach((p, idx) => {
+                const item = document.createElement('div');
+                item.className = 'badminton-grid-item bg-slate-900/80 border border-teal-500/40 rounded-xl p-2 text-center text-white font-bold text-xs select-none';
+                item.innerText = p;
+                grid.appendChild(item);
             });
         }
 
-        function g2ResetGame() {
-            if (g2RaceInterval) clearInterval(g2RaceInterval);
-            if (g2TimerInterval) clearInterval(g2TimerInterval);
-            g2IsRacing = false;
-            const secondsSelect = parseInt(document.getElementById('g2TimeSelect').value) || 15;
-            document.getElementById('g2TimerText').innerText = `00:${secondsSelect < 10 ? '0' : ''}${secondsSelect}.00`;
-            document.getElementById('g2BtnStart').disabled = false;
-            g2UpdateRunnerNames();
+        function g3Smash() {
+            if (g3IsSmashing) return;
+            const active = getActivePlayers();
+            if (active.length === 0) return alert('Chưa có học sinh!');
+
+            g3IsSmashing = true;
+            const durationSec = parseInt(document.getElementById('g3TimeSelect').value) || 5;
+            const shuttle = document.getElementById('shuttlecock');
+            const targetItems = document.querySelectorAll('.badminton-grid-item');
+            const randomIndex = Math.floor(Math.random() * active.length);
+            const targetEl = targetItems[randomIndex];
+
+            let cd = 3;
+            const overlay = document.getElementById('countdownOverlay');
+            const num = document.getElementById('countdownNumber');
+            overlay.classList.remove('hidden');
+            num.innerText = cd;
+
+            const cdInterval = setInterval(() => {
+                cd--;
+                if (cd > 0) {
+                    num.innerText = cd;
+                } else {
+                    clearInterval(cdInterval);
+                    overlay.classList.add('hidden');
+
+                    if (shuttle && targetEl) {
+                        shuttle.style.transition = `all ${durationSec / 2}s cubic-bezier(0.25, 1, 0.5, 1)`;
+                        const rect = targetEl.getBoundingClientRect();
+                        const parentRect = shuttle.parentElement.getBoundingClientRect();
+
+                        const x = rect.left + rect.width / 2 - parentRect.left - 24;
+                        const y = -(parentRect.top - rect.top + 20);
+
+                        shuttle.style.transform = `translate(${x}px, ${y}px) scale(0.7) rotate(180deg)`;
+
+                        setTimeout(() => {
+                            playWhistleSound();
+                            recordWinner(active[randomIndex], 'Đập cầu');
+                            setTimeout(() => {
+                                shuttle.style.transition = 'all 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
+                                shuttle.style.transform = 'none';
+                                g3IsSmashing = false;
+                                renderGame3();
+                            }, 1500);
+                        }, (durationSec / 2) * 1000);
+                    }
+                }
+            }, 800);
         }
 
-        /* --- STREAMING_CHUNK:Updating Game 3 Badminton Smash with Sounds... --- */
-        let isSmashing = false;
-
-        function renderBadmintonTargets() {
-            const grid = document.getElementById('badmintonTargetGrid');
-            const activePlayers = players.filter(p => !p.excluded);
-
-            if (activePlayers.length === 0) {
-                grid.style.display = 'flex';
-                grid.className = 'w-full h-full flex items-center justify-center';
-                grid.innerHTML = `<div class="bg-slate-950/80 px-4 py-2 rounded-xl text-amber-400 text-xs font-semibold">Danh sách học sinh trống!</div>`;
-                return;
-            }
-
-            grid.style.display = 'grid';
-            let cols = 4;
-            if (activePlayers.length <= 6) cols = 3;
-            else if (activePlayers.length > 12) cols = 5;
-            grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-
-            grid.innerHTML = activePlayers.map(p => `
-                <div id="badminton-item-${p.id}" class="badminton-grid-item bg-slate-900/80 border border-white/30 rounded-xl p-2 text-center text-xs font-bold text-white shadow">
-                    <span>${p.name}</span>
+        // --- GAME 4: ĐUA 12 CON GIÁP ---
+        const ZODIAC_NAMES = ["Tý 🐭", "Sửu 🐮", "Dần 🐯", "Mão 🐱", "Thìn 🐲", "Tỵ 🐍", "Ngọ 🐴", "Mùi 🐐", "Thân 🐵", "Dậu 🐔", "Tuất 🐶", "Hợi 🐷"];
+        function renderGame4() {
+            const container = document.getElementById('zodiacContainer');
+            if (!container) return;
+            container.innerHTML = ZODIAC_NAMES.map((name, idx) => `
+                <div class="zodiac-lane h-8 flex items-center px-2">
+                    <span class="text-xs font-bold text-indigo-300 w-16">${name}</span>
+                    <div class="flex-1 relative h-full">
+                        <div id="zodiac-${idx}" class="absolute left-0 top-1/2 -translate-y-1/2 text-lg transition-all duration-100">🏃</div>
+                    </div>
                 </div>
             `).join('');
         }
 
-        function smashShuttlecock() {
-            if (isSmashing) return;
-            const activePlayers = players.filter(p => !p.excluded);
-            if (activePlayers.length === 0) return;
+        function g4StartRace() {
+            const active = getActivePlayers();
+            if (active.length === 0) return alert('Chưa có học sinh!');
 
-            isSmashing = true;
-            const smashBtn = document.getElementById('smashBtn');
-            smashBtn.disabled = true;
+            const durationSec = parseInt(document.getElementById('g4TimeSelect').value) || 10;
+            let progress = new Array(12).fill(0);
 
-            SoundFX.playKick(); // Tiếng đập cầu smash
+            let cd = 3;
+            const overlay = document.getElementById('countdownOverlay');
+            const num = document.getElementById('countdownNumber');
+            overlay.classList.remove('hidden');
+            num.innerText = cd;
 
-            const shuttle = document.getElementById('shuttlecock');
-            shuttle.classList.remove('floating');
+            const cdInterval = setInterval(() => {
+                cd--;
+                if (cd > 0) {
+                    num.innerText = cd;
+                } else {
+                    clearInterval(cdInterval);
+                    overlay.classList.add('hidden');
 
-            const selectedWinner = activePlayers[Math.floor(Math.random() * activePlayers.length)];
-            const targetEl = document.getElementById(`badminton-item-${selectedWinner.id}`);
+                    const stepSpeed = 90 / (durationSec * 20);
+                    let winnerZodiacIdx = -1;
+                    const interval = setInterval(() => {
+                        let finished = false;
+                        progress = progress.map((p, idx) => {
+                            const nextP = p + (Math.random() * stepSpeed * 2);
+                            const el = document.getElementById(`zodiac-${idx}`);
+                            if (el) el.style.left = `${Math.min(nextP, 90)}%`;
+                            if (nextP >= 90 && winnerZodiacIdx === -1) {
+                                finished = true;
+                                winnerZodiacIdx = idx;
+                            }
+                            return nextP;
+                        });
 
-            if (targetEl) {
-                const targetRect = targetEl.getBoundingClientRect();
-                const shuttleRect = shuttle.getBoundingClientRect();
-
-                const deltaX = targetRect.left + targetRect.width / 2 - (shuttleRect.left + shuttleRect.width / 2);
-                const deltaY = targetRect.top + targetRect.height / 2 - (shuttleRect.top + shuttleRect.height / 2);
-
-                shuttle.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(0.6) rotate(180deg)`;
-
-                setTimeout(() => {
-                    targetEl.classList.add('target-selected');
-                    SoundFX.playWhistle();
-                    SoundFX.playCheer();
-
-                    setTimeout(() => {
-                        showWinner(selectedWinner.name);
-
-                        if (document.getElementById('autoExcludeCheck').checked) {
-                            selectedWinner.excluded = true;
+                        if (finished) {
+                            clearInterval(interval);
+                            playZodiacSound(winnerZodiacIdx); // Phát tiếng kêu đặc trưng của linh vật thắng cuộc!
+                            const winnerStudentIdx = Math.floor(Math.random() * active.length);
+                            recordWinner(active[winnerStudentIdx], `Con Giáp: ${ZODIAC_NAMES[winnerZodiacIdx]}`);
+                            setTimeout(renderGame4, 2500);
                         }
-
-                        shuttle.style.transform = 'none';
-                        shuttle.classList.add('floating');
-                        targetEl.classList.remove('target-selected');
-
-                        renderBadmintonTargets();
-                        isSmashing = false;
-                        smashBtn.disabled = false;
-                    }, 1000);
-                }, 750);
-            }
+                    }, 50);
+                }
+            }, 800);
         }
 
-        /* --- STREAMING_CHUNK:Updating Game 4 Zodiac Race with Countdown & Sound... --- */
-        const ZODIAC_ANIMALS = [
-            { icon: '🐭', name: 'Tý' }, { icon: '🐮', name: 'Sửu' }, { icon: '🐯', name: 'Dần' },
-            { icon: '🐱', name: 'Mão' }, { icon: '🐲', name: 'Thìn' }, { icon: '🐍', name: 'Tỵ' },
-            { icon: '🐴', name: 'Ngọ' }, { icon: '🐐', name: 'Mùi' }, { icon: '🐒', name: 'Thân' },
-            { icon: '🐔', name: 'Dậu' }, { icon: '🐶', name: 'Tuất' }, { icon: '🐷', name: 'Hợi' }
-        ];
-        let zodiacRaceInterval = null;
-        let g4TimerInterval = null;
-        let g4StartTime = 0;
-        let g4DurationMs = 15000;
-        let isZodiacRacing = false;
+        // --- GAME 5: ĐUA VỊT ---
+        function renderGame5() {
+            const container = document.getElementById('duckLanesContainer');
+            const active = getActivePlayers();
+            if (!container) return;
 
-        function initZodiacRace() {
-            if (g4TimerInterval) clearInterval(g4TimerInterval);
-            const secondsSelect = parseInt(document.getElementById('g4TimeSelect').value) || 15;
-            document.getElementById('g4TimerText').innerText = `00:${secondsSelect < 10 ? '0' : ''}${secondsSelect}.00`;
-            const container = document.getElementById('zodiacLanesContainer');
-            const activePlayers = players.filter(p => !p.excluded);
-            
-            container.innerHTML = '';
-            ZODIAC_ANIMALS.forEach((z, idx) => {
-                const assignedPlayer = activePlayers[idx % Math.max(1, activePlayers.length)];
-                const playerName = assignedPlayer ? assignedPlayer.name : `Học sinh ${idx + 1}`;
-
-                container.innerHTML += `
-                    <div class="zodiac-lane flex items-center py-1.5 px-3 rounded-lg bg-slate-900/60">
-                        <div class="w-24 font-bold text-xs text-amber-300 flex items-center gap-1.5 shrink-0">
-                            <span class="text-xl">${z.icon}</span> ${z.name}
-                        </div>
-                        <div class="flex-1 relative h-8 flex items-center">
-                            <div id="zodiac-runner-${idx}" data-player="${playerName}" class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-2 transition-all">
-                                <span class="text-2xl">${z.icon}</span>
-                                <span class="text-xs font-bold text-white bg-indigo-900/80 border border-indigo-400/50 px-2 py-0.5 rounded-full whitespace-nowrap">${playerName}</span>
-                            </div>
-                        </div>
-                        <div class="w-8 text-right text-amber-400 font-extrabold text-sm">🏁</div>
+            container.innerHTML = active.slice(0, 8).map((p, idx) => `
+                <div class="relative w-full h-9 border-b border-cyan-400/20 flex items-center">
+                    <div id="duck-${idx}" class="duck-swimmer absolute left-0 flex items-center gap-2">
+                        <span class="text-xl duck-anim">🦆</span>
+                        <span class="text-[11px] font-bold text-white bg-slate-900/80 px-2 py-0.5 rounded-full border border-cyan-400/50">${p}</span>
                     </div>
-                `;
-            });
+                </div>
+            `).join('');
         }
 
-        function startZodiacRace() {
-            if (isZodiacRacing) return;
-            const activePlayers = players.filter(p => !p.excluded);
-            if (activePlayers.length === 0) return;
+        function g5StartDuckRace() {
+            const active = getActivePlayers();
+            if (active.length === 0) return alert('Chưa có học sinh!');
 
-            run321Countdown(() => {
-                initZodiacRace();
-                isZodiacRacing = true;
-                document.getElementById('zodiacStartBtn').disabled = true;
+            const durationSec = parseInt(document.getElementById('g5TimeSelect').value) || 12;
+            const count = Math.min(active.length, 8);
+            let progress = new Array(count).fill(0);
 
-                const secondsSelect = parseInt(document.getElementById('g4TimeSelect').value) || 15;
-                g4DurationMs = secondsSelect * 1000;
-                g4StartTime = Date.now();
+            let cd = 3;
+            const overlay = document.getElementById('countdownOverlay');
+            const num = document.getElementById('countdownNumber');
+            overlay.classList.remove('hidden');
+            num.innerText = cd;
 
-                // Đồng hồ đếm ngược Game 4
-                g4TimerInterval = setInterval(() => {
-                    const elapsed = Date.now() - g4StartTime;
-                    const remaining = Math.max(0, g4DurationMs - elapsed);
+            const cdInterval = setInterval(() => {
+                cd--;
+                if (cd > 0) {
+                    num.innerText = cd;
+                } else {
+                    clearInterval(cdInterval);
+                    overlay.classList.add('hidden');
 
-                    const mins = Math.floor(remaining / 60000).toString().padStart(2, '0');
-                    const secs = Math.floor((remaining % 60000) / 1000).toString().padStart(2, '0');
-                    const ms = Math.floor((remaining % 1000) / 10).toString().padStart(2, '0');
-                    document.getElementById('g4TimerText').innerText = `${mins}:${secs}.${ms}`;
+                    const stepSpeed = 85 / (durationSec * 25);
+                    const interval = setInterval(() => {
+                        let winnerIdx = -1;
+                        progress = progress.map((p, idx) => {
+                            const nextP = p + (Math.random() * stepSpeed * 2);
+                            const el = document.getElementById(`duck-${idx}`);
+                            if (el) el.style.left = `${Math.min(nextP, 85)}%`;
+                            if (nextP >= 85 && winnerIdx === -1) winnerIdx = idx;
+                            return nextP;
+                        });
 
-                    if (remaining <= 0) {
-                        clearInterval(g4TimerInterval);
-                    }
-                }, 30);
-
-                const positions = ZODIAC_ANIMALS.map(() => 0);
-
-                zodiacRaceInterval = setInterval(() => {
-                    let winnerIdx = -1;
-
-                    positions.forEach((pos, idx) => {
-                        if (winnerIdx !== -1) return;
-
-                        const speed = Math.random() * 2.2 + 0.5;
-                        positions[idx] += speed;
-
-                        const el = document.getElementById(`zodiac-runner-${idx}`);
-                        if (el) el.style.left = `${positions[idx]}%`;
-
-                        if (positions[idx] >= 82) {
-                            winnerIdx = idx;
+                        if (winnerIdx !== -1) {
+                            clearInterval(interval);
+                            playDuckSound(); // Phát tiếng vịt kêu "Quack quack"
+                            recordWinner(active[winnerIdx], 'Đua Vịt');
+                            setTimeout(renderGame5, 2500);
                         }
-                    });
-
-                    if (winnerIdx !== -1) {
-                        clearInterval(zodiacRaceInterval);
-                        clearInterval(g4TimerInterval);
-                        isZodiacRacing = false;
-
-                        SoundFX.playWhistle();
-                        SoundFX.playCheer();
-
-                        const winningEl = document.getElementById(`zodiac-runner-${winnerIdx}`);
-                        const winnerName = winningEl.getAttribute('data-player');
-
-                        showWinner(`${ZODIAC_ANIMALS[winnerIdx].icon} ${ZODIAC_ANIMALS[winnerIdx].name} - ${winnerName}`);
-
-                        if (document.getElementById('autoExcludeCheck').checked) {
-                            const targetPlayer = players.find(p => p.name === winnerName);
-                            if (targetPlayer) targetPlayer.excluded = true;
-                        }
-
-                        document.getElementById('zodiacStartBtn').disabled = false;
-                    }
-                }, 40);
-            });
+                    }, 40);
+                }
+            }, 800);
         }
 
-        /* --- STREAMING_CHUNK:Updating Game 5 Duck Race with Quack Sounds & Countdown... --- */
-        let duckRaceInterval = null;
-        let g5TimerInterval = null;
-        let g5StartTime = 0;
-        let g5DurationMs = 15000;
-        let isDuckRacing = false;
-
-        function initDuckRace() {
-            if (g5TimerInterval) clearInterval(g5TimerInterval);
-            const secondsSelect = parseInt(document.getElementById('g5TimeSelect').value) || 15;
-            document.getElementById('g5TimerText').innerText = `00:${secondsSelect < 10 ? '0' : ''}${secondsSelect}.00`;
-            const layer = document.getElementById('ducksLayer');
-            const activePlayers = players.filter(p => !p.excluded);
-            layer.innerHTML = '';
-
-            if (activePlayers.length === 0) {
-                layer.innerHTML = `<div class="text-center py-12 text-amber-300 font-bold">Danh sách trống! Vui lòng thêm học sinh.</div>`;
-                return;
-            }
-
-            activePlayers.forEach((p, idx) => {
-                const topPos = 20 + idx * 42;
-                layer.innerHTML += `
-                    <div id="duck-${p.id}" data-name="${p.name}" class="duck-swimmer absolute left-2 flex items-center gap-2 duck-anim" style="top: ${topPos}px;">
-                        <div class="text-3xl text-yellow-400 drop-shadow-lg">🦆</div>
-                        <div class="bg-amber-400/90 text-slate-950 text-xs font-black px-2.5 py-0.5 rounded-full border border-yellow-200 shadow whitespace-nowrap">${p.name}</div>
-                    </div>
-                `;
-            });
-        }
-
-        function startDuckRace() {
-            if (isDuckRacing) return;
-            const activePlayers = players.filter(p => !p.excluded);
-            if (activePlayers.length === 0) return;
-
-            run321Countdown(() => {
-                initDuckRace();
-                isDuckRacing = true;
-                document.getElementById('duckStartBtn').disabled = true;
-
-                const secondsSelect = parseInt(document.getElementById('g5TimeSelect').value) || 15;
-                g5DurationMs = secondsSelect * 1000;
-                g5StartTime = Date.now();
-
-                // Đồng hồ đếm ngược Game 5
-                g5TimerInterval = setInterval(() => {
-                    const elapsed = Date.now() - g5StartTime;
-                    const remaining = Math.max(0, g5DurationMs - elapsed);
-
-                    const mins = Math.floor(remaining / 60000).toString().padStart(2, '0');
-                    const secs = Math.floor((remaining % 60000) / 1000).toString().padStart(2, '0');
-                    const ms = Math.floor((remaining % 1000) / 10).toString().padStart(2, '0');
-                    document.getElementById('g5TimerText').innerText = `${mins}:${secs}.${ms}`;
-
-                    if (remaining <= 0) {
-                        clearInterval(g5TimerInterval);
-                    }
-                }, 30);
-
-                const duckPositions = {};
-                activePlayers.forEach(p => duckPositions[p.id] = 2);
-
-                duckRaceInterval = setInterval(() => {
-                    let winner = null;
-
-                    // Thỉnh thoảng phát tiếng vịt kêu quác quác ngẫu nhiên
-                    if (Math.random() < 0.1) {
-                        SoundFX.playQuack();
-                    }
-
-                    activePlayers.forEach(p => {
-                        if (winner) return;
-
-                        const speed = Math.random() * 2.0 + 0.4;
-                        duckPositions[p.id] += speed;
-
-                        const duckEl = document.getElementById(`duck-${p.id}`);
-                        if (duckEl) duckEl.style.left = `${duckPositions[p.id]}%`;
-
-                        if (duckPositions[p.id] >= 82) {
-                            winner = p;
-                        }
-                    });
-
-                    if (winner) {
-                        clearInterval(duckRaceInterval);
-                        clearInterval(g5TimerInterval);
-                        isDuckRacing = false;
-
-                        SoundFX.playWhistle();
-                        SoundFX.playCheer();
-
-                        showWinner(`🦆Chú Vịt (${winner.name})`);
-
-                        if (document.getElementById('autoExcludeCheck').checked) {
-                            winner.excluded = true;
-                        }
-
-                        document.getElementById('duckStartBtn').disabled = false;
-                    }
-                }, 40);
-            });
-        }
-
-        /* --- INITIAL LOAD --- */
+        // TRẠNG THÁI KHỞI TẠO MẶC ĐỊNH
         window.onload = () => {
-            showPage('homePage');
+            updateSidebar();
+            renderGame1();
         };
     </script>
 </body>
