@@ -78,7 +78,7 @@
         .g2-btn-main:disabled { background-color: #888; color: #ccc; cursor: not-allowed; transform: none; }
         .g2-result-box { position: absolute; left: 50%; top: 215px; transform: translateX(-50%); width: 450px; background-color: rgba(20, 20, 20, 0.95); border: 3px solid #ffd700; border-radius: 12px; padding: 15px; text-align: center; display: none; z-index: 120; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
 
-        /* ---------------- CSS GAME ĐÁNH CẦU LÔNG ---------------- */
+        /* ---------------- CSS GAME ĐẬP CẦU LÔNG ---------------- */
         .badminton-court {
             background: linear-gradient(to bottom, #0284c7 0%, #0369a1 100%);
             box-shadow: inset 0 0 60px rgba(0,0,0,0.5);
@@ -464,133 +464,160 @@
 
         function toggleExclude(id) {
             const p = players.find(x => x.id === id);
-            if (p) p.excluded = !p.excluded;
-            renderAll();
+            if (p) {
+                p.excluded = !p.excluded;
+                renderAll();
+            }
         }
 
         function shootBall() {
-            const active = players.filter(p => !p.excluded);
-            if (active.length === 0) {
-                alert("Không còn học sinh nào trong danh sách!");
+            if (isShooting) return;
+            const activePlayers = players.filter(p => !p.excluded);
+            if (activePlayers.length === 0) {
+                alert('Không còn học sinh nào trong danh sách! Vui lòng khôi phục.');
                 return;
             }
-            if (isShooting) return;
-            isShooting = true;
 
-            const ronaldo = document.getElementById('ronaldo');
+            isShooting = true;
             const ball = document.getElementById('ball');
-            const shadow = document.getElementById('ballShadow');
+            const ballShadow = document.getElementById('ballShadow');
+            const ronaldo = document.getElementById('ronaldo');
+            const goalkeeper = document.getElementById('goalkeeper');
 
             ronaldo.classList.add('ronaldo-run');
-            ball.style.transform = 'translateY(-180px) scale(0.6)';
-            shadow.style.transform = 'scale(0.3)';
-            shadow.style.opacity = '0.1';
 
             setTimeout(() => {
-                const winner = active[Math.floor(Math.random() * active.length)];
-                if (document.getElementById('autoExcludeCheck').checked) {
-                    const pObj = players.find(x => x.id === winner.id);
-                    if (pObj) pObj.excluded = true;
-                }
+                ball.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+                ball.style.transform = 'translateY(-220px) scale(0.6)';
+                ballShadow.style.transform = 'translateY(-40px) scale(0.3)';
+                ballShadow.style.opacity = '0.2';
+
+                const randomGkX = (Math.random() - 0.5) * 160;
+                goalkeeper.style.left = `calc(50% + ${randomGkX}px)`;
+            }, 300);
+
+            setTimeout(() => {
+                const winnerIndex = Math.floor(Math.random() * activePlayers.length);
+                const winner = activePlayers[winnerIndex];
+
                 winnersHistory.unshift(winner.name);
-                
+                if (document.getElementById('autoExcludeCheck').checked) {
+                    winner.excluded = true;
+                }
+
                 showWinnerModal(winner.name);
-                
+                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+
+                ball.style.transition = 'none';
+                ball.style.transform = 'translate(0, 0) scale(1)';
+                ballShadow.style.transition = 'none';
+                ballShadow.style.transform = 'translate(0, 0) scale(1)';
+                ballShadow.style.opacity = '1';
                 ronaldo.classList.remove('ronaldo-run');
-                ball.style.transform = 'none';
-                shadow.style.transform = 'none';
-                shadow.style.opacity = '1';
-                isShooting = false;
+                goalkeeper.style.left = '50%';
+
                 renderAll();
-            }, 600);
+                isShooting = false;
+            }, 900);
         }
 
         function showWinnerModal(name) {
-            const modal = document.getElementById('winnerModal');
             document.getElementById('winnerName').innerText = name;
+            const modal = document.getElementById('winnerModal');
             modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-            if (typeof confetti === 'function') {
-                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            }
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.querySelector('div').classList.remove('scale-90');
+                modal.querySelector('div').classList.add('scale-100');
+            }, 10);
         }
 
         function closeWinnerModal() {
             const modal = document.getElementById('winnerModal');
             modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-90');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
         }
 
-        /* --- GAME 2 LOGIC --- */
-        let g2Runners = [];
-        let g2AnimId = null;
-
-        function g2ResetGame() {
-            if (g2AnimId) cancelAnimationFrame(g2AnimId);
-            document.getElementById('g2ResultBox').style.display = 'none';
-            document.getElementById('g2BtnStart').disabled = false;
-            
-            const rawNames = document.getElementById('g2NameInput').value;
-            const names = rawNames.split(',').map(n => n.trim()).filter(n => n);
-            
-            const kd = document.getElementById('g2KhanDai');
-            kd.innerHTML = '';
-            for(let i=0; i<68; i++) {
-                const seat = document.createElement('div');
-                seat.className = 'ghe';
-                kd.appendChild(seat);
-            }
-
-            g2Runners = names.map((name, idx) => ({
-                name,
-                angle: (idx / names.length) * Math.PI * 2,
-                speed: 0.02 + Math.random() * 0.015,
-                lane: idx
-            }));
-
-            g2RenderRunners();
-        }
+        /* --- GAME 2 LOGIC (THI CHẠY) --- */
+        let g2RunnersData = [];
+        let g2IsRunning = false;
 
         function g2UpdateRunnerNames() {
-            g2ResetGame();
+            const val = document.getElementById('g2NameInput').value;
+            const names = val.split(',').map(n => n.trim()).filter(n => n);
+            g2RunnersData = names.map((name, i) => ({ id: i, name, angle: 0, speed: 0.02 + Math.random() * 0.03 }));
+            g2InitTrack();
+        }
+
+        function g2InitTrack() {
+            const khanDai = document.getElementById('g2KhanDai');
+            khanDai.innerHTML = '';
+            for (let i = 0; i < 102; i++) {
+                const ghe = document.createElement('div');
+                ghe.className = 'ghe';
+                khanDai.appendChild(ghe);
+            }
+
+            const laneLines = document.getElementById('g2LaneLines');
+            laneLines.innerHTML = '';
+            const numLanes = Math.max(g2RunnersData.length, 1);
+            for (let i = 1; i < numLanes; i++) {
+                const sizePercent = 52 + (40 / numLanes) * i;
+                const line = document.createElement('div');
+                line.className = 'lane-line';
+                line.style.width = `${sizePercent}%`;
+                line.style.height = `${sizePercent * 0.6}px`;
+                laneLines.appendChild(line);
+            }
+
+            g2RenderRunners();
         }
 
         function g2RenderRunners() {
             const layer = document.getElementById('g2RunnersLayer');
             layer.innerHTML = '';
-            
-            g2Runners.forEach((r, idx) => {
-                const colors = ['#e11d48', '#2563eb', '#16a34a', '#d97706', '#9333ea', '#06b6d4', '#db2777', '#84cc16'];
-                const color = colors[idx % colors.length];
+            const centerX = 600;
+            const centerY = 375;
+            const rxBase = 340;
+            const ryBase = 160;
 
-                const trackRadiusX = 350 - (r.lane * 15);
-                const trackRadiusY = 170 - (r.lane * 12);
-                
-                const cx = 600;
-                const cy = 375;
+            g2RunnersData.forEach((r, i) => {
+                const laneOffset = i * 14;
+                const rx = rxBase - laneOffset;
+                const ry = ryBase - laneOffset * 0.5;
 
-                const x = cx + Math.cos(r.angle) * trackRadiusX;
-                const y = cy + Math.sin(r.angle) * trackRadiusY;
+                const x = centerX + rx * Math.cos(r.angle);
+                const y = centerY + ry * Math.sin(r.angle);
 
-                const el = document.createElement('div');
-                el.className = 'runner';
-                el.style.left = `${x}px`;
-                el.style.top = `${y}px`;
-                el.innerHTML = `
-                    <div class="runner-body" style="background-color: ${color}"></div>
+                const div = document.createElement('div');
+                div.className = 'runner';
+                div.style.left = `${x}px`;
+                div.style.top = `${y}px`;
+                div.innerHTML = `
+                    <div class="runner-body" style="background-color: hsl(${i * 45}, 70%, 50%);"></div>
                     <div class="runner-name">${r.name}</div>
                 `;
-                layer.appendChild(el);
+                layer.appendChild(div);
             });
         }
 
         function g2StartGame() {
-            if (g2Runners.length === 0) return;
+            if (g2IsRunning || g2RunnersData.length === 0) return;
+            g2IsRunning = true;
             document.getElementById('g2BtnStart').disabled = true;
+            document.getElementById('g2ResultBox').style.display = 'none';
 
-            function loop() {
+            g2RunnersData.forEach(r => {
+                r.speed = 0.03 + Math.random() * 0.04;
+            });
+
+            function frame() {
                 let finished = false;
-                g2Runners.forEach(r => {
+                g2RunnersData.forEach(r => {
                     r.angle += r.speed;
                     if (r.angle >= Math.PI * 2) {
                         r.angle = Math.PI * 2;
@@ -601,77 +628,65 @@
                 g2RenderRunners();
 
                 if (!finished) {
-                    g2AnimId = requestAnimationFrame(loop);
+                    requestAnimationFrame(frame);
                 } else {
-                    const winner = g2Runners[Math.floor(Math.random() * g2Runners.length)];
-                    const resBox = document.getElementById('g2ResultBox');
-                    document.getElementById('g2ResultText').innerText = `🏆 Người chiến thắng: ${winner.name}!`;
-                    resBox.style.display = 'block';
-                    if (typeof confetti === 'function') {
-                        confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
-                    }
+                    const winner = g2RunnersData[0];
+                    document.getElementById('g2ResultText').innerText = `🎉 Người về nhất: ${winner.name} 🎉`;
+                    document.getElementById('g2ResultBox').style.display = 'block';
+                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.5 } });
+                    g2IsRunning = false;
+                    document.getElementById('g2BtnStart').disabled = false;
                 }
             }
-            loop();
+            requestAnimationFrame(frame);
         }
 
-        /* --- GAME 3: ĐẬP CẦU LÔNG LOGIC --- */
-        let isSmashing = false;
+        function g2ResetGame() {
+            g2IsRunning = false;
+            document.getElementById('g2BtnStart').disabled = false;
+            document.getElementById('g2ResultBox').style.display = 'none';
+            g2RunnersData.forEach(r => r.angle = 0);
+            g2UpdateRunnerNames();
+        }
 
+        /* --- GAME 3 LOGIC (ĐẬP CẦU LÔNG) --- */
         function renderBadmintonTargets() {
             const grid = document.getElementById('badmintonTargetGrid');
-            const active = players.filter(p => !p.excluded);
+            const activePlayers = players.filter(p => !p.excluded);
+            let count = activePlayers.length > 0 ? Math.min(activePlayers.length, 8) : 6;
             
-            if (active.length === 0) {
-                grid.innerHTML = `<div class="text-center text-amber-300 text-sm font-semibold col-span-full">Danh sách trống! Vui lòng thêm học sinh ở phần Sút phạt.</div>`;
-                return;
+            grid.style.gridTemplateColumns = `repeat(${count > 4 ? 4 : count}, minmax(0, 1fr))`;
+            
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                let pName = activePlayers[i] ? activePlayers[i].name : `Học sinh ${i+1}`;
+                html += `
+                    <div class="badminton-grid-item bg-sky-950/80 border-2 border-white/40 rounded-xl p-3 text-center text-xs font-bold text-white shadow flex items-center justify-center">
+                        <span>${pName}</span>
+                    </div>
+                `;
             }
-
-            let cols = 4;
-            if (active.length <= 6) cols = 3;
-            else if (active.length > 12) cols = 5;
-            grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-
-            grid.innerHTML = active.map(p => `
-                <div class="badminton-grid-item bg-slate-900/80 border border-sky-400/40 rounded-xl p-2 text-center text-xs sm:text-sm font-extrabold text-white shadow flex items-center justify-center">
-                    <span>${p.name}</span>
-                </div>
-            `).join('');
+            grid.innerHTML = html;
         }
 
         function smashShuttlecock() {
-            const active = players.filter(p => !p.excluded);
-            if (active.length === 0) {
-                alert("Không còn học sinh nào trong danh sách!");
-                return;
-            }
-            if (isSmashing) return;
-            isSmashing = true;
-
             const shuttle = document.getElementById('shuttlecock');
-            shuttle.classList.remove('floating');
+            shuttle.style.transform = 'translateY(-180px) scale(1.3) rotate(360deg)';
             
-            // Hiệu ứng quả cầu bay vút lên đối phương
-            shuttle.style.transform = 'translateY(-220px) scale(0.6) rotate(360deg)';
-
             setTimeout(() => {
-                const winner = active[Math.floor(Math.random() * active.length)];
-                if (document.getElementById('autoExcludeCheck').checked) {
-                    const pObj = players.find(x => x.id === winner.id);
-                    if (pObj) pObj.excluded = true;
-                }
-                winnersHistory.unshift(winner.name);
-
-                showWinnerModal(winner.name);
-
-                // Đưa cầu về vị trí cũ
-                shuttle.style.transform = 'none';
-                shuttle.classList.add('floating');
-                isSmashing = false;
-                renderBadmintonTargets();
-                renderAll();
-            }, 750);
+                const activePlayers = players.filter(p => !p.excluded);
+                const chosen = activePlayers.length > 0 ? activePlayers[Math.floor(Math.random() * activePlayers.length)].name : "Học sinh may mắn";
+                
+                showWinnerModal(chosen);
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.4 } });
+                
+                shuttle.style.transform = 'translateY(0px) scale(1) rotate(0deg)';
+            }, 600);
         }
+
+        window.onload = () => {
+            renderAll();
+        };
     </script>
 </body>
 </html>
