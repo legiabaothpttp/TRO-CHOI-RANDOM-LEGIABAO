@@ -11,10 +11,10 @@
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+            font-family: 'Montserrat', sans-serif;
+            background: #1e293b;
             color: #fff;
             min-height: 100vh;
         }
@@ -23,7 +23,7 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- Header / Navbar -->
-    <header class="bg-slate-900/80 backdrop-blur border-b border-slate-800 sticky top-0 z-50">
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 shadow-md">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
                 <div class="bg-yellow-500 text-slate-950 p-2 rounded-xl font-bold shadow-lg">
@@ -45,12 +45,12 @@
 
         <!-- TRANG CHỦ -->
         <section id="tab-home" class="space-y-8">
-            <div class="text-center py-10 bg-slate-800/50 rounded-2xl border border-slate-700 shadow-xl backdrop-blur">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500 mb-4">
+            <div class="text-center py-10 bg-slate-800 rounded-2xl border border-slate-700 shadow-xl">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500 mb-4 tracking-tight">
                     HỆ THỐNG TRÒ CHƠI NGẪU NHIÊN
                 </h1>
-                <p class="text-slate-400 text-lg max-w-2xl mx-auto px-4">
-                    Chọn trò chơi để bắt đầu chọn người may mắn một cách minh bạch, sinh động và thú vị nhất!
+                <p class="text-slate-400 text-base md:text-lg max-w-2xl mx-auto px-4 font-medium">
+                    Chọn trò chơi để bắt đầu chọn người may mắn một cách minh bạch và thú vị nhất!
                 </p>
             </div>
 
@@ -63,7 +63,7 @@
                             <i class="fa-solid fa-futbol"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Sút Phạt Chọn Người</h3>
-                        <p class="text-slate-400 text-sm">Sút bóng vào khung thành để tìm ra người chiến thắng ngẫu nhiên (Lấy đà 1s, sút 1.2s).</p>
+                        <p class="text-slate-400 text-sm font-medium">Sút bóng vào khung thành để tìm ra người chiến thắng ngẫu nhiên (Lấy đà 1s, sút 1.2s).</p>
                     </div>
                     <div class="mt-6 flex items-center text-yellow-400 font-semibold text-sm">
                         <span>Chơi ngay</span>
@@ -78,7 +78,7 @@
                             <i class="fa-solid fa-person-running"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Đường Đua Tốc Độ</h3>
-                        <p class="text-slate-400 text-sm">Cuộc đua kịch tính giữa các nhân vật với thời gian chạy đua tùy chỉnh để tìm người về nhất.</p>
+                        <p class="text-slate-400 text-sm font-medium">Cuộc đua kịch tính giữa các nhân vật với thời gian chạy đua tùy chỉnh để tìm người về nhất.</p>
                     </div>
                     <div class="mt-6 flex items-center text-yellow-400 font-semibold text-sm">
                         <span>Chơi ngay</span>
@@ -93,7 +93,7 @@
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
                         </div>
                         <h3 class="text-xl font-bold mb-2">Rút Quẻ May Mắn</h3>
-                        <p class="text-slate-400 text-sm">Lắc ống quẻ truyền thống để bốc thăm tên người may mắn nhận lộc đầu xuân hoặc phần thưởng.</p>
+                        <p class="text-slate-400 text-sm font-medium">Lắc ống quẻ truyền thống để bốc thăm tên người may mắn nhận lộc hoặc phần thưởng.</p>
                     </div>
                     <div class="mt-6 flex items-center text-yellow-400 font-semibold text-sm">
                         <span>Chơi ngay</span>
@@ -106,32 +106,30 @@
         <!-- TRÒ CHƠI 1: SÚT PHẠT -->
         <section id="tab-game-penalty" class="hidden space-y-6">
             <div class="flex items-center justify-between bg-slate-800 p-4 rounded-xl border border-slate-700">
-                <button onclick="switchTab('home')" class="text-slate-400 hover:text-white flex items-center space-x-2">
+                <button onclick="switchTab('home')" class="text-slate-400 hover:text-white flex items-center space-x-2 font-semibold">
                     <i class="fa-solid fa-arrow-left"></i> <span>Quay lại</span>
                 </button>
                 <h2 class="text-xl font-bold text-yellow-400">Sút Phạt Chọn Người</h2>
                 <div></div>
             </div>
 
-            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl max-w-2xl mx-auto space-y-6 text-center">
-                <div>
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl max-w-2xl mx-auto space-y-6 text-center">
+                <div class="text-left">
                     <label class="block text-sm font-semibold mb-2 text-slate-300">Nhập danh sách tên (cách nhau bằng dấu phẩy):</label>
-                    <textarea id="penalty-names" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500">An, Bình, Châu, Dũng, Hà, Linh</textarea>
+                    <textarea id="penalty-names" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500 font-medium">An, Bình, Châu, Dũng, Hà, Linh</textarea>
                 </div>
 
                 <!-- Sân bóng mô phỏng -->
                 <div class="relative bg-emerald-700 h-64 rounded-xl border-4 border-white/20 overflow-hidden flex flex-col justify-between p-4 shadow-inner">
-                    <!-- Khung thành -->
                     <div class="w-48 h-20 border-4 border-white border-b-0 mx-auto relative flex justify-between items-center px-2">
                         <div class="absolute inset-0 bg-white/10"></div>
                     </div>
-                    <!-- Quả bóng -->
                     <div id="penalty-ball" class="w-10 h-10 bg-white rounded-full mx-auto shadow-2xl flex items-center justify-center text-slate-950 font-bold transition-all duration-1000">
                         ⚽
                     </div>
                 </div>
 
-                <div id="penalty-result" class="text-xl font-bold text-yellow-400 min-h-[32px]"></div>
+                <div id="penalty-result" class="text-lg font-bold text-yellow-400 min-h-[32px]"></div>
 
                 <button onclick="startPenaltyGame()" id="btn-penalty" class="w-full bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold py-3 rounded-xl shadow-lg transition">
                     Sút Bóng Ngay!
@@ -142,31 +140,31 @@
         <!-- TRÒ CHƠI 2: ĐƯỜNG ĐUA TỐC ĐỘ -->
         <section id="tab-game-running" class="hidden space-y-6">
             <div class="flex items-center justify-between bg-slate-800 p-4 rounded-xl border border-slate-700">
-                <button onclick="switchTab('home')" class="text-slate-400 hover:text-white flex items-center space-x-2">
+                <button onclick="switchTab('home')" class="text-slate-400 hover:text-white flex items-center space-x-2 font-semibold">
                     <i class="fa-solid fa-arrow-left"></i> <span>Quay lại</span>
                 </button>
                 <h2 class="text-xl font-bold text-yellow-400">Đường Đua Tốc Độ</h2>
                 <div></div>
             </div>
 
-            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl max-w-3xl mx-auto space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl max-w-3xl mx-auto space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                     <div>
                         <label class="block text-sm font-semibold mb-2 text-slate-300">Danh sách vận động viên:</label>
-                        <input id="running-names" type="text" value="Hùng, Lan, Minh, Phúc" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500">
+                        <input id="running-names" type="text" value="Hùng, Lan, Minh, Phúc" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500 font-medium">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-2 text-slate-300">Thời gian chạy đua (giây):</label>
-                        <input id="running-time" type="number" value="4" min="2" max="10" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500">
+                        <input id="running-time" type="number" value="4" min="2" max="10" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500 font-medium">
                     </div>
                 </div>
 
                 <!-- Đường chạy -->
                 <div id="race-track" class="bg-slate-900 border border-slate-700 rounded-xl p-4 space-y-3 min-h-[180px] flex flex-col justify-center">
-                    <p class="text-center text-slate-500">Nhấn bắt đầu để các vận động viên tranh tài!</p>
+                    <p class="text-center text-slate-500 font-medium">Nhấn bắt đầu để các vận động viên tranh tài!</p>
                 </div>
 
-                <div id="running-result" class="text-xl font-bold text-yellow-400 text-center min-h-[32px]"></div>
+                <div id="running-result" class="text-lg font-bold text-yellow-400 text-center min-h-[32px]"></div>
 
                 <button onclick="startRunningGame()" id="btn-running" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition">
                     Xuất Phát!
@@ -177,17 +175,17 @@
         <!-- TRÒ CHƠI 3: RÚT QUẺ MAY MẮN -->
         <section id="tab-game-fortune" class="hidden space-y-6">
             <div class="flex items-center justify-between bg-slate-800 p-4 rounded-xl border border-slate-700">
-                <button onclick="switchTab('home')" class="text-slate-400 hover:text-white flex items-center space-x-2">
+                <button onclick="switchTab('home')" class="text-slate-400 hover:text-white flex items-center space-x-2 font-semibold">
                     <i class="fa-solid fa-arrow-left"></i> <span>Quay lại</span>
                 </button>
                 <h2 class="text-xl font-bold text-yellow-400">Rút Quẻ May Mắn</h2>
                 <div></div>
             </div>
 
-            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl max-w-xl mx-auto space-y-6 text-center">
-                <div>
-                    <label class="block text-sm font-semibold mb-2 text-slate-300 text-left">Danh sách bốc quẻ (cách nhau bằng dấu phẩy):</label>
-                    <textarea id="fortune-names" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500">Thảo, Quân, Hương, Tuấn, Vy</textarea>
+            <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl max-w-xl mx-auto space-y-6 text-center">
+                <div class="text-left">
+                    <label class="block text-sm font-semibold mb-2 text-slate-300">Danh sách bốc quẻ (cách nhau bằng dấu phẩy):</label>
+                    <textarea id="fortune-names" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-yellow-500 font-medium">Thảo, Quân, Hương, Tuấn, Vy</textarea>
                 </div>
 
                 <div class="relative py-6">
@@ -196,7 +194,7 @@
                     </div>
                 </div>
 
-                <div id="fortune-result" class="text-2xl font-extrabold text-yellow-400 min-h-[40px]"></div>
+                <div id="fortune-result" class="text-xl font-bold text-yellow-400 min-h-[40px]"></div>
 
                 <button onclick="startFortuneGame()" id="btn-fortune" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl shadow-lg transition">
                     Rút Quẻ Ngay
@@ -207,7 +205,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-4 text-center text-slate-500 text-sm">
+    <footer class="bg-slate-900 border-t border-slate-800 py-4 text-center text-slate-500 text-sm font-medium">
         <p>© 2026 Hệ Thống Trò Chơi Ngẫu Nhiên. All rights reserved.</p>
     </footer>
 
@@ -235,7 +233,6 @@
             btn.disabled = true;
             resultDiv.innerText = "Đang lấy đà sút phạt (1 giây)...";
             
-            // Lấy đà 1s
             setTimeout(() => {
                 resultDiv.innerText = "Đang sút bóng...";
                 ball.style.transform = "translateY(-130px) scale(0.8)";
@@ -246,7 +243,6 @@
                     resultDiv.innerHTML = `🎉 Chúc mừng người chiến thắng: <span class="text-white bg-emerald-600 px-3 py-1 rounded-lg">${winner}</span>`;
                     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
                     
-                    // Reset bóng
                     setTimeout(() => {
                         ball.style.transform = "translateY(0) scale(1)";
                         ball.style.transition = "none";
@@ -287,7 +283,6 @@
             setTimeout(() => {
                 names.forEach((_, index) => {
                     const bar = document.getElementById(`runner-${index}`);
-                    // Tạo ngẫu nhiên khoảng cách về đích
                     const randomDist = index === 0 ? 100 : Math.floor(Math.random() * 20) + 80;
                     bar.style.width = randomDist + "%";
                 });
