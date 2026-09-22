@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HỆ THỐNG TRÒ CHƠI CHỌN NGƯỜI NGẪU NHIÊN</title>
+    <title>HỆ THỐNG TRÒ CHƠI CHỌN NGƯỜI NGẪU NHIÊN - ĐẦY ĐỦ 6 MINI GAME</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,9 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Fredoka+One&display=swap');
         
-        body {
+       body {
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(rgba(15, 23, 42, 0.80), rgba(15, 23, 42, 0.85)), url('tp.jpg') center/cover no-repeat fixed;
             background-color: #0f172a;
@@ -23,6 +23,11 @@
             margin: 0;
             overflow-x: hidden;
             min-height: 100vh;
+        }
+
+
+        .font-game {
+            font-family: 'Fredoka One', cursive;
         }
 
         /* ---------------- CSS GAME 1: SÚT PHẠT ---------------- */
@@ -61,14 +66,9 @@
         .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
         .custom-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
 
-        /* ---------------- CSS GAME 2: THI CHẠY ---------------- */
-        #game2-container { position: relative; width: 100%; max-width: 1200px; height: 680px; background-color: rgba(30, 58, 30, 0.9); border-radius: 20px; overflow: hidden; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 2px solid #334155; }
-        .track-outer { position: absolute; left: 50%; top: 400px; width: 85%; max-width: 1000px; height: 420px; transform: translate(-50%, -50%); background-color: #b91c1c; border-radius: 210px; border: 5px solid white; box-shadow: inset 0 0 30px rgba(0,0,0,0.5); }
-        .track-inner { position: absolute; left: 50%; top: 50%; width: 55%; height: 210px; transform: translate(-50%, -50%); background-color: #15803d; border-radius: 105px; border: 4px solid white; box-shadow: 0 0 20px rgba(0,0,0,0.4); }
-        .runner { position: absolute; width: 32px; height: 32px; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; transition: all 0.05s linear; }
-        .runner-body { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ffffff; position: relative; box-shadow: 0 4px 8px rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; color: white; }
-        .runner-name { position: absolute; top: 30px; font-size: 11px; font-weight: 800; color: #ffffff; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; white-space: nowrap; }
-
+        /* ---------------- CSS GAME 2: THI CHẠY ĐIỀN KINH ---------------- */
+        #game2-container { position: relative; width: 100%; max-width: 1200px; height: 520px; background-color: rgba(30, 58, 30, 0.9); border-radius: 20px; overflow: hidden; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 2px solid #334155; }
+        
         /* ---------------- CSS GAME 3: ĐẬP CẦU LÔNG ---------------- */
         .badminton-mat {
             background-color: #0f766e;
@@ -77,15 +77,12 @@
             border: 6px solid #ffffff;
             box-shadow: inset 0 0 50px rgba(0,0,0,0.6);
         }
-        .badminton-grid-item { transition: all 0.2s ease; backdrop-filter: blur(4px); }
-        .badminton-grid-item:hover { transform: scale(1.04); border-color: #facc15 !important; background-color: rgba(250, 204, 21, 0.3) !important; }
-        .shuttlecock { transition: all 0.75s cubic-bezier(0.25, 1, 0.5, 1); z-index: 40; }
+        .shuttlecock { transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); z-index: 40; }
         @keyframes floatShuttle { 0% { transform: translateY(0px) rotate(-5deg); } 50% { transform: translateY(-10px) rotate(5deg); } 100% { transform: translateY(0px) rotate(-5deg); } }
         .floating { animation: floatShuttle 2s ease-in-out infinite; }
 
         /* ---------------- CSS GAME 4: ĐUA 12 CON GIÁP ---------------- */
         .zodiac-track { background: linear-gradient(135deg, rgba(30, 27, 75, 0.95), rgba(49, 46, 129, 0.95)); border: 2px solid #6366f1; box-shadow: inset 0 0 30px rgba(0,0,0,0.6); }
-        .zodiac-lane { border-bottom: 1px dashed rgba(255,255,255,0.2); position: relative; }
 
         /* ---------------- CSS GAME 5: ĐUA VỊT TRÊN SÔNG ---------------- */
         .river-container {
@@ -99,14 +96,19 @@
             animation: moveWaves 8s linear infinite;
         }
         @keyframes moveWaves { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .duck-swimmer { transition: left 0.1s linear, top 0.3s ease; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
-        @keyframes duckBob { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-4px) rotate(3deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+        .duck-swimmer { transition: left 0.1s linear; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
+        @keyframes duckBob { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-4px) rotate(4deg); } 100% { transform: translateY(0px) rotate(0deg); } }
         .duck-anim { animation: duckBob 0.6s infinite ease-in-out; }
+
+        /* ---------------- CSS GAME 6: CHẠY BO NÉ SỔ ĐIỂM ---------------- */
+        .glow-title-rose { text-shadow: 0 0 15px #f43f5e, 0 0 30px #e11d48; }
+        .btn-shadow-rose { box-shadow: 0 5px 0 0 #b91c1c; }
+        .btn-shadow-rose:active { transform: translateY(3px); box-shadow: 0 2px 0 0 #b91c1c; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
-    <!-- OVERLAY ĐẾM NGƯỢC -->
+    <!-- OVERLAY ĐẾM NGƯỜI -->
     <div id="countdownOverlay" class="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center hidden select-none">
         <div id="countdownNumber" class="text-8xl sm:text-9xl font-black text-amber-400 drop-shadow-[0_0_35px_rgba(251,191,36,0.8)]">3</div>
         <div id="countdownText" class="text-xl sm:text-3xl font-extrabold text-white mt-4 uppercase tracking-widest text-center">CHUẨN BỊ...</div>
@@ -121,7 +123,7 @@
                 </div>
                 <div>
                     <h1 class="font-extrabold text-lg sm:text-xl text-amber-400 tracking-wide">TRANG CHỦ TRÒ CHƠI</h1>
-                    <p class="text-xs text-slate-400">Hệ thống chọn học sinh ngẫu nhiên 5 mini-game</p>
+                    <p class="text-xs text-slate-400">Hệ thống chọn học sinh ngẫu nhiên 6 mini-game sinh động</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 overflow-x-auto py-1 custom-scroll">
@@ -143,6 +145,9 @@
                 <button onclick="showPage('game5Page')" class="px-3 py-1.5 bg-slate-800 hover:bg-cyan-900/50 text-cyan-400 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5 whitespace-nowrap">
                     <i class="fa-solid fa-feather text-yellow-400"></i> Đua Vịt
                 </button>
+                <button onclick="showPage('game6Page')" class="px-3 py-1.5 bg-rose-900/80 hover:bg-rose-800 text-rose-300 rounded-xl text-xs font-bold border border-rose-500/50 transition flex items-center gap-1.5 whitespace-nowrap shadow-md">
+                    <i class="fa-solid fa-book-skull text-yellow-300"></i> Né Sổ Điểm
+                </button>
             </div>
         </div>
     </header>
@@ -162,7 +167,7 @@
                     HỆ THỐNG TRÒ CHƠI CHỌN NGƯỜI NGẪU NHIÊN
                 </h2>
                 <p class="text-slate-300 font-semibold text-xs sm:text-sm mb-8 max-w-2xl mx-auto drop-shadow">
-                    Nhập danh sách học sinh bên tay phải, sau đó chọn mini-game để thực hiện quay số chọn ngẫu nhiên!
+                    Nhập danh sách học sinh bên tay phải, sau đó chọn bất kỳ mini-game nào bên dưới để thực hiện quay số chọn ngẫu nhiên sinh động!
                 </p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
@@ -170,7 +175,7 @@
                         <div class="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-futbol"></i></div>
                         <div>
                             <h3 class="text-lg font-black text-emerald-400">SÚT PHẠT RANDOM</h3>
-                            <p class="text-slate-400 text-xs">CR7 áo Bồ Đào Nha #7 sút phạt qua Messi GK Argentina #10 kèm tiếng hô SIUUU!</p>
+                            <p class="text-slate-400 text-xs">CR7 sút phạt qua Messi GK Argentina #10 kèm tiếng hô SIUUU!</p>
                         </div>
                     </div>
 
@@ -178,7 +183,7 @@
                         <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-stopwatch"></i></div>
                         <div>
                             <h3 class="text-lg font-black text-amber-400">THI CHẠY ĐIỀN KINH</h3>
-                            <p class="text-slate-400 text-xs">Đua oval đếm ngược thời gian chính xác millisecond.</p>
+                            <p class="text-slate-400 text-xs">Đua Oval Canvas sinh động đếm ngược thời gian chính xác.</p>
                         </div>
                     </div>
 
@@ -186,7 +191,7 @@
                         <div class="w-14 h-14 bg-sky-500/20 text-sky-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-table-tennis-paddle-ball"></i></div>
                         <div>
                             <h3 class="text-lg font-black text-sky-400">ĐẬP CẦU LÔNG</h3>
-                            <p class="text-slate-400 text-xs">Smash xoáy cầu lông qua lưới trong thời gian căn chuẩn.</p>
+                            <p class="text-slate-400 text-xs">Cú đập Smash xoáy qua lưới đáp chính xác vào tên học sinh!</p>
                         </div>
                     </div>
 
@@ -194,15 +199,23 @@
                         <div class="w-14 h-14 bg-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-dragon"></i></div>
                         <div>
                             <h3 class="text-lg font-black text-indigo-400">ĐUA 12 CON GIÁP</h3>
-                            <p class="text-slate-400 text-xs">Thi chạy 12 linh vật dân gian có phát tiếng kêu khi thắng.</p>
+                            <p class="text-slate-400 text-xs">Cuộc đua 12 linh vật dân gian kịch tính với âm thanh sinh động!</p>
                         </div>
                     </div>
 
-                    <div onclick="showPage('game5Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-cyan-500/40 hover:border-cyan-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4 sm:col-span-2">
+                    <div onclick="showPage('game5Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-cyan-500/40 hover:border-cyan-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4">
                         <div class="w-14 h-14 bg-cyan-500/20 text-yellow-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-feather"></i></div>
                         <div>
                             <h3 class="text-lg font-black text-cyan-400">ĐUA VỊT TRÊN SÔNG</h3>
-                            <p class="text-slate-400 text-xs">Bầy vịt vàng bơi lội đua tốc độ có tiếng vịt kêu quack quack!</p>
+                            <p class="text-slate-400 text-xs">Bầy vịt vàng bơi lội đua tốc độ có tiếng quack quack!</p>
+                        </div>
+                    </div>
+
+                    <div onclick="showPage('game6Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-rose-500/50 hover:border-rose-400 rounded-2xl p-5 shadow-2xl transition cursor-pointer flex items-center gap-4">
+                        <div class="w-14 h-14 bg-rose-500/20 text-rose-400 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"><i class="fa-solid fa-book-skull text-yellow-300"></i></div>
+                        <div>
+                            <h3 class="text-lg font-black text-rose-400">CHẠY BO NÉ SỔ ĐIỂM</h3>
+                            <p class="text-slate-400 text-xs">Đường đua sinh tồn 2.5D kịch tính với vật phẩm & bẫy keo!</p>
                         </div>
                     </div>
                 </div>
@@ -230,915 +243,908 @@
                         <div id="goalkeeper" class="goalkeeper absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-28 sm:w-24 sm:h-32 z-20 flex flex-col items-center justify-end pointer-events-none">
                             <div class="relative w-full h-full flex flex-col items-center justify-end drop-shadow-xl">
                                 <svg viewBox="0 0 100 130" class="w-full h-full">
-                                    <!-- Head & Beard -->
                                     <circle cx="50" cy="22" r="14" fill="#fbcfe8"/>
                                     <path d="M 38 18 Q 50 8 62 18 C 62 8 38 8 38 18 Z" fill="#78350f"/>
-                                    <path d="M 40 26 Q 50 35 60 26 Q 50 38 40 26 Z" fill="#9a3412"/>
-                                    <!-- Argentina Jersey (White/Blue Stripes) -->
+                                    <path d="M 40 26 Q 50 38 60 26 Z" fill="#9a3412"/>
                                     <path d="M 22 38 L 78 38 L 84 75 L 16 75 Z" fill="#38bdf8"/>
                                     <path d="M 35 38 L 47 38 L 47 75 L 35 75 Z" fill="#ffffff"/>
                                     <path d="M 53 38 L 65 38 L 65 75 L 53 75 Z" fill="#ffffff"/>
-                                    <!-- Number 10 -->
                                     <text x="50" y="60" font-size="20" font-weight="900" fill="#0284c7" text-anchor="middle">10</text>
-                                    <!-- GK Gloves -->
                                     <circle cx="14" cy="50" r="7" fill="#facc15"/>
                                     <circle cx="86" cy="50" r="7" fill="#facc15"/>
-                                    <!-- Shorts & Legs -->
                                     <rect x="28" y="75" width="44" height="20" fill="#111827"/>
                                     <rect x="33" y="95" width="12" height="25" fill="#fbcfe8"/>
                                     <rect x="55" y="95" width="12" height="25" fill="#fbcfe8"/>
-                                    <rect x="30" y="115" width="15" height="10" fill="#0284c7"/>
-                                    <rect x="55" y="115" width="15" height="10" fill="#0284c7"/>
                                 </svg>
-                                <div class="bg-sky-500 text-slate-950 text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider shadow border border-sky-300 mt-[-6px]">MESSI #10</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pitch w-full h-36 sm:h-48 rounded-b-2xl relative flex flex-col items-center justify-end border-t-2 border-white/40 overflow-hidden shadow-inner">
-                        <div class="absolute top-0 w-48 sm:w-64 h-20 sm:h-28 border-2 border-white/40 border-t-0 rounded-b-full"></div>
-                        <div class="w-3 h-3 bg-white rounded-full mb-8 sm:mb-10 shadow-md relative">
-                            <div class="absolute -inset-1 border border-white/50 rounded-full animate-pulse"></div>
-                        </div>
-
-                        <!-- CẦU THỦ RONALDO - ÁO BỒ ĐÀO NHA SỐ 7 -->
-                        <div id="ronaldo" class="ronaldo-container w-20 h-28 sm:w-24 sm:h-32 flex flex-col items-center justify-end">
-                            <div class="relative w-full h-full flex flex-col items-center justify-end drop-shadow-xl">
+                    <!-- SÂN CỎ BÊN DƯỚI -->
+                    <div class="pitch w-full h-40 sm:h-48 relative rounded-b-2xl border-t-4 border-white flex flex-col items-center justify-between p-4">
+                        <!-- CR7 SÚT PHẠT -->
+                        <div id="ronaldo" class="ronaldo-container">
+                            <div class="w-16 h-24 sm:w-20 sm:h-28 relative">
                                 <svg viewBox="0 0 100 130" class="w-full h-full">
-                                    <!-- Head & Haircut -->
                                     <circle cx="50" cy="20" r="13" fill="#fed7aa"/>
-                                    <path d="M 37 16 Q 50 5 63 16 C 63 8 37 8 37 16 Z" fill="#1e1b4b"/>
-                                    <!-- Portugal Red Jersey -->
-                                    <path d="M 25 38 L 75 38 L 82 75 L 18 75 Z" fill="#dc2626"/>
-                                    <!-- Green Details -->
-                                    <path d="M 45 38 L 55 38 L 55 75 L 45 75 Z" fill="#16a34a"/>
-                                    <!-- Number 7 -->
-                                    <text x="50" y="60" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle">7</text>
-                                    <!-- Shorts & Legs -->
-                                    <rect x="26" y="75" width="48" height="22" fill="#16a34a"/>
-                                    <rect x="31" y="97" width="13" height="23" fill="#fed7aa"/>
-                                    <rect x="56" y="97" width="13" height="23" fill="#fed7aa"/>
-                                    <rect x="30" y="115" width="15" height="12" fill="#dc2626"/>
-                                    <rect x="55" y="115" width="15" height="12" fill="#dc2626"/>
+                                    <path d="M 36 16 Q 50 6 64 16 Z" fill="#1e1b4b"/>
+                                    <path d="M 22 36 L 78 36 L 82 72 L 18 72 Z" fill="#dc2626"/>
+                                    <text x="50" y="58" font-size="22" font-weight="900" fill="#facc15" text-anchor="middle">7</text>
+                                    <rect x="26" y="72" width="48" height="20" fill="#15803d"/>
+                                    <rect x="32" y="92" width="12" height="25" fill="#fed7aa"/>
+                                    <rect x="56" y="92" width="12" height="25" fill="#fed7aa"/>
                                 </svg>
-                                <div class="bg-red-600 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-md uppercase tracking-widest shadow border border-red-300 mt-[-6px]">RONALDO #7</div>
                             </div>
                         </div>
 
-                        <div id="ballShadow" class="ball-shadow absolute bottom-6 sm:bottom-8 w-10 h-3 bg-black/50 rounded-full blur-xs z-20"></div>
-                        <div id="ball" class="soccer-ball absolute bottom-6 sm:bottom-8 w-10 h-10 sm:w-12 sm:h-12 z-30 cursor-pointer hover:scale-110 active:scale-95 flex items-center justify-center text-white text-3xl sm:text-4xl drop-shadow-2xl" onclick="shootBall()">
-                            <i class="fa-solid fa-circle-futbol text-white bg-slate-900 rounded-full"></i>
+                        <!-- QUẢ BÓNG -->
+                        <div id="ballShadow" class="ball-shadow absolute bottom-6 w-10 h-3 bg-black/50 rounded-full blur-sm"></div>
+                        <div id="soccerBall" class="soccer-ball absolute bottom-6 w-10 h-10 bg-white rounded-full border-2 border-slate-900 shadow-xl flex items-center justify-center text-lg z-30">
+                            ⚽
                         </div>
                     </div>
                 </div>
-
-                <div class="mt-5 w-full max-w-xs z-10">
-                    <button id="shootBtn" onclick="shootBall()" class="w-full group relative inline-flex items-center justify-center p-0.5 overflow-hidden text-base font-bold text-slate-900 rounded-2xl bg-gradient-to-br from-yellow-400 via-amber-500 to-emerald-500 shadow-xl active:scale-95 transition-all">
-                        <span class="w-full relative px-6 py-3 transition-all bg-amber-400 group-hover:bg-opacity-0 rounded-2xl flex items-center justify-center gap-3 text-slate-950 font-extrabold uppercase tracking-wider text-base">
-                            <i class="fa-solid fa-shoe-prints text-slate-900 text-xl"></i> SÚT BÓNG NGAY!
-                        </span>
-                    </button>
-                </div>
             </main>
 
-            <!-- ==================== 3. GAME 2: THI CHẠY ==================== -->
-            <main id="game2Page" class="w-full hidden">
+            <!-- ==================== 3. GAME 2: THI CHẠY ĐIỀN KINH ==================== -->
+            <main id="game2Page" class="hidden w-full">
                 <div id="game2-container">
-                    <div class="flex items-center justify-between px-6 pt-4">
-                        <div class="font-black text-lg sm:text-xl tracking-wider text-amber-300 uppercase">THI CHẠY ĐIỀN KINH</div>
-                        <div class="bg-slate-950 border border-amber-500/50 px-4 py-1.5 rounded-2xl flex items-center gap-2 shadow-lg">
-                            <i class="fa-solid fa-clock text-amber-400 animate-spin text-base"></i>
-                            <span class="text-xs text-slate-400 font-bold uppercase">Thời gian:</span>
-                            <span id="g2TimerText" class="font-mono text-lg text-emerald-400 font-extrabold tracking-wider">00:00.00</span>
-                        </div>
-                    </div>
-
-                    <div class="track-outer">
-                        <div class="track-inner"></div>
-                    </div>
-                    
-                    <div id="g2RunnersLayer"></div>
-
-                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-wrap items-center justify-center gap-3 z-50 bg-slate-950/85 p-2 rounded-2xl border border-slate-700 shadow-2xl backdrop-blur">
-                        <div class="flex items-center gap-2 px-2 text-xs text-amber-400 font-bold uppercase">
-                            <i class="fa-solid fa-hourglass-start"></i> Giới hạn thời gian:
-                            <select id="g2TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded-lg px-2 py-1 text-xs focus:outline-none focus:border-amber-400">
-                                <option value="10">10 giây</option>
-                                <option value="15" selected>15 giây</option>
-                                <option value="20">20 giây</option>
-                                <option value="30">30 giây</option>
-                            </select>
-                        </div>
-                        <button class="px-5 py-2 bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black rounded-xl shadow-xl transition active:scale-95 text-xs uppercase" onclick="g2StartGame()">BẮT ĐẦU ĐUA</button>
-                        <button class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-extrabold rounded-xl border border-slate-600 shadow-xl transition text-xs" onclick="g2ResetGame()">CHƠI LẠI</button>
-                    </div>
+                    <canvas id="game2Canvas" class="w-full h-full block rounded-2xl"></canvas>
                 </div>
             </main>
 
-            <!-- ==================== 4. GAME 3: ĐẬP CẦU ==================== -->
-            <main id="game3Page" class="w-full hidden">
-                <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col items-center relative">
-                    <div class="flex items-center justify-between w-full mb-3">
-                        <h2 class="text-xl font-extrabold text-sky-400 uppercase">ĐẬP CẦU LÔNG SMASH</h2>
-                        <div class="bg-slate-950 border border-sky-500/50 px-3 py-1 rounded-xl flex items-center gap-2">
-                            <span class="text-xs text-slate-400 font-bold">Thời gian smash:</span>
-                            <select id="g3TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 text-xs">
-                                <option value="3">3 giây</option>
-                                <option value="5" selected>5 giây</option>
-                                <option value="8">8 giây</option>
-                            </select>
-                        </div>
+            <!-- ==================== 4. GAME 3: ĐẬP CẦU LÔNG ==================== -->
+            <main id="game3Page" class="hidden w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-4 shadow-2xl relative min-h-[550px] flex flex-col items-center justify-center">
+                <div class="badminton-mat w-full max-w-2xl h-96 rounded-2xl relative p-4 flex flex-col justify-between overflow-hidden">
+                    <div class="w-full h-1 bg-white my-auto shadow"></div>
+                    <div id="badmintonGrid" class="absolute inset-0 p-4 grid gap-3 z-10 overflow-y-auto custom-scroll"></div>
+                    <div id="shuttlecock" class="shuttlecock absolute bottom-6 left-1/2 -translate-x-1/2 text-4xl pointer-events-none">
+                        🏸
                     </div>
-
-                    <div class="badminton-mat w-full h-[380px] rounded-2xl relative flex flex-col justify-between p-3 overflow-hidden shadow-2xl">
-                        <div class="w-full flex-1 flex flex-col justify-center relative">
-                            <div id="badmintonTargetGrid" class="grid gap-2 w-full h-full max-h-[160px] items-center justify-center p-2 z-10 overflow-y-auto custom-scroll"></div>
-                        </div>
-
-                        <div class="w-full h-5 bg-white/95 border-y-2 border-dashed border-teal-900 my-1 relative shadow-md flex items-center justify-center z-10">
-                            <div class="w-6 h-6 bg-rose-500 rounded-full border-2 border-white animate-pulse flex items-center justify-center text-[10px] font-black text-white">NET</div>
-                        </div>
-
-                        <div class="w-full h-24 relative flex items-center justify-center">
-                            <div id="shuttlecock" class="shuttlecock absolute bottom-4 w-12 h-12 flex items-center justify-center floating drop-shadow-2xl cursor-pointer" onclick="g3Smash()">
-                                <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-45">
-                                    <path d="M 50 20 L 35 70 L 65 70 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                                    <path d="M 40 70 L 30 90 A 20 20 0 0 0 70 90 L 60 70 Z" fill="#ef4444"/>
-                                    <line x1="38" y1="40" x2="62" y2="40" stroke="#94a3b8" stroke-width="2"/>
-                                    <line x1="36" y1="55" x2="64" y2="55" stroke="#94a3b8" stroke-width="2"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button onclick="g3Smash()" class="mt-4 px-8 py-2.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-black text-base rounded-2xl shadow-xl transition active:scale-95 uppercase tracking-wider">
-                        <i class="fa-solid fa-bolt mr-2"></i> SMASH CẦU NGAY
-                    </button>
                 </div>
             </main>
 
             <!-- ==================== 5. GAME 4: ĐUA 12 CON GIÁP ==================== -->
-            <main id="game4Page" class="w-full hidden">
-                <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col items-center">
-                    <div class="flex items-center justify-between w-full mb-3">
-                        <h2 class="text-xl font-extrabold text-indigo-400 uppercase">ĐUA 12 CON GIÁP</h2>
-                        <div class="bg-slate-950 border border-indigo-500/50 px-3 py-1 rounded-xl flex items-center gap-2">
-                            <span class="text-xs text-slate-400 font-bold">Thời gian đua:</span>
-                            <select id="g4TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 text-xs">
-                                <option value="5">5 giây</option>
-                                <option value="10" selected>10 giây</option>
-                                <option value="15">15 giây</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div id="zodiacContainer" class="zodiac-track w-full rounded-2xl p-3 flex flex-col gap-1 max-h-[420px] overflow-y-auto custom-scroll"></div>
-
-                    <button onclick="g4StartRace()" class="mt-4 px-8 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white font-black text-base rounded-2xl shadow-xl transition active:scale-95 uppercase tracking-wider">
-                        <i class="fa-solid fa-flag-checkered mr-2"></i> BẮT ĐẦU ĐUA LINH VẬT
-                    </button>
+            <main id="game4Page" class="hidden w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-4 shadow-2xl">
+                <div class="zodiac-track rounded-2xl p-4 space-y-3 min-h-[480px] max-h-[600px] overflow-y-auto custom-scroll" id="zodiacContainer">
                 </div>
             </main>
 
-            <!-- ==================== 6. GAME 5: ĐUA VỊT ==================== -->
-            <main id="game5Page" class="w-full hidden">
-                <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-2xl flex flex-col items-center">
-                    <div class="flex items-center justify-between w-full mb-3">
-                        <h2 class="text-xl font-extrabold text-cyan-400 uppercase">ĐUA VỊT TRÊN SÔNG</h2>
-                        <div class="bg-slate-950 border border-cyan-500/50 px-3 py-1 rounded-xl flex items-center gap-2">
-                            <span class="text-xs text-slate-400 font-bold">Thời gian đua:</span>
-                            <select id="g5TimeSelect" class="bg-slate-900 text-white border border-slate-700 rounded px-2 py-0.5 text-xs">
-                                <option value="8">8 giây</option>
-                                <option value="12" selected>12 giây</option>
-                                <option value="20">20 giây</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="river-container w-full h-[380px] rounded-2xl p-4 flex flex-col justify-around relative">
-                        <div class="water-wave"></div>
-                        <div id="duckLanesContainer" class="w-full h-full flex flex-col justify-around relative z-10"></div>
-                    </div>
-
-                    <button onclick="g5StartDuckRace()" class="mt-4 px-8 py-2.5 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-base rounded-2xl shadow-xl transition active:scale-95 uppercase tracking-wider">
-                        <i class="fa-solid fa-water mr-2"></i> THẢ VỊT ĐUA NGAY
-                    </button>
+            <!-- ==================== 6. GAME 5: ĐUA VỊT TRÊN SÔNG ==================== -->
+            <main id="game5Page" class="hidden w-full">
+                <div class="river-container rounded-3xl min-h-[500px] max-h-[600px] p-4 relative overflow-y-auto custom-scroll" id="duckContainer">
+                    <div class="water-wave"></div>
+                    <div id="duckLanes" class="relative z-10 space-y-4"></div>
                 </div>
             </main>
+
+            <!-- ==================== 7. GAME 6: CHẠY BO NÉ SỔ ĐIỂM ==================== -->
+            <main id="game6Page" class="hidden w-full bg-slate-900/90 border-2 border-purple-500/40 rounded-3xl p-3 sm:p-5 shadow-2xl relative min-h-[580px] flex flex-col items-center justify-center">
+                <div class="w-full mb-3 flex flex-wrap items-center justify-between gap-2 z-10">
+                    <div class="bg-slate-950/90 border border-purple-500/60 px-4 py-1.5 rounded-xl text-xs sm:text-sm font-game text-amber-300 flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-person-running text-rose-400"></i> Tiến độ: <span id="game6Progress" class="text-white">0%</span>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button id="g6CamLeaderBtn" onclick="setG6CamMode('LEADER')" class="bg-amber-500 text-slate-950 font-game px-3 py-1 rounded-lg text-xs shadow border border-yellow-300 font-bold transition">
+                            🥇 Dẫn Đầu
+                        </button>
+                        <button id="g6CamLastBtn" onclick="setG6CamMode('LAST')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-game px-3 py-1 rounded-lg text-xs shadow border border-purple-500/40 transition opacity-80">
+                            🐢 Về Chót
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-full h-[460px] relative rounded-2xl overflow-hidden border-2 border-purple-600/50 shadow-2xl bg-slate-950">
+                    <canvas id="game6Canvas" class="w-full h-full cursor-grab active:cursor-grabbing block"></canvas>
+
+                    <div id="g6PreGameBanner" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center text-center p-6 z-20">
+                        <div class="w-20 h-20 bg-rose-600/20 rounded-full flex items-center justify-center mb-4 border border-rose-500/50 animate-bounce">
+                            <i class="fa-solid fa-book-skull text-5xl text-rose-500"></i>
+                        </div>
+                        <h3 class="font-game text-2xl sm:text-3xl text-yellow-400 mb-2 glow-title-rose">ĐƯỜNG ĐUA SỔ ĐIỂM SIÊU CẤP</h3>
+                        <p class="text-purple-200 text-xs sm:text-sm max-w-md mb-6">
+                            Đua sinh tồn né sổ kiểm tra! Thu thập <span class="text-emerald-400 font-bold">⚡ Tăng tốc</span> và tránh bẫy đóng băng!
+                        </p>
+                        <button onclick="startMiniGame()" class="bg-rose-600 hover:bg-rose-500 text-white font-game px-8 py-3 rounded-xl text-lg btn-shadow-rose transition transform hover:scale-105 flex items-center gap-2">
+                            <i class="fa-solid fa-flag-checkered"></i> BẮT ĐẦU NGAY
+                        </button>
+                    </div>
+                </div>
+            </main>
+
         </div>
 
-        <!-- ==================== SIDEBAR NHẬP DANH SÁCH HỌC SINH (COL-SPAN-4) ==================== -->
-        <aside class="lg:col-span-4 bg-slate-900/95 border border-slate-800 rounded-3xl p-4 shadow-2xl flex flex-col gap-4 w-full backdrop-blur">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h2 class="font-bold text-base text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-user-plus text-emerald-400"></i> Quản Lý Học Sinh
-                </h2>
-                <span id="playerCountBadge" class="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">0 người</span>
-            </div>
+        <!-- VÙNG BẢNG ĐIỀU KHIỂN BÊN PHẢI (COL-SPAN-4) -->
+        <div class="lg:col-span-4 w-full bg-slate-900/95 border-2 border-slate-800 rounded-3xl p-5 shadow-2xl backdrop-blur sticky top-20">
+            <h2 class="text-xl font-black text-amber-400 mb-4 flex items-center gap-2 border-b border-slate-800 pb-3">
+                <i class="fa-solid fa-users"></i> DANH SÁCH HỌC SINH
+            </h2>
 
-            <!-- Khung Nhập Học Sinh -->
-            <div class="flex flex-col gap-2">
-                <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Nhập danh sách (Mỗi dòng 1 tên)</label>
-                <textarea id="nameInput" rows="4" placeholder="Ví dụ:&#10;Nguyễn Văn A&#10;Trần Thị B&#10;Lê Văn C..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition resize-none custom-scroll"></textarea>
-                <div class="flex gap-2">
-                    <button onclick="addNamesFromInput()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-3 rounded-xl text-xs transition flex items-center justify-center gap-1.5 shadow-lg">
-                        <i class="fa-solid fa-check"></i> Cập Nhật Danh Sách
-                    </button>
-                    <button onclick="clearAllNames()" class="bg-slate-800 hover:bg-rose-900/40 hover:text-rose-400 text-slate-400 border border-slate-700 px-3 py-2 rounded-xl text-xs transition" title="Xóa tất cả"><i class="fa-solid fa-trash-can"></i></button>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1.5">
+                        Nhập danh sách học sinh (Mỗi tên 1 dòng):
+                    </label>
+                    <textarea id="studentNamesInput" rows="7" class="w-full bg-slate-950 text-slate-100 rounded-xl p-3 text-xs sm:text-sm border border-slate-700 focus:outline-none focus:border-amber-400 transition custom-scroll" placeholder="Nguyễn Văn A&#10;Trần Thị B&#10;Lê Văn C..."></textarea>
+                    
+                    <div class="flex items-center justify-between mt-2">
+                        <span id="studentCounterText" class="text-xs font-extrabold text-emerald-400">0 học sinh</span>
+                        <button onclick="loadSampleStudents()" class="text-xs text-amber-400 hover:underline font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Mẫu thử
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Danh Sách Học Sinh Trong Lớp -->
-            <div class="flex-1 flex flex-col min-h-[160px] max-h-[200px]">
-                <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
-                    <span>Học sinh trong lớp</span>
-                    <button onclick="resetExcluded()" class="text-emerald-400 hover:underline flex items-center gap-1"><i class="fa-solid fa-rotate-left"></i> Hiện tất cả</button>
+                <!-- TÙY CHỌN BẬC THẮNG/DỪNG GAME -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Chế độ Thắng / Kết thúc:</label>
+                    <select id="winConditionSelect" class="w-full bg-slate-950 text-amber-300 font-bold rounded-xl p-2.5 text-xs sm:text-sm border border-slate-700 focus:outline-none focus:border-amber-400">
+                        <option value="FIRST">🏆 Về ĐÍCH ĐẦU TIÊN (Tuyên dương / Chọn người thắng)</option>
+                        <option value="LAST">🐢 Về CHÓT (Gọi trả bài / Chịu phạt)</option>
+                    </select>
                 </div>
-                <div id="playerListContainer" class="flex-1 overflow-y-auto space-y-1.5 pr-1 custom-scroll"></div>
-            </div>
 
-            <!-- Lịch Sử Trúng Thưởng -->
-            <div class="border-t border-slate-800 pt-3">
-                <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
-                    <span class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-trophy"></i> Lịch sử gọi tên</span>
-                    <button onclick="clearHistory()" class="hover:text-rose-400 underline">Xóa lịch sử</button>
+                <!-- THỜI GIAN ĐUA -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 mb-1">Thời gian thi đấu (Giây):</label>
+                    <div class="flex items-center gap-3">
+                        <input type="range" id="raceTimeRange" min="10" max="60" step="5" value="20" oninput="document.getElementById('raceTimeDisplay').innerText = this.value + 's'" class="w-full accent-amber-500 cursor-pointer">
+                        <span id="raceTimeDisplay" class="bg-amber-500/20 border border-amber-500/50 text-amber-400 font-black text-xs px-2.5 py-1 rounded-lg whitespace-nowrap">20s</span>
+                    </div>
                 </div>
-                <div id="historyList" class="max-h-24 overflow-y-auto text-xs space-y-1 text-slate-300 custom-scroll"></div>
-            </div>
 
-            <div class="border-t border-slate-800 pt-2 flex items-center justify-between text-xs text-slate-400">
-                <label class="flex items-center gap-2 cursor-pointer select-none">
-                    <input type="checkbox" id="autoExcludeCheck" checked class="rounded bg-slate-950 border-slate-700 text-emerald-500 w-4 h-4">
-                    <span>Tự động ẩn học sinh đã chọn</span>
-                </label>
+                <!-- NÚT BẮT ĐẦU -->
+                <button id="startMainBtn" onclick="startMiniGame()" class="w-full bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-lg py-3.5 rounded-2xl shadow-xl transition transform active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> BẮT ĐẦU TRÒ CHƠI!
+                </button>
             </div>
-        </aside>
+        </div>
 
     </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-950/90 border-t border-slate-800 py-3 text-center text-xs text-slate-400 backdrop-blur">
-        Hệ thống Game Chọn Học Sinh Ngẫu Nhiên © 2026 - Lớp Học Thông Minh
-    </footer>
+    <!-- MODAL HIỂN THỊ KẾT QUẢ -->
+    <div id="resultModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center z-50 opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        <div class="bg-slate-900 border-4 border-amber-400 rounded-3xl p-6 sm:p-8 max-w-md w-full text-center transform scale-90 transition-transform duration-300 shadow-2xl relative">
+            <div id="resultIconBadge" class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-amber-500 border-4 border-yellow-300 rounded-full flex items-center justify-center shadow-2xl">
+                <i id="resultModalIcon" class="fa-solid fa-trophy text-4xl text-slate-950"></i>
+            </div>
 
-    <!-- ==================== JAVASCRIPT XỬ LÝ HỆ THỐNG & ÂM THANH ==================== -->
+            <div class="mt-8">
+                <span id="resultSubTag" class="bg-amber-500/20 text-amber-400 border border-amber-500/50 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    KẾT QUẢ
+                </span>
+                <h2 id="resultMainTitle" class="font-black text-2xl sm:text-3xl text-yellow-400 mt-2 mb-1">
+                    CHÚC MỪNG CHIẾN THẮNG!
+                </h2>
+                <p id="resultDescText" class="text-slate-300 text-xs sm:text-sm mb-4">Học sinh xuất sắc được chọn:</p>
+
+                <div class="bg-slate-950 border-2 border-amber-400/80 rounded-2xl p-4 mb-6 shadow-inner">
+                    <div id="winnerAvatar" class="text-5xl mb-2">🎓</div>
+                    <div id="winnerNameText" class="font-black text-2xl sm:text-3xl text-amber-300 tracking-wide">
+                        Nguyễn Văn A
+                    </div>
+                </div>
+
+                <button onclick="closeResultModal()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 rounded-xl text-sm transition">
+                    ĐỒNG Ý / TIẾP TỤC
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // --- BỘ TẠO ÂM THANH SỐNG ĐỘNG WEB AUDIO API ---
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        function playWhistleSound() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(2500, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(3000, audioCtx.currentTime + 0.1);
-            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
-        }
-
-        function playRonaldoSiuu() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            // Tiếng hô SIUUU
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(350, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 1.2);
-            gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.2);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 1.2);
-
-            // Tiếng khán giả reo mừng
-            const bufferSize = audioCtx.sampleRate * 1.5;
-            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-            const output = buffer.getChannelData(0);
-            for (let i = 0; i < bufferSize; i++) {
-                output[i] = Math.random() * 2 - 1;
+        /* WEB AUDIO SFX GENERATOR */
+        class WebAudioSFX {
+            constructor() { this.ctx = null; }
+            init() {
+                if (!this.ctx) {
+                    const AC = window.AudioContext || window.webkitAudioContext;
+                    if (AC) this.ctx = new AC();
+                }
+                if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
             }
-            const whiteNoise = audioCtx.createBufferSource();
-            whiteNoise.buffer = buffer;
-            const noiseGain = audioCtx.createGain();
-            noiseGain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-            noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
-            whiteNoise.connect(noiseGain);
-            noiseGain.connect(audioCtx.destination);
-            whiteNoise.start();
-        }
-
-        function playDuckSound() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            // Tiếng vịt kêu Cáp Cáp!
-            [0, 0.2, 0.4].forEach(delay => {
-                setTimeout(() => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
-                    osc.frequency.linearRampToValueAtTime(180, audioCtx.currentTime + 0.15);
-                    gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start();
-                    osc.stop(audioCtx.currentTime + 0.15);
-                }, delay * 1000);
-            });
-        }
-
-        function playZodiacSound(index) {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-            const now = audioCtx.currentTime;
-            
-            switch(index) {
-                case 0: // Tý (Chuột kêu chít chít)
-                    [0, 0.1, 0.2].forEach(d => {
-                        const osc = audioCtx.createOscillator();
-                        const g = audioCtx.createGain();
-                        osc.frequency.setValueAtTime(3000, now + d);
-                        osc.frequency.linearRampToValueAtTime(4500, now + d + 0.08);
-                        g.gain.setValueAtTime(0.3, now + d);
-                        g.gain.exponentialRampToValueAtTime(0.01, now + d + 0.08);
-                        osc.connect(g); g.connect(audioCtx.destination);
-                        osc.start(now + d); osc.stop(now + d + 0.08);
+            playBoost() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+                    osc.connect(gain); gain.connect(this.ctx.destination);
+                    osc.start(); osc.stop(this.ctx.currentTime + 0.3);
+                } catch (e) {}
+            }
+            playFreeze() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(900, this.ctx.currentTime);
+                    osc.frequency.setValueAtTime(400, this.ctx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+                    osc.connect(gain); gain.connect(this.ctx.destination);
+                    osc.start(); osc.stop(this.ctx.currentTime + 0.3);
+                } catch (e) {}
+            }
+            playQuack() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+                    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(400, this.ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(250, this.ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+                    osc.connect(gain); gain.connect(this.ctx.destination);
+                    osc.start(); osc.stop(this.ctx.currentTime + 0.15);
+                } catch (e) {}
+            }
+            playSmash() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+                    osc.type = 'square'; osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(60, this.ctx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+                    osc.connect(gain); gain.connect(this.ctx.destination);
+                    osc.start(); osc.stop(this.ctx.currentTime + 0.15);
+                } catch (e) {}
+            }
+            playWin() {
+                if (!this.ctx) return;
+                try {
+                    const now = this.ctx.currentTime;
+                    [261.63, 329.63, 392.00, 523.25].forEach((freq, i) => {
+                        const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+                        osc.frequency.setValueAtTime(freq, now + i * 0.1);
+                        gain.gain.setValueAtTime(0.2, now + i * 0.1);
+                        gain.gain.linearRampToValueAtTime(0.01, now + i * 0.1 + 0.25);
+                        osc.connect(gain); gain.connect(this.ctx.destination);
+                        osc.start(now + i * 0.1); osc.stop(now + i * 0.1 + 0.25);
                     });
-                    break;
-                case 1: // Sửu (Trâu ậm ừ)
-                    const osc1 = audioCtx.createOscillator();
-                    const g1 = audioCtx.createGain();
-                    osc1.type = 'triangle';
-                    osc1.frequency.setValueAtTime(110, now);
-                    osc1.frequency.linearRampToValueAtTime(80, now + 0.8);
-                    g1.gain.setValueAtTime(0.5, now);
-                    g1.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
-                    osc1.connect(g1); g1.connect(audioCtx.destination);
-                    osc1.start(now); osc1.stop(now + 0.8);
-                    break;
-                case 2: // Dần & Thìn (Hổ/Rồng gầm)
-                case 4:
-                    const osc2 = audioCtx.createOscillator();
-                    const g2 = audioCtx.createGain();
-                    osc2.type = 'sawtooth';
-                    osc2.frequency.setValueAtTime(150, now);
-                    osc2.frequency.exponentialRampToValueAtTime(50, now + 1.0);
-                    g2.gain.setValueAtTime(0.6, now);
-                    g2.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
-                    osc2.connect(g2); g2.connect(audioCtx.destination);
-                    osc2.start(now); osc2.stop(now + 1.0);
-                    break;
-                case 3: // Mão (Mèo kêu meo)
-                    const osc3 = audioCtx.createOscillator();
-                    const g3 = audioCtx.createGain();
-                    osc3.frequency.setValueAtTime(700, now);
-                    osc3.frequency.linearRampToValueAtTime(900, now + 0.2);
-                    osc3.frequency.linearRampToValueAtTime(500, now + 0.6);
-                    g3.gain.setValueAtTime(0.3, now);
-                    g3.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
-                    osc3.connect(g3); g3.connect(audioCtx.destination);
-                    osc3.start(now); osc3.stop(now + 0.6);
-                    break;
-                case 5: // Tỵ (Rắn xè xè)
-                    const bufferSize = audioCtx.sampleRate * 0.8;
-                    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-                    const data = buffer.getChannelData(0);
-                    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
-                    const noise = audioCtx.createBufferSource();
-                    noise.buffer = buffer;
-                    const g5 = audioCtx.createGain();
-                    g5.gain.setValueAtTime(0.3, now);
-                    g5.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
-                    noise.connect(g5); g5.connect(audioCtx.destination);
-                    noise.start(now);
-                    break;
-                case 6: // Ngọ (Ngựa hí)
-                    const osc6 = audioCtx.createOscillator();
-                    const g6 = audioCtx.createGain();
-                    osc6.type = 'sawtooth';
-                    osc6.frequency.setValueAtTime(800, now);
-                    osc6.frequency.linearRampToValueAtTime(1200, now + 0.3);
-                    osc6.frequency.linearRampToValueAtTime(600, now + 0.7);
-                    g6.gain.setValueAtTime(0.4, now);
-                    g6.gain.exponentialRampToValueAtTime(0.01, now + 0.7);
-                    osc6.connect(g6); g6.connect(audioCtx.destination);
-                    osc6.start(now); osc6.stop(now + 0.7);
-                    break;
-                case 9: // Dậu (Gà gáy)
-                    const osc9 = audioCtx.createOscillator();
-                    const g9 = audioCtx.createGain();
-                    osc9.frequency.setValueAtTime(600, now);
-                    osc9.frequency.linearRampToValueAtTime(1000, now + 0.3);
-                    osc9.frequency.linearRampToValueAtTime(800, now + 0.8);
-                    g9.gain.setValueAtTime(0.4, now);
-                    g9.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
-                    osc9.connect(g9); g9.connect(audioCtx.destination);
-                    osc9.start(now); osc9.stop(now + 0.8);
-                    break;
-                default: // Các con còn lại
-                    const oscD = audioCtx.createOscillator();
-                    const gD = audioCtx.createGain();
-                    oscD.type = 'square';
-                    oscD.frequency.setValueAtTime(400, now);
-                    oscD.frequency.exponentialRampToValueAtTime(200, now + 0.5);
-                    gD.gain.setValueAtTime(0.4, now);
-                    gD.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-                    oscD.connect(gD); gD.connect(audioCtx.destination);
-                    oscD.start(now); oscD.stop(now + 0.5);
-                    break;
+                } catch (e) {}
             }
         }
+        const audioFx = new WebAudioSFX();
 
-        // --- DỮ LIỆU BAN ĐẦU ---
-        let players = [
-            "Nguyễn Văn A", "Trần Thị B", "Lê Văn C", "Phạm Hoàng D", 
-            "Đỗ Minh E", "Vũ Thị F", "Hoàng Văn G", "Bùi Thị H"
+        const sampleStudentList = [
+            "Minh Tuấn", "Thùy Linh", "Đức Anh", "Bảo Ngọc", 
+            "Gia Huy", "Phương Thảo", "Hoàng Nam", "Khánh Vy",
+            "Quốc Cường", "Thu Hà", "Hải Đăng", "Thanh Trúc"
         ];
-        let excludedPlayers = [];
-        let history = [];
+        const zodiacAnimals = [
+            { name: "Tý", emoji: "🐭" }, { name: "Sửu", emoji: "🐂" },
+            { name: "Dần", emoji: "🐅" }, { name: "Mão", emoji: "🐇" },
+            { name: "Thìn", emoji: "🐉" }, { name: "Tỵ", emoji: "🐍" },
+            { name: "Ngọ", emoji: "🐴" }, { name: "Mùi", emoji: "🐐" },
+            { name: "Thân", emoji: "🐒" }, { name: "Dậu", emoji: "🐓" },
+            { name: "Tuất", emoji: "🐕" }, { name: "Hợi", emoji: "🐖" }
+        ];
+        const emojiAvatars = ["🏃‍♂️", "🏃‍♀️", "🥷", "🦸‍♂️", "🦸‍♀️", "🧙‍♂️", "🐥", "🐱", "🐶", "🦊", "🐼", "🦁"];
+        const colorPalette = ["#f43f5e", "#ec4899", "#a855f7", "#6366f1", "#3b82f6", "#06b6d4", "#10b981", "#84cc16", "#eab308", "#f97316"];
 
-        // --- CHUYỂN TRANG ---
+        let activePage = 'homePage';
+        let studentArray = [];
+        let activeAnimId = null;
+
+        function loadSampleStudents() {
+            document.getElementById('studentNamesInput').value = sampleStudentList.join('\n');
+            updateStudentCounter();
+        }
+
+        function updateStudentCounter() {
+            const raw = document.getElementById('studentNamesInput').value;
+            studentArray = raw.split('\n').map(s => s.trim()).filter(s => s.length > 0);
+            document.getElementById('studentCounterText').innerText = studentArray.length + " học sinh";
+            if (activePage === 'game1Page') buildGame1Targets();
+            if (activePage === 'game3Page') buildGame3Targets();
+            if (activePage === 'game4Page') buildGame4Zodiac();
+            if (activePage === 'game5Page') buildGame5Ducks();
+        }
+        document.getElementById('studentNamesInput').addEventListener('input', updateStudentCounter);
+
         function showPage(pageId) {
-            const pages = ['homePage', 'game1Page', 'game2Page', 'game3Page', 'game4Page', 'game5Page'];
-            pages.forEach(p => {
+            if (activeAnimId) cancelAnimationFrame(activeAnimId);
+            activePage = pageId;
+            ['homePage', 'game1Page', 'game2Page', 'game3Page', 'game4Page', 'game5Page', 'game6Page'].forEach(p => {
                 const el = document.getElementById(p);
                 if (el) el.classList.add('hidden');
             });
-            const activePage = document.getElementById(pageId);
-            if (activePage) activePage.classList.remove('hidden');
+            const target = document.getElementById(pageId);
+            if (target) target.classList.remove('hidden');
 
-            if (pageId === 'game1Page') renderGame1();
-            if (pageId === 'game2Page') g2ResetGame();
-            if (pageId === 'game3Page') renderGame3();
-            if (pageId === 'game4Page') renderGame4();
-            if (pageId === 'game5Page') renderGame5();
+            if (pageId === 'game1Page') buildGame1Targets();
+            if (pageId === 'game2Page') initGame2Canvas();
+            if (pageId === 'game3Page') buildGame3Targets();
+            if (pageId === 'game4Page') buildGame4Zodiac();
+            if (pageId === 'game5Page') buildGame5Ducks();
+            if (pageId === 'game6Page') initGame6Canvas();
         }
 
-        function getActivePlayers() {
-            return players.filter(p => !excludedPlayers.includes(p));
+        function runCountdown(callback) {
+            const overlay = document.getElementById('countdownOverlay');
+            const num = document.getElementById('countdownNumber');
+            overlay.classList.remove('hidden');
+            let count = 3;
+            num.innerText = count;
+
+            const timer = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    num.innerText = count;
+                } else if (count === 0) {
+                    num.innerText = "BẮT ĐẦU!";
+                } else {
+                    clearInterval(timer);
+                    overlay.classList.add('hidden');
+                    if (callback) callback();
+                }
+            }, 550);
         }
 
-        function updateSidebar() {
-            const container = document.getElementById('playerListContainer');
-            const countBadge = document.getElementById('playerCountBadge');
-            const historyContainer = document.getElementById('historyList');
-
-            if (container) {
-                container.innerHTML = players.map(p => {
-                    const isEx = excludedPlayers.includes(p);
-                    return `
-                        <div class="flex items-center justify-between p-1.5 rounded-xl border ${isEx ? 'bg-slate-950/40 border-slate-800 opacity-40' : 'bg-slate-800/80 border-slate-700'} text-xs">
-                            <span class="${isEx ? 'line-through text-slate-500' : 'text-slate-200'} font-semibold truncate max-w-[180px]">${p}</span>
-                            <button onclick="toggleExclude('${p}')" class="text-slate-400 hover:text-amber-400 ml-2">
-                                <i class="fa-solid ${isEx ? 'fa-eye-slash' : 'fa-eye'}"></i>
-                            </button>
-                        </div>
-                    `;
-                }).join('');
-            }
-
-            if (countBadge) countBadge.innerText = `${getActivePlayers().length} / ${players.length} người`;
-
-            if (historyContainer) {
-                historyContainer.innerHTML = history.map((item, idx) => `
-                    <div class="flex justify-between items-center bg-slate-950 p-1.5 rounded border border-slate-800">
-                        <span class="text-amber-400 font-bold truncate">#${history.length - idx} ${item.name}</span>
-                        <span class="text-[10px] text-slate-500 ml-2">${item.game}</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function addNamesFromInput() {
-            const input = document.getElementById('nameInput');
-            if (!input || !input.value.trim()) return;
-            const lines = input.value.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            players = Array.from(new Set([...players, ...lines]));
-            input.value = '';
-            updateSidebar();
-            renderGame1();
-            renderGame3();
-            renderGame5();
-        }
-
-        function clearAllNames() {
-            players = [];
-            excludedPlayers = [];
-            updateSidebar();
-            renderGame1();
-            renderGame3();
-            renderGame5();
-        }
-
-        function toggleExclude(name) {
-            if (excludedPlayers.includes(name)) {
-                excludedPlayers = excludedPlayers.filter(p => p !== name);
-            } else {
-                excludedPlayers.push(name);
-            }
-            updateSidebar();
-            renderGame1();
-            renderGame3();
-            renderGame5();
-        }
-
-        function resetExcluded() {
-            excludedPlayers = [];
-            updateSidebar();
-            renderGame1();
-            renderGame3();
-            renderGame5();
-        }
-
-        function recordWinner(name, gameName) {
-            history.unshift({ name, game: gameName });
-            const autoExclude = document.getElementById('autoExcludeCheck')?.checked;
-            if (autoExclude && !excludedPlayers.includes(name)) {
-                excludedPlayers.push(name);
-            }
-            updateSidebar();
-            confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-        }
-
-        function clearHistory() {
-            history = [];
-            updateSidebar();
-        }
-
-        // --- GAME 1: SÚT PHẠT RANDOM ---
-        let g1IsShooting = false;
-        function renderGame1() {
+        /* =========================================================================
+           GAME 1: SÚT PHẠT RANDOM
+           ========================================================================= */
+        function buildGame1Targets() {
             const grid = document.getElementById('targetGrid');
-            const totalText = document.getElementById('totalTargetsText');
-            const active = getActivePlayers();
-            if (!grid) return;
-
             grid.innerHTML = '';
-            if (totalText) totalText.innerText = active.length;
+            document.getElementById('totalTargetsText').innerText = studentArray.length;
 
-            if (active.length === 0) {
-                grid.innerHTML = '<div class="text-slate-400 text-xs text-center col-span-full">Vui lòng nhập danh sách học sinh bên tay phải!</div>';
+            if (studentArray.length === 0) {
+                grid.innerHTML = '<div class="text-xs text-amber-300 text-center col-span-full py-4">Vui lòng nhập danh sách học sinh bên phải!</div>';
                 return;
             }
 
-            let cols = 3;
-            if (active.length > 20) cols = 5;
-            else if (active.length > 10) cols = 4;
+            const cols = studentArray.length > 8 ? 4 : (studentArray.length > 4 ? 3 : 2);
             grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
 
-            active.forEach((p, idx) => {
+            studentArray.forEach((name, i) => {
                 const item = document.createElement('div');
-                item.className = 'target-grid-item bg-slate-900/80 border border-slate-700/80 rounded-xl p-1.5 text-center text-slate-100 font-bold text-xs select-none';
-                item.innerText = p;
-                item.dataset.index = idx;
+                item.className = 'target-grid-item bg-slate-900/80 border border-white/30 rounded-lg p-2 text-center';
+                item.id = `target-1-${i}`;
+                item.innerHTML = `<span class="text-xs font-bold text-white">${name}</span>`;
                 grid.appendChild(item);
             });
         }
 
-        function shootBall() {
-            if (g1IsShooting) return;
-            const active = getActivePlayers();
-            if (active.length === 0) return alert('Chưa có học sinh khả dụng!');
+        function playPenaltyGame() {
+            audioFx.init();
+            const cond = document.getElementById('winConditionSelect').value;
+            const selectedIdx = Math.floor(Math.random() * studentArray.length);
+            const winnerName = studentArray[selectedIdx];
 
-            g1IsShooting = true;
-            const ball = document.getElementById('ball');
-            const ballShadow = document.getElementById('ballShadow');
+            const ball = document.getElementById('soccerBall');
             const goalkeeper = document.getElementById('goalkeeper');
             const ronaldo = document.getElementById('ronaldo');
-            const targetItems = document.querySelectorAll('.target-grid-item');
 
-            const randomIndex = Math.floor(Math.random() * active.length);
-            const targetEl = targetItems[randomIndex];
-
-            if (ronaldo) ronaldo.classList.add('ronaldo-run');
+            ball.style.transform = 'translate(0, 0) scale(1)';
+            goalkeeper.style.left = '50%';
+            ronaldo.classList.add('ronaldo-run');
 
             setTimeout(() => {
+                ronaldo.classList.remove('ronaldo-run');
+                const targetEl = document.getElementById(`target-1-${selectedIdx}`);
                 if (targetEl) {
                     const rect = targetEl.getBoundingClientRect();
-                    const pitchRect = document.querySelector('.pitch').getBoundingClientRect();
+                    const goalRect = document.getElementById('goalElement').getBoundingClientRect();
+                    const offsetX = rect.left - goalRect.left - goalRect.width/2 + rect.width/2;
+                    const offsetY = -(goalRect.bottom - rect.bottom + 20);
 
-                    const targetX = rect.left + rect.width / 2 - (pitchRect.left + pitchRect.width / 2);
-                    const targetY = -(pitchRect.bottom - rect.top - 20);
-
-                    if (ball) ball.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.6) rotate(720deg)`;
-                    if (ballShadow) ballShadow.style.transform = `translate(${targetX}px, 0px) scale(0.3)`;
-
-                    if (goalkeeper) {
-                        const gkX = targetX > 0 ? -70 : 70;
-                        goalkeeper.style.transform = `translate(${gkX}px, -15px) rotate(${gkX > 0 ? 25 : -25}deg)`;
-                    }
+                    ball.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(0.6)`;
+                    goalkeeper.style.left = (offsetX > 0 ? '20%' : '80%');
 
                     setTimeout(() => {
                         targetEl.classList.add('target-selected');
-                        playRonaldoSiuu();
-                        const winner = active[randomIndex];
-                        recordWinner(winner, 'Sút phạt');
+                        audioFx.playWin();
+                        const title = cond === 'FIRST' ? '🥇 Sút Phạt Thành Công!' : '🐢 Học Sinh Bị Chọn Trả Bài!';
+                        showResultModal(winnerName, title, '⚽');
+                    }, 800);
+                }
+            }, 400);
+        }
 
-                        setTimeout(() => {
-                            if (ball) ball.style.transform = 'none';
-                            if (ballShadow) ballShadow.style.transform = 'none';
-                            if (goalkeeper) goalkeeper.style.transform = 'none';
-                            if (ronaldo) ronaldo.classList.remove('ronaldo-run');
-                            targetEl.classList.remove('target-selected');
-                            g1IsShooting = false;
-                            renderGame1();
-                        }, 2500);
+        /* =========================================================================
+           GAME 2: THI CHẠY ĐIỀN KINH (OVAL CANVAS RACE)
+           ========================================================================= */
+        let g2Canvas, g2Ctx;
+        function initGame2Canvas() {
+            g2Canvas = document.getElementById('game2Canvas');
+            if (!g2Canvas) return;
+            g2Ctx = g2Canvas.getContext('2d');
+            const container = document.getElementById('game2-container');
+            g2Canvas.width = container.clientWidth;
+            g2Canvas.height = container.clientHeight;
+            drawGame2Track([]);
+        }
+
+        function drawGame2Track(runners) {
+            if (!g2Ctx) return;
+            const w = g2Canvas.width, h = g2Canvas.height;
+            g2Ctx.clearRect(0, 0, w, h);
+
+            // Ground
+            g2Ctx.fillStyle = '#15803d'; g2Ctx.fillRect(0, 0, w, h);
+
+            // Track Oval Path
+            const cx = w / 2, cy = h / 2;
+            const rx = w * 0.38, ry = h * 0.34;
+
+            g2Ctx.beginPath(); g2Ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+            g2Ctx.fillStyle = '#b91c1c'; g2Ctx.fill();
+            g2Ctx.lineWidth = 6; g2Ctx.strokeStyle = '#ffffff'; g2Ctx.stroke();
+
+            // Inner Field
+            g2Ctx.beginPath(); g2Ctx.ellipse(cx, cy, rx * 0.6, ry * 0.55, 0, 0, Math.PI * 2);
+            g2Ctx.fillStyle = '#16a34a'; g2Ctx.fill();
+            g2Ctx.lineWidth = 4; g2Ctx.strokeStyle = '#ffffff'; g2Ctx.stroke();
+
+            // Center Label
+            g2Ctx.font = 'bold 16px Montserrat, sans-serif'; g2Ctx.fillStyle = '#fef08a';
+            g2Ctx.textAlign = 'center'; g2Ctx.fillText('🏃 ĐƯỜNG ĐUA ĐIỀN KINH 🏃', cx, cy + 5);
+
+            // Finish Line
+            g2Ctx.strokeStyle = '#ffffff'; g2Ctx.lineWidth = 4;
+            g2Ctx.beginPath(); g2Ctx.moveTo(cx + rx * 0.6, cy); g2Ctx.lineTo(cx + rx, cy); g2Ctx.stroke();
+
+            // Runners
+            runners.forEach(r => {
+                const angle = r.progress * Math.PI * 2;
+                const laneRx = rx * (0.65 + (r.lane / Math.max(runners.length, 1)) * 0.3);
+                const laneRy = ry * (0.6 + (r.lane / Math.max(runners.length, 1)) * 0.35);
+                const px = cx + Math.cos(angle) * laneRx;
+                const py = cy + Math.sin(angle) * laneRy;
+
+                g2Ctx.beginPath(); g2Ctx.arc(px, py, 15, 0, Math.PI * 2);
+                g2Ctx.fillStyle = r.color; g2Ctx.fill();
+                g2Ctx.lineWidth = 2; g2Ctx.strokeStyle = '#ffffff'; g2Ctx.stroke();
+
+                g2Ctx.font = '14px sans-serif'; g2Ctx.textAlign = 'center'; g2Ctx.textBaseline = 'middle';
+                g2Ctx.fillText(r.emoji, px, py);
+
+                g2Ctx.font = 'bold 10px Montserrat'; g2Ctx.fillStyle = '#ffffff';
+                g2Ctx.fillText(r.name, px, py - 20);
+            });
+        }
+
+        function playTrackRaceGame() {
+            audioFx.init();
+            initGame2Canvas();
+            const dur = parseInt(document.getElementById('raceTimeRange').value) || 20;
+            const cond = document.getElementById('winConditionSelect').value;
+
+            let runners = studentArray.map((name, i) => ({
+                id: i, name: name, lane: i,
+                emoji: emojiAvatars[i % emojiAvatars.length],
+                color: colorPalette[i % colorPalette.length],
+                progress: 0,
+                speed: (1 / (dur * 60)) * (0.8 + Math.random() * 0.4)
+            }));
+
+            let finishedList = [];
+            function loop() {
+                runners.forEach(r => {
+                    if (r.progress < 1) {
+                        r.progress += r.speed + (Math.sin(Date.now() * 0.01 + r.id) * 0.0003);
+                        if (r.progress >= 1) {
+                            r.progress = 1;
+                            if (!finishedList.includes(r)) finishedList.push(r);
+                        }
+                    }
+                });
+
+                drawGame2Track(runners);
+
+                if (finishedList.length < runners.length) {
+                    activeAnimId = requestAnimationFrame(loop);
+                } else {
+                    audioFx.playWin();
+                    const picked = cond === 'FIRST' ? finishedList[0] : finishedList[finishedList.length - 1];
+                    const title = cond === 'FIRST' ? '🏆 Về Đích Đầu Tiên!' : '🐢 Về Chót Bị Gọi Bảng!';
+                    showResultModal(picked.name, title, '🏃‍♂️');
+                }
+            }
+            loop();
+        }
+
+        /* =========================================================================
+           GAME 3: ĐẬP CẦU LÔNG
+           ========================================================================= */
+        function buildGame3Targets() {
+            const grid = document.getElementById('badmintonGrid');
+            grid.innerHTML = '';
+            if (studentArray.length === 0) return;
+            const cols = studentArray.length > 8 ? 4 : (studentArray.length > 4 ? 3 : 2);
+            grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+
+            studentArray.forEach((name, i) => {
+                const item = document.createElement('div');
+                item.className = 'bg-teal-900/80 border-2 border-teal-400/50 rounded-xl p-2 text-center flex flex-col items-center justify-center';
+                item.id = `target-3-${i}`;
+                item.innerHTML = `<span class="text-xs font-black text-amber-300">${name}</span>`;
+                grid.appendChild(item);
+            });
+        }
+
+        function playBadmintonGame() {
+            audioFx.init();
+            const cond = document.getElementById('winConditionSelect').value;
+            const targetIdx = Math.floor(Math.random() * studentArray.length);
+            const winnerName = studentArray[targetIdx];
+            const shuttle = document.getElementById('shuttlecock');
+
+            shuttle.style.transform = 'translate(-50%, 0) scale(1)';
+
+            setTimeout(() => {
+                const targetEl = document.getElementById(`target-3-${targetIdx}`);
+                if (targetEl) {
+                    const rect = targetEl.getBoundingClientRect();
+                    const matRect = document.querySelector('.badminton-mat').getBoundingClientRect();
+                    const offsetX = rect.left - matRect.left - matRect.width/2 + rect.width/2;
+                    const offsetY = -(matRect.bottom - rect.bottom + 10);
+
+                    audioFx.playSmash();
+                    shuttle.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(1.3) rotate(180deg)`;
+
+                    setTimeout(() => {
+                        targetEl.classList.add('bg-amber-500/80', 'border-amber-300');
+                        audioFx.playWin();
+                        const title = cond === 'FIRST' ? '🏸 Cú Smash Đỉnh Cao!' : '🐢 Cầu Rơi Đúng Vị Trí!';
+                        showResultModal(winnerName, title, '🏸');
                     }, 800);
                 }
             }, 300);
         }
 
-        // --- GAME 2: THI CHẠY ĐIỀN KINH ---
-        let g2Timer = null;
-        let g2StartTime = 0;
-        let g2IsRacing = false;
-
-        function g2ResetGame() {
-            g2IsRacing = false;
-            clearInterval(g2Timer);
-            document.getElementById('g2TimerText').innerText = "00:00.00";
-            const layer = document.getElementById('g2RunnersLayer');
-            if (layer) layer.innerHTML = '';
-        }
-
-        function g2StartGame() {
-            const active = getActivePlayers();
-            if (active.length === 0) return alert('Chưa có học sinh tham gia!');
-            if (g2IsRacing) return;
-
-            g2ResetGame();
-            g2IsRacing = true;
-
-            const durationSec = parseInt(document.getElementById('g2TimeSelect').value) || 15;
-            const layer = document.getElementById('g2RunnersLayer');
-
-            const runners = active.map((p, idx) => {
-                const el = document.createElement('div');
-                el.className = 'runner';
-                el.innerHTML = `
-                    <div class="runner-body" style="background-color: hsl(${(idx * 137) % 360}, 70%, 50%)">${idx + 1}</div>
-                    <div class="runner-name">${p}</div>
+        /* =========================================================================
+           GAME 4: ĐUA 12 CON GIÁP
+           ========================================================================= */
+        function buildGame4Zodiac() {
+            const container = document.getElementById('zodiacContainer');
+            container.innerHTML = '';
+            studentArray.forEach((name, i) => {
+                const z = zodiacAnimals[i % 12];
+                const row = document.createElement('div');
+                row.className = 'bg-indigo-950/80 border border-indigo-700/60 rounded-xl p-2.5 flex items-center gap-3 shadow';
+                row.innerHTML = `
+                    <div class="w-20 text-xs font-bold text-indigo-200 truncate">${name}</div>
+                    <div class="flex-1 bg-slate-900 rounded-full h-7 relative overflow-hidden border border-indigo-500/40">
+                        <div id="zodiac-bar-${i}" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full w-0 transition-all duration-100 rounded-full"></div>
+                        <div id="zodiac-icon-${i}" class="absolute top-1/2 -translate-y-1/2 left-0 text-lg transition-all duration-100">${z.emoji}</div>
+                    </div>
                 `;
-                layer.appendChild(el);
-                return {
-                    name: p,
-                    element: el,
-                    progress: 0,
-                    speed: 0.8 + Math.random() * 0.4
-                };
+                container.appendChild(row);
             });
+        }
 
-            let cd = 3;
-            const overlay = document.getElementById('countdownOverlay');
-            const num = document.getElementById('countdownNumber');
-            overlay.classList.remove('hidden');
-            num.innerText = cd;
+        function playZodiacRaceGame() {
+            audioFx.init();
+            buildGame4Zodiac();
+            const dur = parseInt(document.getElementById('raceTimeRange').value) || 20;
+            const cond = document.getElementById('winConditionSelect').value;
 
-            const cdInterval = setInterval(() => {
-                cd--;
-                if (cd > 0) {
-                    num.innerText = cd;
-                } else {
-                    clearInterval(cdInterval);
-                    overlay.classList.add('hidden');
+            let racers = studentArray.map((name, i) => ({
+                id: i, name: name, pos: 0,
+                speed: (100 / (dur * 20)) * (0.8 + Math.random() * 0.4)
+            }));
 
-                    g2StartTime = Date.now();
-                    g2Timer = setInterval(() => {
-                        const elapsed = (Date.now() - g2StartTime) / 1000;
-                        const remaining = Math.max(0, durationSec - elapsed);
-                        
-                        const mins = Math.floor(remaining / 60).toString().padStart(2, '0');
-                        const secs = Math.floor(remaining % 60).toString().padStart(2, '0');
-                        const ms = Math.floor((remaining % 1) * 100).toString().padStart(2, '0');
-                        document.getElementById('g2TimerText').innerText = `${mins}:${secs}.${ms}`;
-
-                        runners.forEach(r => {
-                            r.progress += (r.speed * 0.005);
-                            const angle = r.progress * Math.PI * 2;
-                            const rx = 320;
-                            const ry = 130;
-                            const x = Math.cos(angle) * rx;
-                            const y = Math.sin(angle) * ry;
-
-                            r.element.style.left = `calc(50% + ${x}px)`;
-                            r.element.style.top = `calc(400px + ${y}px)`;
-                        });
-
-                        if (remaining <= 0) {
-                            clearInterval(g2Timer);
-                            g2IsRacing = false;
-                            playWhistleSound();
-                            runners.sort((a, b) => b.progress - a.progress);
-                            recordWinner(runners[0].name, 'Thi chạy');
+            let finished = [];
+            let interval = setInterval(() => {
+                racers.forEach(r => {
+                    if (r.pos < 100) {
+                        r.pos += r.speed + Math.random() * 0.3;
+                        if (r.pos >= 100) {
+                            r.pos = 100;
+                            if (!finished.includes(r)) finished.push(r);
                         }
-                    }, 30);
+                        const bar = document.getElementById(`zodiac-bar-${r.id}`);
+                        const icon = document.getElementById(`zodiac-icon-${r.id}`);
+                        if (bar) bar.style.width = r.pos + '%';
+                        if (icon) icon.style.left = `calc(${r.pos}% - 20px)`;
+                    }
+                });
+
+                if (finished.length === racers.length) {
+                    clearInterval(interval);
+                    audioFx.playWin();
+                    const picked = cond === 'FIRST' ? finished[0] : finished[finished.length - 1];
+                    const title = cond === 'FIRST' ? '🐉 Con Giáp Dẫn Đầu!' : '🐢 Linh Vật Về Cuối!';
+                    showResultModal(picked.name, title, '🐉');
                 }
-            }, 800);
+            }, 50);
         }
 
-        // --- GAME 3: ĐẬP CẦU LÔNG ---
-        let g3IsSmashing = false;
-        function renderGame3() {
-            const grid = document.getElementById('badmintonTargetGrid');
-            const active = getActivePlayers();
-            if (!grid) return;
-            grid.innerHTML = '';
-
-            let cols = 3;
-            if (active.length > 20) cols = 5;
-            else if (active.length > 10) cols = 4;
-            grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-
-            active.forEach((p, idx) => {
-                const item = document.createElement('div');
-                item.className = 'badminton-grid-item bg-slate-900/80 border border-teal-500/40 rounded-xl p-2 text-center text-white font-bold text-xs select-none';
-                item.innerText = p;
-                grid.appendChild(item);
+        /* =========================================================================
+           GAME 5: ĐUA VỊT TRÊN SÔNG
+           ========================================================================= */
+        function buildGame5Ducks() {
+            const container = document.getElementById('duckLanes');
+            container.innerHTML = '';
+            studentArray.forEach((name, i) => {
+                const lane = document.createElement('div');
+                lane.className = 'bg-sky-950/70 border border-sky-400/30 rounded-2xl p-2 flex items-center relative h-12 overflow-hidden';
+                lane.innerHTML = `
+                    <div class="w-24 text-xs font-bold text-sky-200 z-10 truncate">${name}</div>
+                    <div id="duck-item-${i}" class="duck-swimmer absolute left-24 text-2xl duck-anim flex items-center gap-1 z-10">
+                        🦆
+                    </div>
+                `;
+                container.appendChild(lane);
             });
         }
 
-        function g3Smash() {
-            if (g3IsSmashing) return;
-            const active = getActivePlayers();
-            if (active.length === 0) return alert('Chưa có học sinh!');
+        function playDuckRaceGame() {
+            audioFx.init();
+            buildGame5Ducks();
+            const dur = parseInt(document.getElementById('raceTimeRange').value) || 20;
+            const cond = document.getElementById('winConditionSelect').value;
 
-            g3IsSmashing = true;
-            const durationSec = parseInt(document.getElementById('g3TimeSelect').value) || 5;
-            const shuttle = document.getElementById('shuttlecock');
-            const targetItems = document.querySelectorAll('.badminton-grid-item');
-            const randomIndex = Math.floor(Math.random() * active.length);
-            const targetEl = targetItems[randomIndex];
+            let ducks = studentArray.map((name, i) => ({
+                id: i, name: name, pos: 0,
+                speed: (80 / (dur * 20)) * (0.8 + Math.random() * 0.4)
+            }));
 
-            let cd = 3;
-            const overlay = document.getElementById('countdownOverlay');
-            const num = document.getElementById('countdownNumber');
-            overlay.classList.remove('hidden');
-            num.innerText = cd;
+            let finished = [];
+            let interval = setInterval(() => {
+                audioFx.playQuack();
+                ducks.forEach(d => {
+                    if (d.pos < 80) {
+                        d.pos += d.speed + Math.random() * 0.3;
+                        if (d.pos >= 80) {
+                            d.pos = 80;
+                            if (!finished.includes(d)) finished.push(d);
+                        }
+                        const el = document.getElementById(`duck-item-${d.id}`);
+                        if (el) el.style.left = `calc(${24 + d.pos * 0.7}%)`;
+                    }
+                });
 
-            const cdInterval = setInterval(() => {
-                cd--;
-                if (cd > 0) {
-                    num.innerText = cd;
-                } else {
-                    clearInterval(cdInterval);
-                    overlay.classList.add('hidden');
+                if (finished.length === ducks.length) {
+                    clearInterval(interval);
+                    audioFx.playWin();
+                    const picked = cond === 'FIRST' ? finished[0] : finished[finished.length - 1];
+                    const title = cond === 'FIRST' ? '🐥 Vịt Vàng Về Đích Đỉnh Nhất!' : '🐢 Vịt Bơi Chậm Nhất!';
+                    showResultModal(picked.name, title, '🦆');
+                }
+            }, 60);
+        }
 
-                    if (shuttle && targetEl) {
-                        shuttle.style.transition = `all ${durationSec / 2}s cubic-bezier(0.25, 1, 0.5, 1)`;
-                        const rect = targetEl.getBoundingClientRect();
-                        const parentRect = shuttle.parentElement.getBoundingClientRect();
+        /* =========================================================================
+           GAME 6: CHẠY BO NÉ SỔ ĐIỂM
+           ========================================================================= */
+        let g6Canvas, g6Ctx;
+        let g6Runners = [], g6Items = [], g6FinishRankings = [];
+        let g6IsRunning = false, g6CameraY = 0, g6RaceDistance = 2500, g6CamTargetMode = 'LEADER';
 
-                        const x = rect.left + rect.width / 2 - parentRect.left - 24;
-                        const y = -(parentRect.top - rect.top + 20);
+        function setG6CamMode(mode) {
+            g6CamTargetMode = mode;
+            document.getElementById('g6CamLeaderBtn').className = mode === 'LEADER' ? 
+                "bg-amber-500 text-slate-950 font-game px-3 py-1 rounded-lg text-xs shadow border border-yellow-300 font-bold transition" :
+                "bg-slate-800 hover:bg-slate-700 text-slate-300 font-game px-3 py-1 rounded-lg text-xs shadow border border-purple-500/40 transition opacity-80";
+            
+            document.getElementById('g6CamLastBtn').className = mode === 'LAST' ? 
+                "bg-amber-500 text-slate-950 font-game px-3 py-1 rounded-lg text-xs shadow border border-yellow-300 font-bold transition" :
+                "bg-slate-800 hover:bg-slate-700 text-slate-300 font-game px-3 py-1 rounded-lg text-xs shadow border border-purple-500/40 transition opacity-80";
+        }
 
-                        shuttle.style.transform = `translate(${x}px, ${y}px) scale(0.7) rotate(180deg)`;
+        function initGame6Canvas() {
+            g6Canvas = document.getElementById('game6Canvas');
+            if (!g6Canvas) return;
+            g6Ctx = g6Canvas.getContext('2d');
+            const rect = g6Canvas.parentElement.getBoundingClientRect();
+            g6Canvas.width = rect.width; g6Canvas.height = rect.height;
+        }
 
-                        setTimeout(() => {
-                            playWhistleSound();
-                            recordWinner(active[randomIndex], 'Đập cầu');
-                            setTimeout(() => {
-                                shuttle.style.transition = 'all 0.75s cubic-bezier(0.25, 1, 0.5, 1)';
-                                shuttle.style.transform = 'none';
-                                g3IsSmashing = false;
-                                renderGame3();
-                            }, 1500);
-                        }, (durationSec / 2) * 1000);
+        class G6Runner {
+            constructor(id, name, emoji, color, laneX, laneWidth) {
+                this.id = id; this.name = name; this.emoji = emoji; this.color = color;
+                this.laneX = laneX; this.laneWidth = laneWidth; this.y = 0;
+                this.baseSpeed = 2.4 + Math.random() * 0.8; this.speed = this.baseSpeed;
+                this.status = 'NORMAL'; this.statusTimer = 0;
+                this.finished = false; this.animFrame = Math.random() * 10;
+            }
+            update() {
+                if (this.finished) return;
+                this.animFrame += 0.2;
+                if (this.statusTimer > 0) {
+                    this.statusTimer--;
+                    if (this.statusTimer <= 0) this.status = 'NORMAL';
+                }
+
+                if (this.status === 'FROZEN') this.speed = 0;
+                else if (this.status === 'BOOST') this.speed = this.baseSpeed * 2.2;
+                else if (this.status === 'SLOW') this.speed = this.baseSpeed * 0.4;
+                else this.speed = this.baseSpeed + (Math.sin(Date.now() * 0.005 + this.id) * 0.3);
+
+                this.y += this.speed * 1.8;
+
+                if (this.y >= g6RaceDistance) {
+                    this.y = g6RaceDistance; this.finished = true;
+                    g6FinishRankings.push(this);
+                    audioFx.playWin();
+
+                    const cond = document.getElementById('winConditionSelect').value;
+                    if (cond === 'FIRST' && g6FinishRankings.length === 1) {
+                        finishG6Game(this);
                     }
                 }
-            }, 800);
-        }
+            }
+            draw(ctx, camY) {
+                const screenY = g6Canvas.height - 80 - (this.y - camY);
+                if (screenY < -60 || screenY > g6Canvas.height + 60) return;
 
-        // --- GAME 4: ĐUA 12 CON GIÁP ---
-        const ZODIAC_NAMES = ["Tý 🐭", "Sửu 🐮", "Dần 🐯", "Mão 🐱", "Thìn 🐲", "Tỵ 🐍", "Ngọ 🐴", "Mùi 🐐", "Thân 🐵", "Dậu 🐔", "Tuất 🐶", "Hợi 🐷"];
-        function renderGame4() {
-            const container = document.getElementById('zodiacContainer');
-            if (!container) return;
-            container.innerHTML = ZODIAC_NAMES.map((name, idx) => `
-                <div class="zodiac-lane h-8 flex items-center px-2">
-                    <span class="text-xs font-bold text-indigo-300 w-16">${name}</span>
-                    <div class="flex-1 relative h-full">
-                        <div id="zodiac-${idx}" class="absolute left-0 top-1/2 -translate-y-1/2 text-lg transition-all duration-100">🏃</div>
-                    </div>
-                </div>
-            `).join('');
-        }
+                const bounce = Math.abs(Math.sin(this.animFrame)) * 6;
+                ctx.save();
+                ctx.translate(this.laneX, screenY - bounce);
 
-        function g4StartRace() {
-            const active = getActivePlayers();
-            if (active.length === 0) return alert('Chưa có học sinh!');
-
-            const durationSec = parseInt(document.getElementById('g4TimeSelect').value) || 10;
-            let progress = new Array(12).fill(0);
-
-            let cd = 3;
-            const overlay = document.getElementById('countdownOverlay');
-            const num = document.getElementById('countdownNumber');
-            overlay.classList.remove('hidden');
-            num.innerText = cd;
-
-            const cdInterval = setInterval(() => {
-                cd--;
-                if (cd > 0) {
-                    num.innerText = cd;
-                } else {
-                    clearInterval(cdInterval);
-                    overlay.classList.add('hidden');
-
-                    const stepSpeed = 90 / (durationSec * 20);
-                    let winnerZodiacIdx = -1;
-                    const interval = setInterval(() => {
-                        let finished = false;
-                        progress = progress.map((p, idx) => {
-                            const nextP = p + (Math.random() * stepSpeed * 2);
-                            const el = document.getElementById(`zodiac-${idx}`);
-                            if (el) el.style.left = `${Math.min(nextP, 90)}%`;
-                            if (nextP >= 90 && winnerZodiacIdx === -1) {
-                                finished = true;
-                                winnerZodiacIdx = idx;
-                            }
-                            return nextP;
-                        });
-
-                        if (finished) {
-                            clearInterval(interval);
-                            playZodiacSound(winnerZodiacIdx);
-                            const winnerStudentIdx = Math.floor(Math.random() * active.length);
-                            recordWinner(active[winnerStudentIdx], `Con Giáp: ${ZODIAC_NAMES[winnerZodiacIdx]}`);
-                            setTimeout(renderGame4, 2500);
-                        }
-                    }, 50);
+                if (this.status === 'BOOST') {
+                    ctx.beginPath(); ctx.arc(0, -8, 26, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(16, 185, 129, 0.4)'; ctx.fill();
+                } else if (this.status === 'SLOW') {
+                    ctx.beginPath(); ctx.arc(0, -8, 26, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(147, 197, 253, 0.6)'; ctx.fill();
                 }
-            }, 800);
+
+                ctx.beginPath(); ctx.arc(0, -8, 20, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; ctx.fill();
+                ctx.lineWidth = 2; ctx.strokeStyle = '#ffffff'; ctx.stroke();
+
+                ctx.font = '20px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(this.emoji, 0, -7);
+
+                ctx.font = 'bold 11px Montserrat, sans-serif';
+                const tw = ctx.measureText(this.name).width;
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+                ctx.beginPath(); ctx.roundRect(-tw/2 - 5, -42, tw + 10, 16, 5); ctx.fill();
+                ctx.fillStyle = '#ffffff'; ctx.fillText(this.name, 0, -34);
+
+                ctx.restore();
+            }
         }
 
-        // --- GAME 5: ĐUA VỊT ---
-        function renderGame5() {
-            const container = document.getElementById('duckLanesContainer');
-            const active = getActivePlayers();
-            if (!container) return;
+        function playBookRunGame() {
+            audioFx.init();
+            initGame6Canvas();
+            document.getElementById('g6PreGameBanner').classList.add('hidden');
 
-            container.innerHTML = active.slice(0, 8).map((p, idx) => `
-                <div class="relative w-full h-9 border-b border-cyan-400/20 flex items-center">
-                    <div id="duck-${idx}" class="duck-swimmer absolute left-0 flex items-center gap-2">
-                        <span class="text-xl duck-anim">🦆</span>
-                        <span class="text-[11px] font-bold text-white bg-slate-900/80 px-2 py-0.5 rounded-full border border-cyan-400/50">${p}</span>
-                    </div>
-                </div>
-            `).join('');
+            const durSec = parseInt(document.getElementById('raceTimeRange').value) || 20;
+            g6RaceDistance = durSec * 110;
+
+            const count = studentArray.length;
+            const laneWidth = g6Canvas.width / Math.max(count, 1);
+
+            g6Runners = studentArray.map((name, i) => {
+                const laneX = laneWidth * i + laneWidth / 2;
+                return new G6Runner(i, name, emojiAvatars[i % emojiAvatars.length], colorPalette[i % colorPalette.length], laneX, laneWidth);
+            });
+
+            g6Items = []; g6FinishRankings = []; g6CameraY = 0;
+            g6IsRunning = true;
+
+            for (let i = 0; i < Math.floor(g6RaceDistance / 180); i++) {
+                const itemY = 300 + i * 160;
+                const randR = g6Runners[Math.floor(Math.random() * g6Runners.length)];
+                g6Items.push({ x: randR.laneX, y: itemY, type: Math.random() < 0.6 ? 'BOOST' : 'SLOW', active: true });
+            }
+
+            if (activeAnimId) cancelAnimationFrame(activeAnimId);
+            runG6Loop();
         }
 
-        function g5StartDuckRace() {
-            const active = getActivePlayers();
-            if (active.length === 0) return alert('Chưa có học sinh!');
+        function runG6Loop() {
+            if (!g6IsRunning) return;
 
-            const durationSec = parseInt(document.getElementById('g5TimeSelect').value) || 12;
-            const count = Math.min(active.length, 8);
-            let progress = new Array(count).fill(0);
+            g6Runners.forEach(r => r.update());
 
-            let cd = 3;
-            const overlay = document.getElementById('countdownOverlay');
-            const num = document.getElementById('countdownNumber');
-            overlay.classList.remove('hidden');
-            num.innerText = cd;
-
-            const cdInterval = setInterval(() => {
-                cd--;
-                if (cd > 0) {
-                    num.innerText = cd;
-                } else {
-                    clearInterval(cdInterval);
-                    overlay.classList.add('hidden');
-
-                    const stepSpeed = 85 / (durationSec * 25);
-                    const interval = setInterval(() => {
-                        let winnerIdx = -1;
-                        progress = progress.map((p, idx) => {
-                            const nextP = p + (Math.random() * stepSpeed * 2);
-                            const el = document.getElementById(`duck-${idx}`);
-                            if (el) el.style.left = `${Math.min(nextP, 85)}%`;
-                            if (nextP >= 85 && winnerIdx === -1) winnerIdx = idx;
-                            return nextP;
-                        });
-
-                        if (winnerIdx !== -1) {
-                            clearInterval(interval);
-                            playDuckSound();
-                            recordWinner(active[winnerIdx], 'Đua Vịt');
-                            setTimeout(renderGame5, 2500);
+            g6Runners.forEach(r => {
+                if (r.finished) return;
+                g6Items.forEach(it => {
+                    if (it.active && Math.abs(r.laneX - it.x) < r.laneWidth * 0.4 && Math.abs(r.y - it.y) < 25) {
+                        it.active = false;
+                        if (it.type === 'BOOST') {
+                            r.status = 'BOOST'; r.statusTimer = 60; audioFx.playBoost();
+                        } else {
+                            r.status = 'SLOW'; r.statusTimer = 50; audioFx.playFreeze();
                         }
-                    }, 40);
-                }
-            }, 800);
+                    }
+                });
+            });
+
+            const activeRunners = g6Runners.filter(r => !r.finished);
+            if (activeRunners.length > 0) {
+                const target = g6CamTargetMode === 'LEADER' ? 
+                    [...g6Runners].sort((a,b) => b.y - a.y)[0] : 
+                    activeRunners.sort((a,b) => a.y - b.y)[0];
+                g6CameraY += (target.y - g6CameraY) * 0.08;
+            } else {
+                g6CameraY += (g6RaceDistance - g6CameraY) * 0.08;
+            }
+
+            const maxDist = Math.max(...g6Runners.map(r => r.y));
+            document.getElementById('game6Progress').innerText = Math.min(100, Math.floor((maxDist / g6RaceDistance) * 100)) + '%';
+
+            g6Ctx.clearRect(0, 0, g6Canvas.width, g6Canvas.height);
+            g6Ctx.fillStyle = '#0f172a'; g6Ctx.fillRect(0, 0, g6Canvas.width, g6Canvas.height);
+
+            const finishY = g6Canvas.height - 80 - (g6RaceDistance - g6CameraY);
+            if (finishY > -50 && finishY < g6Canvas.height + 50) {
+                g6Ctx.fillStyle = '#f59e0b'; g6Ctx.fillRect(0, finishY - 5, g6Canvas.width, 10);
+            }
+
+            g6Items.forEach(it => {
+                if (!it.active) return;
+                const sy = g6Canvas.height - 80 - (it.y - g6CameraY);
+                if (sy < -30 || sy > g6Canvas.height + 30) return;
+                g6Ctx.font = '16px sans-serif'; g6Ctx.textAlign = 'center';
+                g6Ctx.fillText(it.type === 'BOOST' ? '⚡' : '🧊', it.x, sy);
+            });
+
+            g6Runners.forEach(r => r.draw(g6Ctx, g6CameraY));
+
+            if (g6FinishRankings.length === g6Runners.length && g6Runners.length > 0) {
+                const cond = document.getElementById('winConditionSelect').value;
+                const picked = cond === 'FIRST' ? g6FinishRankings[0] : g6FinishRankings[g6FinishRankings.length - 1];
+                finishG6Game(picked);
+                return;
+            }
+
+            activeAnimId = requestAnimationFrame(runG6Loop);
         }
 
-        window.onload = () => {
-            updateSidebar();
-            renderGame1();
+        function finishG6Game(winner) {
+            g6IsRunning = false;
+            const cond = document.getElementById('winConditionSelect').value;
+            const title = cond === 'FIRST' ? '🥇 Né Sổ Điểm Thành Công!' : '📝 BỊ GỌI LÊN KIỂM TRA BÀI CŨ!';
+            const icon = cond === 'FIRST' ? '🏆' : '📚';
+            showResultModal(winner.name, title, icon);
+        }
+
+        /* =========================================================================
+           ROUTER CHÍNH CHO BẮT ĐẦU GAME
+           ========================================================================= */
+        function startMiniGame() {
+            if (studentArray.length === 0) {
+                alert('Vui lòng nhập danh sách học sinh bên tay phải!');
+                return;
+            }
+
+            runCountdown(() => {
+                if (activePage === 'game1Page') playPenaltyGame();
+                else if (activePage === 'game2Page') playTrackRaceGame();
+                else if (activePage === 'game3Page') playBadmintonGame();
+                else if (activePage === 'game4Page') playZodiacRaceGame();
+                else if (activePage === 'game5Page') playDuckRaceGame();
+                else if (activePage === 'game6Page') playBookRunGame();
+                else {
+                    const picked = studentArray[Math.floor(Math.random() * studentArray.length)];
+                    audioFx.playWin();
+                    showResultModal(picked, '🎉 Chúc Mừng Học Sinh Được Chọn!', '🎓');
+                }
+            });
+        }
+
+        function showResultModal(name, title, icon) {
+            document.getElementById('winnerNameText').innerText = name;
+            document.getElementById('resultMainTitle').innerText = title;
+            document.getElementById('winnerAvatar').innerText = icon;
+
+            const modal = document.getElementById('resultModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+
+            try {
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } catch(e) {}
+        }
+
+        function closeResultModal() {
+            const modal = document.getElementById('resultModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        window.onload = function() {
+            loadSampleStudents();
+            showPage('homePage');
         };
     </script>
 </body>
