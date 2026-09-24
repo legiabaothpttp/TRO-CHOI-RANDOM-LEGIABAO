@@ -159,8 +159,10 @@
                 </button>
 <!-- SỬA LẠI DÒNG 160 THÀNH NHƯ SAU: -->
 <button onclick="showPage('game7Page')" class="px-3 py-1.5 font-bold rounded-lg bg-slate-800 hover:bg-amber-900/50 text-amber-400 text-xs">
+    <i class=<button onclick="showPage('game7Page')" class="px-3 py-1.5 font-bold rounded-lg bg-slate-800 hover:bg-amber-900/50 text-amber-400 text-xs">
     <i class="fa-solid fa-dharmachakra"></i> Vòng Quay Anime
 </button>
+
 
 
             </div>
@@ -234,18 +236,21 @@
                         </div>
                     </div>
                    <!-- CHÈN VÀO DƯỚI VÙNG CHỨA CỦA GAME 6 (NÉ SỔ ĐIỂM) -->
-<div id="game7Page" style="display: none; text-align: center; position: relative; width: 550px; margin: 20px auto;">
-    <!-- Mũi tên định vị kết quả trúng thưởng nằm ở đỉnh đầu -->
-    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 35px solid #ff4757; z-index: 10;"></div>
-    
-    <!-- Canvas 600x600 giúp hiển thị rõ nét 45 ô -->
-    <canvas id="wheelCanvas" width="600" height="600" style="width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 0 20px rgba(0,0,0,0.5);"></canvas>
-    
-    <button id="wheel-spin-btn" style="margin-top: 25px; padding: 12px 35px; font-size: 18px; font-weight: bold; cursor: pointer; background: #ff4757; color: #fff; border: none; border-radius: 25px; transition: 0.2s;">QUAY NGAY</button>
-</div>
-
+<div onclick="showPage('game7Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-amber-500/50 hover:border-amber-400 ... (giữ nguyên class giống game6)">
+    <!-- Bạn có thể thêm một thẻ div chứa icon vòng quay ở đây giống dòng 232 -->
+    <div>
         <h3 class="text-lg font-black text-amber-400">VÒNG QUAY ANIME</h3>
         <p class="text-slate-400 text-xs">Vòng quay thẻ tướng Anime kết hợp gọi tên học sinh trả bài sinh động.</p>
+    </div>
+</div>
+
+<!-- ĐÂY MỚI LÀ MÀN HÌNH CHƠI GAME CHÍNH (Thêm class hidden của Tailwind để mặc định ẩn đi) -->
+<div id="game7Page" class="hidden" style="text-align: center; position: relative; width: 550px; margin: 20px auto;">
+    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 35px solid #ff4757; z-index: 10;"></div>
+    <canvas id="wheelCanvas" width="600" height="600" style="width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 0 20px rgba(0,0,0,0.5);"></canvas>
+    <button id="wheel-spin-btn" style="margin-top: 25px; padding: 12px 35px; font-size: 18px; font-weight: bold; cursor: pointer; background: #ff4757; color: #fff; border: none; border-radius: 25px;">QUAY NGAY</button>
+</div>
+
     </div>
 </div>
 
@@ -592,12 +597,8 @@
             if (pageId === 'game4Page') buildGame4Zodiac();
             if (pageId === 'game5Page') buildGame5Ducks();
             if (pageId === 'game6Page') initGame6Canvas();
-           // SỬA DÒNG 595 THÀNH ĐOẠN NÀY:
-if (pageId === 'game7Page') {
-    const list = layDanhSachNhanVat();
-    drawAnimeWheel(list, []); // Vẽ vòng quay phiên bản tĩnh ban đầu khi vừa mở ta
-
-        }
+    if (pageId === 'game7Page') initGame7Wheel();
+}
 
         function runCountdown(callback) {
             const overlay = document.getElementById('countdownOverlay');
@@ -1180,6 +1181,11 @@ if (pageId === 'game7Page') {
         // =========================================================================
 // LOGIC ĐIỀU KHIỂN GAME 7: VÒNG QUAY ANIME ĐỒNG BỘ DANH SÁCH LỚP HỌC
 // =========================================================================
+// =========================================================================
+// LOGIC ĐIỀU KHIỂN GAME 7: VÒNG QUAY ANIME TỰ ĐỘNG ĐỒNG BỘ DANH SÁCH LỚP HỌC
+// =========================================================================
+
+// 1. Mảng 45 ảnh đại diện của bạn (Giữ nguyên cấu trúc của bạn)
 const animeAvatars = [
     "https://placehold.co", "https://placehold.co",
     "https://placehold.co", "https://placehold.co",
@@ -1206,30 +1212,183 @@ const animeAvatars = [
     "https://placehold.co5"
 ];
 
+// 2. Các biến cấu hình hệ thống vòng quay
 const animeColors = ["#ef4444", "#22c55e", "#3b82f6", "#f59e0b", "#a855f7", "#06b6d4", "#ec4899", "#64748b"];
-const animeCanvas = document.getElementById("animeWheelCanvas");
+const animeCanvas = document.getElementById("wheelCanvas") || document.getElementById("animeWheelCanvas");
 const animeCtx = animeCanvas ? animeCanvas.getContext("2d") : null;
-const animeSize = animeCanvas ? animeCanvas.width : 520;
+const animeSize = animeCanvas ? animeCanvas.width : 600;
 const animeCenter = animeSize / 2;
 
 let animeCurrentRotation = 0;
 let animeIsSpinning = false;
 let imageElements = [];
 
+// 3. Hàm tải trước toàn bộ 45 hình ảnh vào bộ nhớ đệm
 function preloadAnimeImages() {
     imageElements = [];
     let loaded = 0;
     animeAvatars.forEach((url, index) => {
         const img = new Image();
         img.src = url;
+        img.crossOrigin = "anonymous"; // Phòng lỗi chặn ảnh bảo mật Canvas
         img.onload = () => {
             loaded++;
-            if (loaded === animeAvatars.length) drawAnimeWheel();
+            if (loaded === animeAvatars.length) {
+                initGame7Wheel(); // Vẽ giao diện tĩnh ban đầu khi ảnh sẵn sàng
+            }
+        };
+        img.onerror = () => {
+            loaded++;
+            if (loaded === animeAvatars.length) initGame7Wheel();
         };
         imageElements[index] = img;
     });
 }
+
+// 4. Hàm trích xuất dữ liệu học sinh thực tế từ ô Textarea nhập liệu của trang web
+function layDanhSachHocSinhGame7() {
+    const textarea = document.querySelector('textarea') || document.getElementById('student-list');
+    
+    // Nếu ô nhập liệu trống, tự sinh 45 dòng mẫu để vòng quay hiển thị đối xứng đẹp mắt
+    if (!textarea || !textarea.value.trim()) {
+        let mauThu = [];
+        for (let i = 1; i <= 45; i++) {
+            mauThu.push({ name: `Học sinh ${i}`, imgIndex: (i - 1) % animeAvatars.length });
+        }
+        return mauThu;
+    }
+    
+    // Thu thập danh sách học sinh thực tế người dùng nhập vào
+    const lines = textarea.value.split('\n').map(name => name.trim()).filter(name => name !== "");
+    return lines.map((name, index) => {
+        return {
+            name: name,
+            imgIndex: index % animeAvatars.length // Gán tuần hoàn ảnh từ danh sách 45 ảnh đại diện
+        };
+    });
+}
+
+// 5. Thuật toán vẽ phân đoạn vòng quay: chữ và ảnh tự động xoay dọc hướng tâm không lo lệch dòng
+function drawAnimeWheel() {
+    if (!animeCtx || !animeCanvas) return;
+    
+    const items = layDanhSachHocSinhGame7();
+    const total = items.length;
+    if (total === 0) return;
+    const arc = (Math.PI * 2) / total;
+    const radius = animeSize / 2;
+
+    animeCtx.clearRect(0, 0, animeSize, animeSize);
+
+    items.forEach((item, i) => {
+        const angle = animeCurrentRotation + i * arc;
+
+        // Đổ màu lát cắt vòng quay xen kẽ từ mảng màu của bạn
+        animeCtx.fillStyle = animeColors[i % animeColors.length];
+        animeCtx.beginPath();
+        animeCtx.moveTo(animeCenter, animeCenter);
+        animeCtx.arc(animeCenter, animeCenter, radius, angle, angle + arc);
+        animeCtx.lineTo(animeCenter, animeCenter);
+        animeCtx.fill();
+        animeCtx.strokeStyle = "rgba(255,255,255,0.2)";
+        animeCtx.lineWidth = 1;
+        animeCtx.stroke();
+
+        // Di chuyển tọa độ vẽ hướng tâm vào chính giữa ô cắt
+        animeCtx.save();
+        animeCtx.translate(animeCenter, animeCenter);
+        animeCtx.rotate(angle + arc / 2);
+
+        const imgDist = radius * 0.82;
+        const imgSize = 22; // Cân chỉnh size ảnh thu nhỏ vừa vặn 45 ô
+
+        // Vẽ ảnh đại diện nhân vật tương ứng dọc bán kính
+        const currentImg = imageElements[item.imgIndex];
+        if (currentImg && currentImg.complete) {
+            animeCtx.save();
+            animeCtx.translate(imgDist, 0);
+            animeCtx.rotate(Math.PI / 2); // Xoay dọc ảnh
+            
+            animeCtx.beginPath();
+            animeCtx.arc(0, 0, imgSize / 2, 0, Math.PI * 2);
+            animeCtx.clip(); // Bo tròn khung viền ảnh đại diện
+            animeCtx.drawImage(currentImg, -imgSize / 2, -imgSize / 2, imgSize, imgSize);
+            animeCtx.restore();
+        }
+
+        // Vẽ tên học sinh xoay dọc, tự động thu nhỏ cỡ chữ nếu danh sách quá đông
+        animeCtx.fillStyle = "#ffffff";
+        animeCtx.font = total > 30 ? "bold 9px Sans-serif" : "bold 12px Sans-serif";
+        animeCtx.textAlign = "right";
+        animeCtx.textBaseline = "middle";
+        animeCtx.fillText(item.name, imgDist - 16, 0);
+
+        animeCtx.restore();
+    });
+}
+
+// 6. Hàm bắc cầu cập nhật (được gọi tại dòng 601 ở hàm showPage khi chuyển sang Game 7)
+function initGame7Wheel() {
+    drawAnimeWheel();
+}
+
+// 7. Xử lý hiệu ứng quay chậm dần đều mượt mà vật lý (Ease-Out)
+function kickHoatVongQuayAnime() {
+    if (animeIsSpinning) return;
+
+    const items = layDanhSachHocSinhGame7();
+    if (items.length === 0) return;
+
+    animeIsSpinning = true;
+    const spinAngle = Math.random() * Math.PI * 2 + Math.PI * 14; // Xoay tối thiểu 7 vòng + góc ngẫu nhiên kịch tính
+    const duration = 5000; // Thời gian xoay tròn trong 5 giây
+    const startTimestamp = performance.now();
+
+    function animate(now) {
+        const elapsed = now - startTimestamp;
+        const progress = Math.min(elapsed / duration, 1);
+
+        const easeOut = 1 - Math.pow(1 - progress, 4);
+        animeCurrentRotation = easeOut * spinAngle;
+
+        drawAnimeWheel();
+
+        if (progress < 1) {
+            requestAnimationFrame(animate);
+        } else {
+            animeIsSpinning = false;
+            
+            // Tính toán index trúng giải tương ứng với mũi tên cố định phía trên đỉnh (góc 270 độ)
+            const degrees = (animeCurrentRotation * 180 / Math.PI) % 360;
+            const totalItems = items.length;
+            const prizeIndex = Math.floor((360 - degrees + 270) % 360 / (360 / totalItems));
+            
+            xuLyThongBaoChienThangGame7(items[prizeIndex].name);
+        }
+    }
+    requestAnimationFrame(animate);
+}
+
+// 8. Liên kết hiển thị lên hộp thông báo kết quả chung của website bạn
+function xuLyThongBaoChienThangGame7(tenHocSinh) {
+    // Tự động kích hoạt khối "CHÚC MƯỜNG CHIẾN THẮNG" có sẵn của hệ thống bạn nếu tồn tại hàm
+    if (typeof showWinner === "function") {
+        showWinner(tenHocSinh);
+    } else if (typeof openVictoryModal === "function") {
+        openVictoryModal(tenHocSinh);
+    } else {
+        alert("🎉 CHÚC MỪNG CHIẾN THẮNG!\nHọc sinh được chọn: " + tenHocSinh);
+    }
+}
+
+// 9. Kích hoạt tải ảnh ngay khi hệ thống load file và gán sự kiện click nút bấm quay
 preloadAnimeImages();
+document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "wheel-spin-btn") {
+        kickHoatVongQuayAnime();
+    }
+});
+
 
 function drawAnimeWheel() {
     if (!animeCtx) return;
