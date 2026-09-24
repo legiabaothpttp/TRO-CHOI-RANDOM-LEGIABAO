@@ -1203,9 +1203,30 @@ const animeCenter = animeSize / 2;
 let animeCurrentRotation = 0;
 let animeIsSpinning = false;
 let imageElements = [];
+ function preloadAnimeImages() {
+    imageElements = [];
+    let loaded = 0;
+    if (!animeAvatars || animeAvatars.length === 0) {
+        drawAnimeWheel();
+        return;
+    }
+    animeAvatars.forEach((url, index) => {
+        const img = new Image();
+        img.src = url;
+        img.crossOrigin = "anonymous"; 
+        img.onload = () => {
+            loaded++;
+            drawAnimeWheel();
+        };
+        img.onerror = () => {
+            loaded++;
+            drawAnimeWheel();
+        };
+        imageElements[index] = img;
+    });
+    setTimeout(drawAnimeWheel, 200);
+}
 
-
-preloadAnimeImages();
 
 function drawAnimeWheel() {
     if (!animeCtx) return;
