@@ -157,9 +157,11 @@
                 <button onclick="showPage('game6Page')" class="px-3 py-1.5 bg-rose-900/80 hover:bg-rose-800 text-rose-300 rounded-xl text-xs font-bold border border-rose-500/50 transition flex items-center gap-1.5 whitespace-nowrap shadow-md">
                     <i class="fa-solid fa-book-skull text-yellow-300"></i> Né Sổ Điểm
                 </button>
-                <button onclick="showPage('game7Page')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-800 hover:bg-amber-900/50 text-amber-400 rounded-lg transition flex items-center gap-2 whitespace-nowrap">
-    <i class="fa-solid fa-dharmachakra animate-spin-slow"></i> Vòng Quay Anime
+<!-- SỬA LẠI DÒNG 160 THÀNH NHƯ SAU: -->
+<button onclick="showPage('game7Page')" class="px-3 py-1.5 font-bold rounded-lg bg-slate-800 hover:bg-amber-900/50 text-amber-400 text-xs">
+    <i class="fa-solid fa-dharmachakra"></i> Vòng Quay Anime
 </button>
+
 
             </div>
         </div>
@@ -231,11 +233,17 @@
                             <p class="text-slate-400 text-xs">Đường đua sinh tồn 2.5D kịch tính với vật phẩm & bẫy keo!</p>
                         </div>
                     </div>
-                    <div onclick="showPage('game7Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-amber-500/50 hover:border-amber-400 p-4 rounded-2xl flex items-center gap-4 cursor-pointer transition transform hover:-translate-y-1">
-    <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center font-black text-2xl">
-        <i class="fa-solid fa-dharmachakra animate-spin-slow"></i>
-    </div>
-    <div>
+                   <!-- CHÈN VÀO DƯỚI VÙNG CHỨA CỦA GAME 6 (NÉ SỔ ĐIỂM) -->
+<div id="game7Page" style="display: none; text-align: center; position: relative; width: 550px; margin: 20px auto;">
+    <!-- Mũi tên định vị kết quả trúng thưởng nằm ở đỉnh đầu -->
+    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-top: 35px solid #ff4757; z-index: 10;"></div>
+    
+    <!-- Canvas 600x600 giúp hiển thị rõ nét 45 ô -->
+    <canvas id="wheelCanvas" width="600" height="600" style="width: 100%; height: 100%; border-radius: 50%; box-shadow: 0 0 20px rgba(0,0,0,0.5);"></canvas>
+    
+    <button id="wheel-spin-btn" style="margin-top: 25px; padding: 12px 35px; font-size: 18px; font-weight: bold; cursor: pointer; background: #ff4757; color: #fff; border: none; border-radius: 25px; transition: 0.2s;">QUAY NGAY</button>
+</div>
+
         <h3 class="text-lg font-black text-amber-400">VÒNG QUAY ANIME</h3>
         <p class="text-slate-400 text-xs">Vòng quay thẻ tướng Anime kết hợp gọi tên học sinh trả bài sinh động.</p>
     </div>
@@ -584,7 +592,11 @@
             if (pageId === 'game4Page') buildGame4Zodiac();
             if (pageId === 'game5Page') buildGame5Ducks();
             if (pageId === 'game6Page') initGame6Canvas();
-            if (pageId === 'game7Page') drawAnimeWheel();
+           // SỬA DÒNG 595 THÀNH ĐOẠN NÀY:
+if (pageId === 'game7Page') {
+    const list = layDanhSachNhanVat();
+    drawAnimeWheel(list, []); // Vẽ vòng quay phiên bản tĩnh ban đầu khi vừa mở ta
+
         }
 
         function runCountdown(callback) {
