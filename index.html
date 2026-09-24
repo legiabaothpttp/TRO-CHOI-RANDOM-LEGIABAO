@@ -157,6 +157,10 @@
                 <button onclick="showPage('game6Page')" class="px-3 py-1.5 bg-rose-900/80 hover:bg-rose-800 text-rose-300 rounded-xl text-xs font-bold border border-rose-500/50 transition flex items-center gap-1.5 whitespace-nowrap shadow-md">
                     <i class="fa-solid fa-book-skull text-yellow-300"></i> Né Sổ Điểm
                 </button>
+                <button onclick="showPage('game7Page')" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-800 hover:bg-amber-900/50 text-amber-400 rounded-lg transition flex items-center gap-2 whitespace-nowrap">
+    <i class="fa-solid fa-dharmachakra animate-spin-slow"></i> Vòng Quay Anime
+</button>
+
             </div>
         </div>
     </header>
@@ -227,6 +231,16 @@
                             <p class="text-slate-400 text-xs">Đường đua sinh tồn 2.5D kịch tính với vật phẩm & bẫy keo!</p>
                         </div>
                     </div>
+                    <div onclick="showPage('game7Page')" class="bg-slate-900/95 hover:bg-slate-900 border-2 border-amber-500/50 hover:border-amber-400 p-4 rounded-2xl flex items-center gap-4 cursor-pointer transition transform hover:-translate-y-1">
+    <div class="w-14 h-14 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center font-black text-2xl">
+        <i class="fa-solid fa-dharmachakra animate-spin-slow"></i>
+    </div>
+    <div>
+        <h3 class="text-lg font-black text-amber-400">VÒNG QUAY ANIME</h3>
+        <p class="text-slate-400 text-xs">Vòng quay thẻ tướng Anime kết hợp gọi tên học sinh trả bài sinh động.</p>
+    </div>
+</div>
+
                 </div>
             </main>
 
@@ -557,7 +571,7 @@
         function showPage(pageId) {
             if (activeAnimId) cancelAnimationFrame(activeAnimId);
             activePage = pageId;
-            ['homePage', 'game1Page', 'game2Page', 'game3Page', 'game4Page', 'game5Page', 'game6Page'].forEach(p => {
+            ['homePage', 'game1Page', 'game2Page', 'game3Page', 'game4Page', 'game5Page', 'game6Page', 'game7Page'].forEach(p => {
                 const el = document.getElementById(p);
                 if (el) el.classList.add('hidden');
             });
@@ -570,6 +584,7 @@
             if (pageId === 'game4Page') buildGame4Zodiac();
             if (pageId === 'game5Page') buildGame5Ducks();
             if (pageId === 'game6Page') initGame6Canvas();
+            if (pageId === 'game7Page') drawAnimeWheel();
         }
 
         function runCountdown(callback) {
@@ -1150,6 +1165,160 @@
             const modal = document.getElementById('resultModal');
             modal.classList.add('opacity-0', 'pointer-events-none');
         }
+        // =========================================================================
+// LOGIC ĐIỀU KHIỂN GAME 7: VÒNG QUAY ANIME ĐỒNG BỘ DANH SÁCH LỚP HỌC
+// =========================================================================
+const animeAvatars = [
+    "https://placehold.co", "https://placehold.co",
+    "https://placehold.co", "https://placehold.co",
+    "https://placehold.co", "https://placehold.co",
+    "https://placehold.co", "https://placehold.co",
+    "https://placehold.co", "https://placehold.co0",
+    "https://placehold.co1", "https://placehold.co2",
+    "https://placehold.co3", "https://placehold.co4",
+    "https://placehold.co5", "https://placehold.co6",
+    "https://placehold.co7", "https://placehold.co8",
+    "https://placehold.co9", "https://placehold.co0",
+    "https://placehold.co1", "https://placehold.co2",
+    "https://placehold.co3", "https://placehold.co4",
+    "https://placehold.co5", "https://placehold.co6",
+    "https://placehold.co7", "https://placehold.co8",
+    "https://placehold.co9", "https://placehold.co0",
+    "https://placehold.co1", "https://placehold.co2",
+    "https://placehold.co3", "https://placehold.co4",
+    "https://placehold.co5", "https://placehold.co6",
+    "https://placehold.co7", "https://placehold.co8",
+    "https://placehold.co9", "https://placehold.co0",
+    "https://placehold.co1", "https://placehold.co2",
+    "https://placehold.co3", "https://placehold.co4",
+    "https://placehold.co5"
+];
+
+const animeColors = ["#ef4444", "#22c55e", "#3b82f6", "#f59e0b", "#a855f7", "#06b6d4", "#ec4899", "#64748b"];
+const animeCanvas = document.getElementById("animeWheelCanvas");
+const animeCtx = animeCanvas ? animeCanvas.getContext("2d") : null;
+const animeSize = animeCanvas ? animeCanvas.width : 520;
+const animeCenter = animeSize / 2;
+
+let animeCurrentRotation = 0;
+let animeIsSpinning = false;
+let imageElements = [];
+
+function preloadAnimeImages() {
+    imageElements = [];
+    let loaded = 0;
+    animeAvatars.forEach((url, index) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => {
+            loaded++;
+            if (loaded === animeAvatars.length) drawAnimeWheel();
+        };
+        imageElements[index] = img;
+    });
+}
+preloadAnimeImages();
+
+function drawAnimeWheel() {
+    if (!animeCtx) return;
+    const textarea = document.getElementById('studentInput') || document.querySelector('textarea');
+    if (!textarea) return;
+    let studentList = textarea.value.split('\n').map(t => t.trim()).filter(t => t !== "");
+    
+    if (studentList.length === 0) {
+        studentList = Array.from({length: 10}, (_, i) => `Học sinh ${i + 1}`);
+    }
+
+    const totalSegments = studentList.length;
+    const anglePerSegment = (2 * Math.PI) / totalSegments;
+
+    animeCtx.clearRect(0, 0, animeSize, animeSize);
+
+    for (let i = 0; i < totalSegments; i++) {
+        const startAngle = i * anglePerSegment;
+        const endAngle = startAngle + anglePerSegment;
+        
+        animeCtx.beginPath();
+        animeCtx.moveTo(animeCenter, animeCenter);
+        animeCtx.arc(animeCenter, animeCenter, animeCenter, startAngle, endAngle);
+        animeCtx.fillStyle = animeColors[i % animeColors.length];
+        animeCtx.fill();
+        animeCtx.lineWidth = 1;
+        animeCtx.strokeStyle = "rgba(255, 255, 255, 0.3)";
+        animeCtx.stroke();
+        
+        animeCtx.save();
+        animeCtx.translate(animeCenter, animeCenter);
+        animeCtx.rotate(startAngle + anglePerSegment / 2);
+        
+        animeCtx.textAlign = "right";
+        animeCtx.fillStyle = "#ffffff";
+        const fontSize = totalSegments > 30 ? "9px" : "12px";
+        animeCtx.font = `bold ${fontSize} Arial`;
+        animeCtx.fillText(studentList[i], animeCenter - 52, 4);
+        
+        const imgImg = imageElements[i % imageElements.length];
+        if (imgImg) {
+            const imgSize = totalSegments > 30 ? 18 : 24;
+            const imgX = animeCenter - 38;
+            const imgY = -imgSize / 2;
+            animeCtx.drawImage(imgImg, imgX, imgY, imgSize, imgSize);
+        }
+        animeCtx.restore();
+    }
+}
+
+// Tự động vẽ lại vòng quay khi giáo viên thay đổi danh sách học sinh
+setTimeout(() => {
+    const textareaInput = document.getElementById('studentInput') || document.querySelector('textarea');
+    if(textareaInput) {
+        textareaInput.addEventListener('input', drawAnimeWheel);
+    }
+}, 1000);
+
+function spinAnimeWheel() {
+    if (animeIsSpinning) return;
+    
+    const textarea = document.getElementById('studentInput') || document.querySelector('textarea');
+    if (!textarea) return;
+    let studentList = textarea.value.split('\n').map(t => t.trim()).filter(t => t !== "");
+    if (studentList.length === 0) {
+        studentList = Array.from({length: 10}, (_, i) => `Học sinh ${i + 1}`);
+    }
+
+    animeIsSpinning = true;
+    const extraDegrees = Math.floor(Math.random() * 360);
+    const totalDegrees = 2160 + extraDegrees; 
+    animeCurrentRotation += totalDegrees;
+    
+    if (animeCanvas) {
+        animeCanvas.style.transform = `rotate(${animeCurrentRotation}deg)`;
+    }
+    
+    setTimeout(() => {
+        animeIsSpinning = false;
+        const actualDegrees = animeCurrentRotation % 360;
+        const targetAngle = (180 - actualDegrees + 360) % 360;
+        const segmentIndex = Math.floor((targetAngle / 360) * studentList.length);
+        const winnerName = studentList[segmentIndex];
+        
+        // Kích hoạt pháo hoa có sẵn của bạn
+        try {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        } catch(e) {}
+        
+        // Tìm và hiển thị kết quả lên bảng Modal chúc mừng có sẵn trong code của bạn
+        const modal = document.getElementById('resultModal');
+        const winnerEl = document.querySelector('#resultModal .text-3xl') || document.getElementById('winnerNameDisplay');
+        
+        if (modal) {
+            if (winnerEl) winnerEl.innerText = winnerName;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+        } else {
+            alert("🎉 Chúc mừng học sinh được chọn: " + winnerName);
+        }
+    }, 5000);
+}
 
         window.onload = function() {
             loadSampleStudents();
